@@ -6,8 +6,12 @@ import backArrow from '../Assets/BackArrow.png'
 export default function LoginPage() {
   const [registerBool, setRegisterBool] = useState<boolean>(true);
   const [color, setColor] = useState<string>('text-[#1973E7]');
+  const [forgotBool, setForgotBool] = useState<boolean>(true);
   const handleRegister = () =>{
     setRegisterBool(!registerBool);
+  }
+  const handleForgotPassword = () => {
+    setForgotBool(!forgotBool)
   }
   
   useEffect(()=>{
@@ -17,7 +21,11 @@ export default function LoginPage() {
       setColor('text-[#FF0000]');
     }
   },[registerBool])
+  const handleBools = () => {
+    if(registerBool){
 
+    }
+  }
   return (
     <div className="loginBgImage">
       <div className="grid grid-flow-row justify-center pt-20 pl-[8px] pr-[8px]">
@@ -35,9 +43,9 @@ export default function LoginPage() {
             <input className="h-[29px] md:h-[39px] mb-[17px] md:mb-[20px] w-full border-[1px] border-black rounded-[10px] text-[18px] font-[Source-Sans-Pro] pl-[16px]" placeholder="Enter Password" required/>
           </div>
           <div className="">
-            <p className={`cursor-pointer ${color} text-[20px] mb-[19px] md:mb-[30px] font-[DMSerifText]`}>{registerBool ? "Forgot Password?" : "Please choose a stronger password. Try a mix of letters, numbers, and symbols."}</p>
+          {registerBool ?  <p onClick={handleForgotPassword} className={`cursor-pointer ${color} text-[20px] mb-[19px] md:mb-[30px] font-[DMSerifText]`}>Forgot Password?</p> :  <p className={`${color} text-[20px] mb-[19px] md:mb-[30px] font-[DMSerifText]`}>Please choose a stronger password. Try a mix of letters, numbers, and symbols.</p>}
           </div>
-          <button className="text-[20px] font-[DMSerifText] bg-[#2B170C] text-white max-w-[419px] w-full text-center rounded-[10px]">{registerBool ? "Login" : "Create Login"}</button>
+          <button className="text-[20px] font-[DMSerifText] bg-[#2B170C] text-white max-w-[419px] w-full text-center rounded-[10px]">{forgotBool ? "Change Password" : (registerBool ? "Login" : "Create Account")}</button>
           <div className="mt-[24px] md:mt-[30px] mb-[75px] cursor-pointer">
             <p onClick={handleRegister} className="font-[DMSerifText] text-[20px]">{registerBool ? "Not a member?" : "Already a member!"} <span className="font-[DMSerifText] text-[20px] text-[#1973E7]">{registerBool ? "Register?" : ""}</span></p>
           </div>
