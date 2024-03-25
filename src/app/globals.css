@@ -1,33 +1,23 @@
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
-
-:root {
-  --foreground-rgb: 0, 0, 0;
-  --background-start-rgb: 214, 219, 220;
-  --background-end-rgb: 255, 255, 255;
+/* Fonts */
+@font-face {
+  font-family: DMSerifText;
+  src: url(../Fonts/DM_Serif_Text/DMSerifText-Regular.ttf);
 }
-
-@media (prefers-color-scheme: dark) {
-  :root {
-    --foreground-rgb: 255, 255, 255;
-    --background-start-rgb: 0, 0, 0;
-    --background-end-rgb: 0, 0, 0;
-  }
+@font-face {
+  font-family: Source-Sans-Pro;
+  src: url(../Fonts/source-sans-pros/SourceSansPro-Regular.otf);
 }
-
-body {
-  color: rgb(var(--foreground-rgb));
-  background: linear-gradient(
-      to bottom,
-      transparent,
-      rgb(var(--background-end-rgb))
-    )
-    rgb(var(--background-start-rgb));
+/* End of Fonts */
+/* Tyler's CSS */
+.loginBgImage{
+  background-image: url(../Assets/MockTalkLogin.jpg);
+  min-height: 100vh;
+  max-width: 100%;
+  background-size: cover;
+  background-repeat: no-repeat;
+  background-position: center;
 }
-
-@layer utilities {
-  .text-balance {
-    text-wrap: balance;
-  }
-}
+/* End of Tyler's CSS */
