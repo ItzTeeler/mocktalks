@@ -12,7 +12,7 @@ import chatDots from '@/Assets/ChatCenteredDots.png'
 
 export default function NavbarComponent() {
   return (
-    <Navbar fluid rounded>
+    <Navbar fluid>
       <Navbar.Brand as={Link} href="/Profile">
         <Image src={icon} className="mr-3 h-6 sm:h-9" alt="Flowbite React Logo" />
         <span className="self-center whitespace-nowrap text-[36px] dark:text-white font-[DMSerifText]">MockTalks</span>
@@ -25,7 +25,7 @@ export default function NavbarComponent() {
         <Navbar.Link href="#">
             <Image src={chatDots} alt="Centered Chat Dots"/>
         </Navbar.Link>
-        <Navbar.Link href="#">
+        <Navbar.Link href="/">
         <span className="self-center whitespace-nowrap text-[36px] dark:text-white font-[DMSerifText]">Logout</span>
         </Navbar.Link>
       </Navbar.Collapse>
