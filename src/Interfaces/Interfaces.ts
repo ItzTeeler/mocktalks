@@ -11,3 +11,10 @@ export interface IUserData{
     userId: number
     publicName: string
 }
+
+export interface IMockInterviewProps{
+    date: string, 
+    type: string, 
+    questions: string, 
+    language: string
+}
