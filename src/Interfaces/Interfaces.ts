@@ -17,4 +17,5 @@ export interface IMockInterviewProps{
     type: string, 
     questions: string, 
     language: string
+    id?: number
 }
