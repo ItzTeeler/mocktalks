@@ -2,11 +2,8 @@
 
 import React from 'react'
 import NavbarComponent from '../Components/NavbarComponent'
-
-
-
-import MessagingPeopleCardComponent from '../Components/MessagingPeopleCardComponent'
 import MessagingSearchInputComponent from '../Components/MessagingSearchInputComponent'
+import MessagingPeopleCardComponent from '../Components/MessagingPeopleCardComponent'
 import MessagingTextInputComponent from '../Components/MessagingTextInputComponent'
 
 const MessagingPage = () => {
