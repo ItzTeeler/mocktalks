@@ -7,7 +7,7 @@ const MessagingSearchInputComponent = () => {
         <div className='absolute p-2'>
             <Image src={SearchIcon} alt="Search Icon"/>
         </div>
-        <input type="text" className='rounded-[10px] font-[Source-Sans-Pro] w-full px-10 py-1.5 text-left text-[36px] text-black' placeholder='Search UserID' />
+        <input type="text" className='rounded-[10px] w-full px-10 py-1.5 text-left text-[36px] text-black' placeholder='Search UserID' />
     </div>
     
   )
