@@ -36,7 +36,7 @@ export default function LoginPage() {
       if(token.token != null){
         localStorage.setItem("Token", token.token);
         getUserData(username);
-        router.push('/TestPage')
+        router.push('/Profile')
       }else{
         alert("Login Failed")
       }
