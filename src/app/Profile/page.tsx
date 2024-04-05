@@ -1,6 +1,6 @@
 'use client'
 
-import React from 'react'
+import React, { useEffect, useState } from 'react'
 import { Button } from 'flowbite-react'
 import NavbarComponent from '../Components/NavbarComponent'
 import Image from 'next/image'
@@ -8,11 +8,19 @@ import Image from 'next/image'
 import profileImgPlaceholder from '@/Assets/Ellipse.png'
 import listDashesImage from '@/Assets/ListDashes.png'
 import ScheduleComponent from '../Components/ScheduleComponent'
+import { EditProfileModal } from '../Components/EditProfileModal'
 
 const page = () => {
+  const [openModal, setOpenModal] = useState<boolean>(false);
+  
   return (
     <>
       <NavbarComponent />
+
+      {
+        openModal && <EditProfileModal open={openModal} close={setOpenModal}/>
+      }
+
       <div className='bg-white max-w-full rounded-[15px] mt-14 mx-20 p-5'>
         <div className='flex justify-center'>
           <div className='grid grid-flow-col gap-48'>
@@ -27,7 +35,7 @@ const page = () => {
               <p className='text-[36px] font-[Source-Sans-Pro]'>CURRENT LEVEL: Beginner</p>
             </div>
             <div>
-              <Image src={listDashesImage} className='w-auto cursor-pointer' alt='test' />
+              <Image onClick={()=>setOpenModal(true)} src={listDashesImage} className='w-auto cursor-pointer' alt='test' />
             </div>
           </div>
         </div>
@@ -59,7 +67,7 @@ const page = () => {
           <hr style={{ border: '1px black solid' }} />
         </div>
         <div className='p-5'>
-          <ScheduleComponent date='Fri, Feb 27, 2024, 8:00PM' type='Frontend' questions='Build a Calculator App' language='HTML/CSS/JS'/>
+          <ScheduleComponent date='Fri, Feb 27, 2024, 8:00PM' type='Frontend' questions='Build a Calculator App' language='HTML/CSS/JS' />
         </div>
       </div>
     </>

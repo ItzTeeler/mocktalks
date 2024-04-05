@@ -1,15 +1,15 @@
 "use client";
 
 import { Button, FileInput, Modal } from "flowbite-react";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { DropDownComponent } from "./DropDownComponent";
 import { DropZoneComponent } from "./DropZoneComponent";
 import Image from "next/image";
 import EditProfileIcon from '@/Assets/ListDashes.png'
+import { IEditProfileProps } from "@/Interfaces/Interfaces";
 
 
-export function EditProfileModal() {
-  const [openModal, setOpenModal] = useState(false);
+export function EditProfileModal(props: IEditProfileProps) {
   const [profileImg, setProfileImg] = useState<string>("");
 
   const handleImage = (e: React.ChangeEvent<HTMLInputElement>) => {
@@ -29,47 +29,46 @@ export function EditProfileModal() {
 
   return (
     <div className="font-[DMSerifText]">
-      <button onClick={() => setOpenModal(true)}><Image src={EditProfileIcon} alt="Edit"/></button>
-      <Modal show={openModal} onClose={() => setOpenModal(false)}>
+      <Modal show={props.open} onClose={() => props.close(false)}>
         <p className="font-[DMSerifText] text-[30px] px-[24px] pt-[15px]">Edit Profile</p>
         <Modal.Body className="font-[DMSerifText] text-[30px] pt-0">
           <div>
             <div className="grid grid-cols-3">
-                <div className="flex flex-col justify-end">
-                    <p className="mb-[10px]">First Name</p>
-                    <input className="mr-[18px] mb-[10px] rounded-[10px]" type="text" />
-                </div>
-                <div className="flex flex-col justify-end">
-                    <p className="mb-[10px]">Last Name</p>
-                    <input type="text" className="mr-[54px] mb-[10px] rounded-[10px]"/>
-                </div>
-                <div>
-                <DropZoneComponent/>
-                </div>
+              <div className="flex flex-col col-span-2 justify-end">
+                <p className="mb-[10px]">Full Name</p>
+                <input className="mr-[18px] mb-[10px] rounded-[10px]" type="text" />
+              </div>
+              {/* <div className="flex flex-col justify-end">
+                <p className="mb-[10px]">Last Name</p>
+                <input type="text" className="mr-[54px] mb-[10px] rounded-[10px]" />
+              </div> */}
+              <div className="col-span-1">
+                <DropZoneComponent />
+              </div>
             </div>
           </div>
           <div className="flex flex-col">
-          <div className="flex flex-col">
-                    <p className="mb-[10px]">What city do you live in?</p>
-                    <input type="text" className="rounded-[10px] mb-[10px]"/>
-                </div>
-          <div className="flex flex-col">
-                    <p className="mb-[10px]">Education</p>
-                    <input type="text" className="rounded-[10px] mb-[10px]"/>
-                </div>
-          <div className="flex flex-col">
-                    <p className="mb-[10px]">Years of Experience</p>
-                    <input type="text" className="rounded-[10px] mb-[10px]"/>
-                </div>
-          <div className="flex flex-col">
-                    <p className="mb-[10px]">What is your current level at job interviews?</p>
-                    <DropDownComponent/>
-                </div>
+            <div className="flex flex-col">
+              <p className="mb-[10px]">What city do you live in?</p>
+              <input type="text" className="rounded-[10px] mb-[10px]" />
+            </div>
+            <div className="flex flex-col">
+              <p className="mb-[10px]">Education</p>
+              <input type="text" className="rounded-[10px] mb-[10px]" />
+            </div>
+            <div className="flex flex-col">
+              <p className="mb-[10px]">Years of Experience</p>
+              <input type="text" className="rounded-[10px] mb-[10px]" />
+            </div>
+            <div className="flex flex-col">
+              <p className="mb-[10px]">What is your current level at job interviews?</p>
+              <DropDownComponent />
+            </div>
           </div>
         </Modal.Body>
         <div className="flex justify-between pb-[15px] px-[24px] pt-[10px]">
-            <button onClick={() => setOpenModal(false)} className="text-[30px] bg-[#D9D9D9] font-[DMSerifText] text-black border rounded-[10px] px-[18px] py-[6px] ">Cancel</button>
-            <button onClick={() => setOpenModal(false)} className="text-[30px] bg-[#2B170C] font-[DMSerifText] text-white rounded-[10px] px-[35px] py-[6px] ">Save</button>
+          <button onClick={() => props.close(false)} className="text-[30px] bg-[#D9D9D9] font-[DMSerifText] text-black border rounded-[10px] px-[18px] py-[6px] ">Cancel</button>
+          <button onClick={() => props.close(false)} className="text-[30px] bg-[#2B170C] font-[DMSerifText] text-white rounded-[10px] px-[35px] py-[6px] ">Save</button>
         </div>
       </Modal>
     </div>

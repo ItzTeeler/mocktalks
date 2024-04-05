@@ -19,3 +19,8 @@ export interface IMockInterviewProps{
     language: string
     id?: number
 }
+
+export interface IEditProfileProps {
+    open: boolean,
+    close: React.Dispatch<React.SetStateAction<boolean>>;
+}
