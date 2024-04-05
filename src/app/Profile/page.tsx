@@ -1,6 +1,6 @@
 'use client'
 
-import React, { useState } from 'react'
+import React, { useEffect, useState } from 'react'
 import { Button } from 'flowbite-react'
 import NavbarComponent from '../Components/NavbarComponent'
 import Image from 'next/image'
