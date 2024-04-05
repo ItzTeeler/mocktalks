@@ -67,7 +67,6 @@ export default function LoginPage() {
   }, [registerBool]);
 
   return (
-<<<<<<< HEAD
     <div className="loginBgImage">
       <div className="grid grid-flow-row justify-center pt-20 pl-[8px] pr-[8px] pb-20">
         <div className="bg-white max-w-[31.625rem] rounded-[20px] px-[36px] md:px-[44px]">
@@ -94,9 +93,5 @@ export default function LoginPage() {
         </div>
       </div>
     </div>
-=======
-    <>
-    </>
->>>>>>> 8b67918 (Add Flowbite React)
   );
 }
