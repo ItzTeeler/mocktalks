@@ -5,6 +5,8 @@ import NavbarComponent from '../Components/NavbarComponent'
 import MessagingSearchInputComponent from '../Components/MessagingSearchInputComponent'
 import MessagingPeopleCardComponent from '../Components/MessagingPeopleCardComponent'
 import MessagingTextInputComponent from '../Components/MessagingTextInputComponent'
+import VideoIcon from '@/Assets/MessagingWebCam.png'
+import Image from 'next/image'
 
 const MessagingPage = () => {
     return (
@@ -15,8 +17,14 @@ const MessagingPage = () => {
                     <MessagingSearchInputComponent/>
                     <MessagingPeopleCardComponent/>
                 </div>
-                <div className='col-span-4 bg-[#ffffff] w-full h-[88vh] rounded-tr-[15px] rounded-br-[15px] flex items-end'>
-                    <MessagingTextInputComponent/>
+                <div className='col-span-4 bg-[#ffffff] w-full h-[88vh] rounded-tr-[15px] rounded-br-[15px] flex flex-col'>
+                    <div className='bg-[#D9D9D9] w-full flex justify-between'>
+                        <p>Name</p>
+                        <Image src={VideoIcon} alt="Video Icon"/>
+                    </div>
+                    <div>
+                        <MessagingTextInputComponent/>
+                    </div>
                 </div>
             </div>
         </div>
