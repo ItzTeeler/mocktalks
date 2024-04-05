@@ -1,6 +1,6 @@
 'use client'
 
-import React, { useState } from 'react'
+import React, { useEffect, useState } from 'react'
 import { Button } from 'flowbite-react'
 import NavbarComponent from '../Components/NavbarComponent'
 import Image from 'next/image'
@@ -8,6 +8,7 @@ import Image from 'next/image'
 import profileImgPlaceholder from '@/Assets/Ellipse.png'
 import listDashesImage from '@/Assets/ListDashes.svg'
 import ScheduleComponent from '../Components/ScheduleComponent'
+import { EditProfileModal } from '../Components/EditProfileModal'
 
 import { AddAppointmentModal } from '../Components/AddAppointmentModal'
 import { EditProfileModal } from '../Components/EditProfileModal'
