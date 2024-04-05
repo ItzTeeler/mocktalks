@@ -36,7 +36,7 @@ export default function LoginPage() {
       if(token.token != null){
         localStorage.setItem("Token", token.token);
         getUserData(username);
-        router.push('/TestPage')
+        router.push('/Profile')
       }else{
         alert("Login Failed")
       }
@@ -51,16 +51,16 @@ export default function LoginPage() {
   useEffect(()=>{
     if(registerBool){
       setColor('text-[#1973E7]');
-    }else if (!registerBool){
+    } else if (!registerBool) {
       setColor('text-[#FF0000]');
     }
-  },[registerBool])
-  
+  }, [registerBool]);
+
   return (
     <div className="loginBgImage">
       <div className="grid grid-flow-row justify-center pt-20 pl-[8px] pr-[8px]">
         <div className="bg-white max-w-[31.625rem] rounded-[20px] px-[36px] md:px-[44px]">
-            
+
           <div className="pt-[20px] mb-[11px] md:mb-[50px] text-center">
           {registerBool ? "" : <div className="flex justify-end"><Image src={backArrow} alt="hi" onClick={handleRegister}/></div>}
           {forgotBool ? <div className="flex justify-end"><Image src={backArrow} alt="hi" onClick={handleForgotPassword}/></div> : ""}
