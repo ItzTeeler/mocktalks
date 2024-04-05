@@ -25,7 +25,12 @@ export interface IEditProfileProps {
     close: React.Dispatch<React.SetStateAction<boolean>>;
 }
 
-export interface IAddAppointmentProps {
-    open: boolean,
-    close: React.Dispatch<React.SetStateAction<boolean>>;
+export interface IProfileData {
+    id: number,
+    fullName: string,
+    occupation: string,
+    experienceLevel: string,
+    jobInterviewLevel: string,
+    locationed: string,
+    profileImg: string
 }
