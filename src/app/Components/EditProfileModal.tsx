@@ -4,6 +4,8 @@ import { Button, FileInput, Modal } from "flowbite-react";
 import { useState } from "react";
 import { DropDownComponent } from "./DropDownComponent";
 import { DropZoneComponent } from "./DropZoneComponent";
+import Image from "next/image";
+import EditProfileIcon from '@/Assets/ListDashes.png'
 
 
 export function EditProfileModal() {
@@ -27,7 +29,7 @@ export function EditProfileModal() {
 
   return (
     <div className="font-[DMSerifText]">
-      <Button onClick={() => setOpenModal(true)}>Toggle modal</Button>
+      <button onClick={() => setOpenModal(true)}><Image src={EditProfileIcon} alt="Edit"/></button>
       <Modal show={openModal} onClose={() => setOpenModal(false)}>
         <p className="font-[DMSerifText] text-[30px] px-[24px] pt-[15px]">Edit Profile</p>
         <Modal.Body className="font-[DMSerifText] text-[30px] pt-0">
@@ -65,8 +67,9 @@ export function EditProfileModal() {
                 </div>
           </div>
         </Modal.Body>
-        <div className="flex justify-end pb-[15px] pr-[24px] pt-[10px]">
-            <button onClick={() => setOpenModal(false)} className="text-[30px] bg-[#2B170C] font-[DMSerifText] text-white rounded-[10px] px-[10px] py-[6px] ">Save</button>
+        <div className="flex justify-between pb-[15px] px-[24px] pt-[10px]">
+            <button onClick={() => setOpenModal(false)} className="text-[30px] bg-[#D9D9D9] font-[DMSerifText] text-black border rounded-[10px] px-[18px] py-[6px] ">Cancel</button>
+            <button onClick={() => setOpenModal(false)} className="text-[30px] bg-[#2B170C] font-[DMSerifText] text-white rounded-[10px] px-[35px] py-[6px] ">Save</button>
         </div>
       </Modal>
     </div>
