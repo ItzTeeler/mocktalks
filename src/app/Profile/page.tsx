@@ -1,6 +1,6 @@
 'use client'
 
-import React from 'react'
+import React, { useState } from 'react'
 import { Button } from 'flowbite-react'
 import NavbarComponent from '../Components/NavbarComponent'
 import Image from 'next/image'
@@ -8,8 +8,11 @@ import Image from 'next/image'
 import profileImgPlaceholder from '@/Assets/Ellipse.png'
 import listDashesImage from '@/Assets/ListDashes.png'
 import ScheduleComponent from '../Components/ScheduleComponent'
+import { EditProfileModal } from '../Components/EditProfileModal'
 
 const Page = () => {
+  const [openModal, setOpenModal] = useState<boolean>(false);
+
   return (
     <>
       <NavbarComponent /> {/* Top Navbar */}
@@ -36,7 +39,7 @@ const Page = () => {
               </div>
             </div>
             <div className='flex justify-end'>
-              <Image src={listDashesImage} className='w-10 h-10 cursor-pointer' alt='test' />
+              <Image onClick={() => setOpenModal(true)} src={listDashesImage} className='w-10 h-10 cursor-pointer' alt='test' />
             </div>
           </div>
         </div>
@@ -69,24 +72,10 @@ const Page = () => {
             <hr style={{ border: '1px black solid' }} />
           </div>
           <div className='p-3'>
-            <ScheduleComponent date='Fri, Feb 27, 2024, 8:00PM' type='Frontend' questions='Build a Calculator App' language='HTML/CSS/JS' />
-            <ScheduleComponent date='Fri, Feb 27, 2024, 8:00PM' type='Frontend' questions='Build a Calculator App' language='HTML/CSS/JS' />
-            <ScheduleComponent date='Fri, Feb 27, 2024, 8:00PM' type='Frontend' questions='Build a Calculator App' language='HTML/CSS/JS' />
-            <ScheduleComponent date='Fri, Feb 27, 2024, 8:00PM' type='Frontend' questions='Build a Calculator App' language='HTML/CSS/JS' />
+            <ScheduleComponent date='Fri, Feb 27, 2024, 8:00PM' type='Frontend' questions='Build a Calculator App' language='HTML/CSS/JS'/>
           </div>
         </div>
       </main>
-      {/* 
-        <div className='bg-white max-w-full rounded-[15px] mt-15 mx-20'>
-          <div className='p-5'>
-            <ScheduleComponent date='Fri, Feb 27, 2024, 8:00PM' type='Frontend' questions='Build a Calculator App' language='HTML/CSS/JS' />
-            <ScheduleComponent date='Fri, Feb 27, 2024, 8:00PM' type='Frontend' questions='Build a Calculator App' language='HTML/CSS/JS' />
-            <ScheduleComponent date='Fri, Feb 27, 2024, 8:00PM' type='Frontend' questions='Build a Calculator App' language='HTML/CSS/JS' />
-            <ScheduleComponent date='Fri, Feb 27, 2024, 8:00PM' type='Frontend' questions='Build a Calculator App' language='HTML/CSS/JS' />
-          </div>
-        </div>
-      </div>
-      */}
     </>
   )
 }
