@@ -34,3 +34,13 @@ export interface IProfileData {
     locationed: string,
     profileImg: string
 }
+
+export interface IPracticeData {
+    id: number,
+    pairingId: number,
+    practiceInterview: string,
+    typePractice: string,
+    typeExperience: string,
+    datePick: string,
+    timePick: string
+}
