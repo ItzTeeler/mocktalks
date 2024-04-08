@@ -1,10 +1,9 @@
 {
     "id": 1,
-    "userId": 2,
     "fullName": "Tyler Nguyen",
     "location": "Stockton, CA",
     "occupation": "Student",
-    "experienceLevel": "Less than 1 year",
+    "eperienceLevel": "Less than 1 year",
     "jobInterviewLevel": "Beginner",
     "profileImg": ""
 }
