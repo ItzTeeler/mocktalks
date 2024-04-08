@@ -5,7 +5,7 @@ import SendIcon from '@/Assets/MessagingSend.png'
 
 const MessagingTextInputComponent = () => {
     return (
-        <div className='w-full fixed bottom'>
+        <div className='w-full relative'>
             <div className='flex items-center inset-y-0 mx-[43px] pt-[30px] pb-[40px]'>
                 <div className='absolute p-2'>
                     <Image src={FileAdd} alt="Search Icon" />
