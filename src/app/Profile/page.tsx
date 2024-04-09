@@ -6,7 +6,7 @@ import NavbarComponent from '../Components/NavbarComponent'
 import Image from 'next/image'
 
 import profileImgPlaceholder from '@/Assets/Ellipse.png'
-import listDashesImage from '@/Assets/ListDashes.png'
+import listDashesImage from '@/Assets/ListDashes.svg'
 import ScheduleComponent from '../Components/ScheduleComponent'
 import { EditProfileModal } from '../Components/EditProfileModal'
 
@@ -107,14 +107,19 @@ const Page = () => {
           <div className='grid grid-flow-row space-y-12'>
             <div>
               <h1 className='text-white text-xl font-[DMSerifText] font-normal'>PRACTICE MAKES PERFECT</h1>
-              <p className='text-white text-lg font-[Source-Sans-Pro] font-extralight'>Empower Your Success, One Mock Interview at a Time with MockTalks!</p>
+              <p className='text-white max-[300px]:text-sm text-lg font-[Source-Sans-Pro] font-extralight'>Empower Your Success, One Mock Interview at a Time with MockTalks!</p>
+              <Button className='bg-[#2B170C] w-full text-white text-xl font-[Source-Sans-Pro] my-2'>START A PRACTICE SESSION</Button>
             </div>
           </div>
         </div>
 
         <div className='px-2 py-3'>
-          <div className='bg-white w-full h-auto rounded-2xl'>
+          <div className='bg-white w-full h-auto rounded-2xl pb-4'>
             <h1 className='text-black text-xl font-[DMSerifText] text-center py-3'>UPCOMING PRACTICE INTERVIEWS</h1>
+            <ScheduleComponent date='Fri, Feb 27, 2024, 8:00PM' type='Frontend' questions='Build a Calculator App' language='HTML/CSS/JS' />
+            <ScheduleComponent date='Fri, Feb 27, 2024, 8:00PM' type='Frontend' questions='Build a Calculator App' language='HTML/CSS/JS' />
+            <ScheduleComponent date='Fri, Feb 27, 2024, 8:00PM' type='Frontend' questions='Build a Calculator App' language='HTML/CSS/JS' />
+            <ScheduleComponent date='Fri, Feb 27, 2024, 8:00PM' type='Frontend' questions='Build a Calculator App' language='HTML/CSS/JS' />
             <ScheduleComponent date='Fri, Feb 27, 2024, 8:00PM' type='Frontend' questions='Build a Calculator App' language='HTML/CSS/JS' />
             <ScheduleComponent date='Fri, Feb 27, 2024, 8:00PM' type='Frontend' questions='Build a Calculator App' language='HTML/CSS/JS' />
           </div>
