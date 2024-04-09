@@ -22,7 +22,7 @@ export default function NavbarComponent() {
         <Navbar.Link href="#">
             <Image src={bellIcon} alt="Bell Icon"/>
         </Navbar.Link>
-        <Navbar.Link href="#">
+        <Navbar.Link href="/MessagingPage">
             <Image src={chatDots} alt="Centered Chat Dots"/>
         </Navbar.Link>
         <Navbar.Link href="/">
