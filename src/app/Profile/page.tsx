@@ -18,7 +18,7 @@ const Page = () => {
       <NavbarComponent /> {/* Top Navbar */}
 
 
-      <div className='hidden sm:block'>
+      <div className='hidden sm:block' style={{ userSelect: "none" }}>
         <div className='px-20 py-14'>
           {/* Top Section */}
           <div className='bg-white w-full h-[330px] rounded-2xl p-[15px]'>
@@ -84,7 +84,7 @@ const Page = () => {
           </div>
         </div>
       </div>
-      <div className='block sm:hidden'>
+      <div className='block sm:hidden' style={{ userSelect: "none" }}>
         <div className='px-2 py-3'>
           <div className='bg-white w-full h-auto rounded-2xl p-[15px]'>
             <div className='flex justify-end'>
