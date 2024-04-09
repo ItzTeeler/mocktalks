@@ -32,7 +32,8 @@ export function EditProfileModal(props: IEditProfileProps) {
 
   return (
     <div className="font-[DMSerifText]">
-      <Modal show={props.open} onClose={() => props.close(false)}>
+      <button onClick={() => setOpenModal(true)}><Image src={EditProfileIcon} alt="Edit" /></button>
+      <Modal show={openModal} onClose={() => setOpenModal(false)}>
         <p className="font-[DMSerifText] text-[30px] px-[24px] pt-[15px]">Edit Profile</p>
         <Modal.Body className="font-[DMSerifText] text-[30px] pt-0">
           <div>
@@ -70,8 +71,8 @@ export function EditProfileModal(props: IEditProfileProps) {
           </div>
         </Modal.Body>
         <div className="flex justify-between pb-[15px] px-[24px] pt-[10px]">
-          <Button onClick={() => props.close(false)} className="text-[30px] bg-[#D9D9D9] font-[DMSerifText] text-black border rounded-[10px] px-[18px] py-[6px] ">Cancel</Button>
-          <Button onClick={() => props.close(false)} className="text-[30px] bg-[#2B170C] font-[DMSerifText] text-white rounded-[10px] px-[35px] py-[6px] ">Save</Button>
+          <button onClick={() => setOpenModal(false)} className="text-[30px] bg-[#D9D9D9] font-[DMSerifText] text-black border rounded-[10px] px-[18px] py-[6px] ">Cancel</button>
+          <button onClick={() => setOpenModal(false)} className="text-[30px] bg-[#2B170C] font-[DMSerifText] text-white rounded-[10px] px-[35px] py-[6px] ">Save</button>
         </div>
       </Modal>
     </div>
