@@ -88,7 +88,7 @@ const Page = () => {
         <div className='px-2 py-3'>
           <div className='bg-white w-full h-auto rounded-2xl p-[15px]'>
             <div className='flex justify-end'>
-              <Image onClick={() => setOpenModal(true)} src={listDashesImage} className='w-10 h-10 cursor-pointer' alt='test' />
+              <Image onClick={() => setOpenModal(true)} src={listDashesImage} className='w-6 h-6 cursor-pointer' alt='test' />
             </div>
             <div className='flex justify-center'>
               <Image src={profileImgPlaceholder} className='h-[150px] w-[150px]' alt='Profile Image' />
