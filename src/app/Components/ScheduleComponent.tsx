@@ -64,7 +64,7 @@ const ScheduleComponent = (props: IMockInterviewProps) => {
                         <div className='flex items-center pl-5 max-[300px]:pl-1 font-[Source-Sans-Pro] text-xl h-16'>
                             {props.language}
                         </div>
-                        <div className='flex items-center max-[300px]:pl-1 px-5 font-[Source-Sans-Pro] text-xl h-16'>
+                        <div className='flex items-center max-[300px]:pl-1 px-2 font-[Source-Sans-Pro] text-xl h-16'>
                             <div className='w-full flex flex-col space-y-1'>
                                 <Button className='bg-[#D9D9D9] text-black font-[Source-Sans-Pro] rounded-full h-6'>Cancel</Button>
                                 <Button className='bg-[#2B170C] text-white font-[Source-Sans-Pro] rounded-full h-6'>Reschedule</Button>

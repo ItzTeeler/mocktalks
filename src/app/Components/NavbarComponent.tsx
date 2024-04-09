@@ -7,8 +7,8 @@ import { Navbar } from "flowbite-react";
 import Image from "next/image";
 
 import icon from '@/Assets/MockTalkIcon.png'
-import bellIcon from '@/Assets/BellIcon.png'
-import chatDots from '@/Assets/ChatCenteredDots.png'
+import bellIcon from '@/Assets/BellIcon.svg'
+import chatDots from '@/Assets/ChatCenteredDots.svg'
 
 export default function NavbarComponent() {
   return (
