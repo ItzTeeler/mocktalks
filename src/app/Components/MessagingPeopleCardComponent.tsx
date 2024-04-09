@@ -9,8 +9,8 @@ const MessagingPeopleCardComponent = () => {
         <Image src={ProfilePic} alt='ProfilePic' className='w-[109px] h-[109px]'/>
         </div>
         <div className=''>
-            <p className='text-[18px] text-[#ffffff]'>Tyler Nguyen</p>
-            <p className='text-[18px] text-[#ffffff]'>From : Hey did you want to do som...</p>
+            <p className='text-[18px] mb-[12px] font-[DMSerifText] text-[#ffffff]'>Tyler Nguyen</p>
+            <p className='text-[18px] font-[Source-Sans-Pro] text-[#ffffff]'>From : Hey did you want to do som...</p>
         </div>
       </div>
     </div>
