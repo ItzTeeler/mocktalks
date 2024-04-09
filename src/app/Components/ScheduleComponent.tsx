@@ -33,39 +33,42 @@ const ScheduleComponent = (props: IMockInterviewProps) => {
             </div>
             <div className='block sm:hidden'>
                 <hr />
-                <div className='grid grid-cols-2 h-96 '>
+                <div className='grid grid-cols-2 h-auto'>
                     <div className='grid grid-row-5 bg-[#D9D9D9]'>
-                        <div className='flex items-center pl-5 font-[DMSerifText] text-xl'>
+                        <div className='flex items-center pl-5 font-[DMSerifText] text-xl h-16'>
                             When
                         </div>
-                        <div className='flex items-center pl-5 font-[DMSerifText] text-xl'>
+                        <div className='flex items-center pl-5 font-[DMSerifText] text-xl h-16'>
                             Type
                         </div>
-                        <div className='flex items-center pl-5 font-[DMSerifText] text-xl'>
+                        <div className='flex items-center pl-5 font-[DMSerifText] text-xl h-16'>
                             Test Questions
                         </div>
-                        <div className='flex items-center pl-5 font-[DMSerifText] text-xl'>
+                        <div className='flex items-center pl-5 font-[DMSerifText] text-xl h-16'>
                             Language
                         </div>
-                        <div className='flex items-center pl-5 font-[DMSerifText] text-xl'>
+                        <div className='flex items-center pl-5 font-[DMSerifText] text-xl h-16'>
                             Action
                         </div>
                     </div>
                     <div className='grid grid-row-5 bg-white'>
-                        <div className='flex items-center pl-5 font-[Source-Sans-Pro] text-xl'>
+                        <div className='flex items-center pl-5 max-[300px]:pl-1 font-[Source-Sans-Pro] text-xl h-16'>
                             {props.date}
                         </div>
-                        <div className='flex items-center pl-5 font-[Source-Sans-Pro] text-xl'>
+                        <div className='flex items-center pl-5 max-[300px]:pl-1 font-[Source-Sans-Pro] text-xl h-16'>
                             {props.type}
                         </div>
-                        <div className='flex items-center pl-5 font-[Source-Sans-Pro] text-xl'>
+                        <div className='flex items-center pl-5 max-[300px]:pl-1 font-[Source-Sans-Pro] text-xl h-16'>
                             {props.questions}
                         </div>
-                        <div className='flex items-center pl-5 font-[Source-Sans-Pro] text-xl'>
+                        <div className='flex items-center pl-5 max-[300px]:pl-1 font-[Source-Sans-Pro] text-xl h-16'>
                             {props.language}
                         </div>
-                        <div className='flex items-center pl-5 font-[Source-Sans-Pro] text-xl'>
-
+                        <div className='flex items-center max-[300px]:pl-1 px-5 font-[Source-Sans-Pro] text-xl h-16'>
+                            <div className='w-full flex flex-col space-y-1'>
+                                <Button className='bg-[#D9D9D9] text-black font-[Source-Sans-Pro] rounded-full h-6'>Cancel</Button>
+                                <Button className='bg-[#2B170C] text-white font-[Source-Sans-Pro] rounded-full h-6'>Reschedule</Button>
+                            </div>
                         </div>
                     </div>
                 </div>
