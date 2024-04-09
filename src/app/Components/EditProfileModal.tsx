@@ -4,11 +4,14 @@ import { Button, FileInput, Modal } from "flowbite-react";
 import { useState } from "react";
 import { DropDownComponent } from "./DropDownComponent";
 import { DropZoneComponent } from "./DropZoneComponent";
+
 import Image from "next/image";
-import EditProfileIcon from '@/Assets/ListDashes.png'
+
+import EditProfileIcon from '@/Assets/ListDashes.svg'
+import { IEditProfileProps } from "@/Interfaces/Interfaces";
 
 
-export function EditProfileModal() {
+export function EditProfileModal(props: IEditProfileProps) {
   const [openModal, setOpenModal] = useState(false);
   const [profileImg, setProfileImg] = useState<string>("");
 
@@ -29,8 +32,7 @@ export function EditProfileModal() {
 
   return (
     <div className="font-[DMSerifText]">
-      <button onClick={() => setOpenModal(true)}><Image src={EditProfileIcon} alt="Edit" /></button>
-      <Modal show={openModal} onClose={() => setOpenModal(false)}>
+      <Modal show={props.open} onClose={() => props.close(false)}>
         <p className="font-[DMSerifText] text-[30px] px-[24px] pt-[15px]">Edit Profile</p>
         <Modal.Body className="font-[DMSerifText] text-[30px] pt-0">
           <div>
@@ -68,8 +70,8 @@ export function EditProfileModal() {
           </div>
         </Modal.Body>
         <div className="flex justify-between pb-[15px] px-[24px] pt-[10px]">
-          <button onClick={() => setOpenModal(false)} className="text-[30px] bg-[#D9D9D9] font-[DMSerifText] text-black border rounded-[10px] px-[18px] py-[6px] ">Cancel</button>
-          <button onClick={() => setOpenModal(false)} className="text-[30px] bg-[#2B170C] font-[DMSerifText] text-white rounded-[10px] px-[35px] py-[6px] ">Save</button>
+          <Button onClick={() => props.close(false)} className="text-[30px] bg-[#D9D9D9] font-[DMSerifText] text-black border rounded-[10px] px-[18px] py-[6px] ">Cancel</Button>
+          <Button onClick={() => props.close(false)} className="text-[30px] bg-[#2B170C] font-[DMSerifText] text-white rounded-[10px] px-[35px] py-[6px] ">Save</Button>
         </div>
       </Modal>
     </div>
