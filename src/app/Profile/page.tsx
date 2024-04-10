@@ -25,7 +25,7 @@ const Page = () => {
       {
         openEditModal && <EditProfileModal open={openEditModal} close={setOpenEditModal}/>
       }
-      <div className='hidden 2xl:block'>
+      <div className='hidden min-[1440px]:block'>
         <div className='px-20 py-14'>
           {/* Top Section */}
           <div className='bg-white w-full h-[330px] rounded-2xl p-[15px]'>
@@ -91,7 +91,7 @@ const Page = () => {
           </div>
         </div>
       </div>
-      <div className='block 2xl:hidden'>
+      <div className='block min-[1440px]:hidden'>
         <div className='px-2 py-3'>
           <div className='bg-white w-full h-auto rounded-2xl p-[15px]'>
             <div className='flex justify-end'>
