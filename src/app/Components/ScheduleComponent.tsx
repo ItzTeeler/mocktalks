@@ -7,7 +7,7 @@ import React from 'react'
 const ScheduleComponent = (props: IMockInterviewProps) => {
     return (
         <>
-            <div className='hidden sm:block'>
+            <div className='hidden 2xl:block'>
                 <hr />
                 <div className='grid grid-flow-col p-3'>
                     <div className='w-80'>
@@ -31,7 +31,7 @@ const ScheduleComponent = (props: IMockInterviewProps) => {
                 </div>
                 <hr />
             </div>
-            <div className='block sm:hidden'>
+            <div className='block 2xl:hidden'>
                 <hr />
                 <div className='grid grid-cols-2 h-auto'>
                     <div className='grid grid-row-5 bg-[#D9D9D9]'>
