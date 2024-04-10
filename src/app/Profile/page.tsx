@@ -25,7 +25,7 @@ const Page = () => {
       {
         openEditModal && <EditProfileModal open={openEditModal} close={setOpenEditModal}/>
       }
-      <div className='hidden sm:block' style={{ userSelect: "none" }}>
+      <div className='hidden 2xl:block'>
         <div className='px-20 py-14'>
           {/* Top Section */}
           <div className='bg-white w-full h-[330px] rounded-2xl p-[15px]'>
@@ -44,7 +44,7 @@ const Page = () => {
                 <div>
                   <p className='text-[36px] font-[Source-Sans-Pro]'>YEARS OF EXPERIENCE: Less than 1 year</p>
                   <p className='text-[36px] font-[Source-Sans-Pro]'>CURRENT LEVEL: Beginner</p>
-                  <p className='text-[36px] font-[Source-Sans-Pro] text-white cursor-default'>a</p>
+                  <p className='text-[36px] font-[Source-Sans-Pro] text-white cursor-default' style={{ userSelect: "none" }}>a</p>
                 </div>
               </div>
               <div className='flex justify-end'>
@@ -91,7 +91,7 @@ const Page = () => {
           </div>
         </div>
       </div>
-      <div className='block sm:hidden' style={{ userSelect: "none" }}>
+      <div className='block 2xl:hidden'>
         <div className='px-2 py-3'>
           <div className='bg-white w-full h-auto rounded-2xl p-[15px]'>
             <div className='flex justify-end'>
@@ -111,10 +111,12 @@ const Page = () => {
         </div>
 
         <div className='flex justify-center m-3'>
-          <div className='grid grid-flow-row space-y-12'>
-            <div>
-              <h1 className='text-white text-xl font-[DMSerifText] font-normal'>PRACTICE MAKES PERFECT</h1>
-              <p className='text-white max-[300px]:text-sm text-lg font-[Source-Sans-Pro] font-extralight'>Empower Your Success, One Mock Interview at a Time with MockTalks!</p>
+          <div className='grid grid-flow-row space-y-12 w-full'>
+            <div className='flex flex-col sm:flex-row'>
+              <div>
+                <h1 className='text-white text-xl font-[DMSerifText] font-normal'>PRACTICE MAKES PERFECT</h1>
+                <p className='text-white max-[300px]:text-sm text-lg font-[Source-Sans-Pro] font-extralight'>Empower Your Success, One Mock Interview at a Time with MockTalks!</p>
+              </div>
               <Button className='bg-[#2B170C] w-full text-white text-xl font-[Source-Sans-Pro] my-2' onClick={() => setOpenAppointmentModal(true)}>START A PRACTICE SESSION</Button>
             </div>
           </div>
