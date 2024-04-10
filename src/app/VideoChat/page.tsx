@@ -25,7 +25,7 @@ const VideoChatPage = () => {
   }
   return (
     <div>
-      <div className='h-screen overflow lg:overflow flex flex-col justify-between'>
+      <div className='h-screen overflow lg:overflow-hidden flex flex-col justify-between'>
         <div className={`absolute bg-[#D9D9D9] right-0 h-full w-full lg:w-[469px] border-l-2 border-black flex justify-between flex-col ${toBeHiddenNotToBeHidden}`}>
           <div className='bg-[#FFFFFF] flex justify-between px-[20px] py-[10px] text-[60px] items-center border-2 border-black'>
             <p>Messages</p>
