@@ -8,23 +8,25 @@ import Image from 'next/image'
 import profileImgPlaceholder from '@/Assets/Ellipse.png'
 import listDashesImage from '@/Assets/ListDashes.svg'
 import ScheduleComponent from '../Components/ScheduleComponent'
+
+import { AddAppointmentModal } from '../Components/AddAppointmentModal'
 import { EditProfileModal } from '../Components/EditProfileModal'
+import { ScheduleInterviewComponent } from '../Components/ScheduleInterviewComponent'
 
 const Page = () => {
-  const [openModal, setOpenModal] = useState<boolean>(false);
+  const [openAppointmentModal, setOpenAppointmentModal] = useState<boolean>(false);
+  const [openEditModal, setOpenEditModal] = useState<boolean>(false);
 
   return (
     <>
       <NavbarComponent /> {/* Top Navbar */}
-
-
-      <div className='hidden sm:block' style={{ userSelect: "none" }}>
+      <div className='hidden min-[1440px]:block'>
         <div className='px-20 py-14'>
           {/* Top Section */}
-          <div className='bg-white w-full h-[330px] rounded-2xl p-[15px]'>
+          <div className='bg-white w-full h-auto rounded-2xl p-[15px]'>
             <div className='grid grid-flow-col'>
               <div className='flex justify-center'>
-                <Image src={profileImgPlaceholder} className='h-[300px] w-[300px]' alt='Profile Image' />
+                <Image src={profileImgPlaceholder} className='h-[300px] w-[300px] min-[1440px]:w-[200px] min-[1440px]:h-[200px] 2xl:h-[300px] 2xl:w-[300px]' alt='Profile Image' />
               </div>
               <div className='flex justify-center items-center'>
                 <div>
@@ -37,24 +39,26 @@ const Page = () => {
                 <div>
                   <p className='text-[36px] font-[Source-Sans-Pro]'>YEARS OF EXPERIENCE: Less than 1 year</p>
                   <p className='text-[36px] font-[Source-Sans-Pro]'>CURRENT LEVEL: Beginner</p>
-                  <p className='text-[36px] font-[Source-Sans-Pro] text-white cursor-default'>a</p>
+                  <p className='text-[36px] font-[Source-Sans-Pro] text-white cursor-default' style={{ userSelect: "none" }}>a</p>
                 </div>
               </div>
               <div className='flex justify-end'>
-                <Image onClick={() => setOpenModal(true)} src={listDashesImage} className='w-10 h-10 cursor-pointer' alt='test' />
+                <EditProfileModal open={false} close={function (value: React.SetStateAction<boolean>): void {
+                  throw new Error('Function not implemented.')
+                } }/>
               </div>
             </div>
           </div>
 
           {/* Middle Section */}
-          <div className='flex justify-center m-20'>
+          <div className='flex justify-center m-20 min-[1440px]:m-10 2xl:m-20'>
             <div className='grid grid-flow-col space-x-48'>
               <div>
-                <h1 className='text-white text-4xl font-[DMSerifText] font-normal'>PRACTICE MAKES PERFECT</h1>
-                <p className='text-white text-xl font-[Source-Sans-Pro] font-extralight'>Empower Your Success, One Mock Interview at a Time with<br />MockTalks!</p>
+                <h1 className='text-white text-4xl min-[1440px]:text-2xl 2xl:text-4xl font-[DMSerifText] font-normal'>PRACTICE MAKES PERFECT</h1>
+                <p className='text-white text-xl min-[1440px]:text-lg 2xl:text-xl font-[Source-Sans-Pro] font-extralight'>Empower Your Success, One Mock Interview at a Time with MockTalks!</p>
               </div>
               <div>
-                <Button className='bg-[#2B170C] h-full'><span className='text-white text-4xl font-[Source-Sans-Pro] px-32'>START A PRACTICE SESSION</span></Button>
+                <ScheduleInterviewComponent/>
               </div>
             </div>
           </div>
@@ -84,11 +88,11 @@ const Page = () => {
           </div>
         </div>
       </div>
-      <div className='block sm:hidden' style={{ userSelect: "none" }}>
+      <div className='block min-[1440px]:hidden'>
         <div className='px-2 py-3'>
           <div className='bg-white w-full h-auto rounded-2xl p-[15px]'>
             <div className='flex justify-end'>
-              <Image onClick={() => setOpenModal(true)} src={listDashesImage} className='w-6 h-6 cursor-pointer' alt='test' />
+              <Image onClick={() => setOpenEditModal(true)} src={listDashesImage} className='w-6 h-6 cursor-pointer' alt='test' />
             </div>
             <div className='flex justify-center'>
               <Image src={profileImgPlaceholder} className='h-[150px] w-[150px]' alt='Profile Image' />
@@ -104,11 +108,13 @@ const Page = () => {
         </div>
 
         <div className='flex justify-center m-3'>
-          <div className='grid grid-flow-row space-y-12'>
-            <div>
-              <h1 className='text-white text-xl font-[DMSerifText] font-normal'>PRACTICE MAKES PERFECT</h1>
-              <p className='text-white max-[300px]:text-sm text-lg font-[Source-Sans-Pro] font-extralight'>Empower Your Success, One Mock Interview at a Time with MockTalks!</p>
-              <Button className='bg-[#2B170C] w-full text-white text-xl font-[Source-Sans-Pro] my-2'>START A PRACTICE SESSION</Button>
+          <div className='grid grid-flow-row space-y-12 w-full'>
+            <div className='flex flex-col sm:flex-row'>
+              <div>
+                <h1 className='text-white text-xl font-[DMSerifText] font-normal'>PRACTICE MAKES PERFECT</h1>
+                <p className='text-white max-[300px]:text-sm text-lg font-[Source-Sans-Pro] font-extralight'>Empower Your Success, One Mock Interview at a Time with MockTalks!</p>
+              </div>
+              <Button className='bg-[#2B170C] w-full text-white text-xl font-[Source-Sans-Pro] my-2' onClick={() => setOpenAppointmentModal(true)}>START A PRACTICE SESSION</Button>
             </div>
           </div>
         </div>

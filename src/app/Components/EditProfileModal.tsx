@@ -4,11 +4,14 @@ import { Button, FileInput, Modal } from "flowbite-react";
 import { useState } from "react";
 import { DropDownComponent } from "./DropDownComponent";
 import { DropZoneComponent } from "./DropZoneComponent";
+
 import Image from "next/image";
-import EditProfileIcon from '@/Assets/ListDashes.png'
+
+import EditProfileIcon from '@/Assets/ListDashes.svg'
+import { IEditProfileProps } from "@/Interfaces/Interfaces";
 
 
-export function EditProfileModal() {
+export function EditProfileModal(props: IEditProfileProps) {
   const [openModal, setOpenModal] = useState(false);
   const [profileImg, setProfileImg] = useState<string>("");
 

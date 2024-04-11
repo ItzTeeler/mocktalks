@@ -34,6 +34,12 @@ const MessagingPage = () => {
 
     }
 
+    const handleMessagingPeopleCardClick = () => {
+        if (window.innerWidth <= 1024) { 
+            handleOpen();
+        }
+    };
+
     const handleVideoClick = () => {
         router.push('/VideoChat')
     }
@@ -44,14 +50,14 @@ const MessagingPage = () => {
                 <div className={`${messageBlock} col-span-6 lg:col-span-2 bg-[#ffffff] w-full border-r-0 lg:border-r-[3px] h-screen border-black lg:rounded-tl-[15px] rounded-0 lg:rounded-bl-[15px] overflow-y-auto`}>
                     <MessagingSearchInputComponent />
                     <div className='flex flex-col flex-grow overflow-auto'>
-                        <MessagingPeopleCardComponent click={handleOpen} />
-                        <MessagingPeopleCardComponent click={handleOpen} />
-                        <MessagingPeopleCardComponent click={handleOpen} />
-                        <MessagingPeopleCardComponent click={handleOpen} />
-                        <MessagingPeopleCardComponent click={handleOpen} />
-                        <MessagingPeopleCardComponent click={handleOpen} />
-                        <MessagingPeopleCardComponent click={handleOpen} />
-                        <MessagingPeopleCardComponent click={handleOpen} />
+                        <MessagingPeopleCardComponent click={handleMessagingPeopleCardClick} />
+                        <MessagingPeopleCardComponent click={handleMessagingPeopleCardClick} />
+                        <MessagingPeopleCardComponent click={handleMessagingPeopleCardClick} />
+                        <MessagingPeopleCardComponent click={handleMessagingPeopleCardClick} />
+                        <MessagingPeopleCardComponent click={handleMessagingPeopleCardClick} />
+                        <MessagingPeopleCardComponent click={handleMessagingPeopleCardClick} />
+                        <MessagingPeopleCardComponent click={handleMessagingPeopleCardClick} />
+                        <MessagingPeopleCardComponent click={handleMessagingPeopleCardClick} />
                     </div>
                 </div>
                 <div className={`${hiddenOrBlock} lg:block col-span-6 lg:col-span-4 bg-[#ffffff] w-full h-screen rounded-none lg:rounded-tr-[15px] lg:rounded-br-[15px] flex flex-col justify-between overflow-auto`}>

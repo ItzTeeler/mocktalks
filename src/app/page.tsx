@@ -2,7 +2,7 @@
 import Image from "next/image";
 import { useEffect, useState } from "react";
 import backArrow from '../Assets/BackArrow.png'
-import { createAccount, getUserData, login } from "@/utils/Dataservices";
+import { changePassword, createAccount, getUserData, login } from "@/utils/Dataservices";
 import { IToken } from "@/Interfaces/Interfaces";
 import { useRouter } from "next/navigation";
 
@@ -19,6 +19,7 @@ export default function LoginPage() {
 
   const handleRegister = () => {
     setRegisterBool(!registerBool);
+    setForgotBool(false)
   }
   const handleForgotPassword = () => {
     setForgotBool(!forgotBool)
@@ -27,26 +28,36 @@ export default function LoginPage() {
     let userData = {
       username: username,
       password: password
-    }
-
+    };
+  
     if (registerBool) {
-      console.log("Sign In")
       // Logic for Sign In
-      let token: IToken = await login(userData);
-      if (token.token != null) {
-        localStorage.setItem("Token", token.token);
-        getUserData(username);
-        router.push('/Profile')
+      if (forgotBool) {
+        // If forgot password, change password
+        try {
+          await changePassword(username, password);
+          alert("Password changed successfully!");
+        } catch (error) {
+          console.error("Password change failed", error);
+          alert("Failed to change password. Please try again.");
+        }
       } else {
-        alert("Login Failed")
+        // Normal login
+        let token: IToken = await login(userData);
+        if (token.token != null) {
+          localStorage.setItem("Token", token.token);
+          getUserData(username);
+          router.push('/Profile');
+        } else {
+          alert("Login Failed");
+        }
       }
-
     } else {
-      console.log("Register")
       // Logic for Create Account
       createAccount(userData);
+      alert("Account Created");
     }
-  }
+  };
 
   useEffect(() => {
     if (registerBool) {
@@ -58,7 +69,7 @@ export default function LoginPage() {
 
   return (
     <div className="loginBgImage">
-      <div className="grid grid-flow-row justify-center pt-20 pl-[8px] pr-[8px]">
+      <div className="grid grid-flow-row justify-center pt-20 pl-[8px] pr-[8px] pb-20">
         <div className="bg-white max-w-[31.625rem] rounded-[20px] px-[36px] md:px-[44px]">
 
           <div className="pt-[20px] mb-[11px] md:mb-[50px] text-center">
@@ -74,7 +85,7 @@ export default function LoginPage() {
             <input type="password" onChange={(e) => setPassword(e.target.value)} className="h-[29px] md:h-[39px] mb-[17px] md:mb-[20px] w-full border-[1px] border-black rounded-[10px] text-[18px] font-[Source-Sans-Pro] pl-[16px]" placeholder="Enter Password" required />
           </div>
           <div className="">
-            {registerBool ? <p onClick={handleForgotPassword} className={`cursor-pointer ${color} text-[20px] mb-[19px] md:mb-[30px] font-[DMSerifText]`}>Forgot Password?</p> : <p className={`${color} text-[20px] mb-[19px] md:mb-[30px] font-[DMSerifText]`}>Please choose a stronger password. Try a mix of letters, numbers, and symbols.</p>}
+            {registerBool ? <p onClick={handleForgotPassword} className={`cursor-pointer ${color} text-[20px] mb-[19px] md:mb-[30px] font-[DMSerifText]`}>{!forgotBool ? "Forgot Password?" : "Enter new password"}</p> : <p className={`${color} text-[20px] mb-[19px] md:mb-[30px] font-[DMSerifText]`}>Please choose a strong password.</p>}
           </div>
           <button onClick={handleSubmit} className="text-[20px] font-[DMSerifText] bg-[#2B170C] text-white max-w-[419px] w-full text-center rounded-[10px]">{forgotBool ? "Change Password" : (registerBool ? "Login" : "Create Account")}</button>
           <div className="mt-[24px] md:mt-[30px] mb-[75px] cursor-pointer">
