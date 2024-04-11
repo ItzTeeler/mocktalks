@@ -8,11 +8,12 @@ export function ScheduleInterviewComponent() {
   const [openModal2, setOpenModal2] = useState(false);
   const [openModal3, setOpenModal3] = useState(false);
   const [openModal4, setOpenModal4] = useState(false);
+  const [openModal5, setOpenModal5] = useState(false);
 
   return (
     <>
       <Button onClick={() => setOpenModal(true)}>Toggle modal</Button>
-      <Modal size={"4xl"} show={openModal} onClose={() => setOpenModal(false)}>
+      <Modal size={"3xl"} show={openModal} onClose={() => setOpenModal(false)}>
         <Modal.Body className="p-[30px]">
           <div className="text-center text-[50px] font-[DMSerifText]">
             <p>Schedule your first practice interview</p>
@@ -31,15 +32,15 @@ export function ScheduleInterviewComponent() {
           </div>
         </Modal.Body>
         <Modal.Footer className=" flex justify-between">
-          <Button color="gray" onClick={() => setOpenModal(false)}>
+          <button color="gray" onClick={() => setOpenModal(false)} className="text-[30px] bg-[#D9D9D9] font-[DMSerifText] text-black border rounded-[10px] px-[18px] py-[6px] ">
             Back
-          </Button>
-          <Button onClick={() => { setOpenModal(false); setOpenModal2(true); }}>Next</Button>
+          </button>
+          <button onClick={() => { setOpenModal(false); setOpenModal2(true); }} className="text-[30px] bg-[#2B170C] font-[DMSerifText] text-white rounded-[10px] px-[35px] py-[6px] ">Next</button>
         </Modal.Footer>
       </Modal>
 
 
-      <Modal size={"4xl"} show={openModal2} onClose={() => setOpenModal2(false) }>
+      <Modal size={"3xl"} show={openModal2} onClose={() => setOpenModal2(false) }>
         <Modal.Body className="p-[20px]">
           <div className="text-center text-[50px] font-[DMSerifText]">
             <p>Choose type of practice</p>
@@ -59,15 +60,15 @@ export function ScheduleInterviewComponent() {
           </div>
         </Modal.Body>
         <Modal.Footer className=" flex justify-between">
-          <Button color="gray" onClick={() => { setOpenModal(true); setOpenModal2(false); }}>
+          <button color="gray" onClick={() => { setOpenModal(true); setOpenModal2(false); }} className="text-[30px] bg-[#D9D9D9] font-[DMSerifText] text-black border rounded-[10px] px-[18px] py-[6px] ">
             Back
-          </Button>
-          <Button onClick={() => {setOpenModal2(false); setOpenModal3(true);}}>Next</Button>
+          </button>
+          <button onClick={() => {setOpenModal2(false); setOpenModal3(true);}} className="text-[30px] bg-[#2B170C] font-[DMSerifText] text-white rounded-[10px] px-[35px] py-[6px] ">Next</button>
         </Modal.Footer>
       </Modal>
 
 
-      <Modal size={"4xl"} show={openModal3} onClose={() => setOpenModal3(false)}>
+      <Modal size={"3xl"} show={openModal3} onClose={() => setOpenModal3(false)}>
         <Modal.Body className="p-[30px]">
           <div className="text-center text-[50px] font-[DMSerifText]">
             <p>Choose type of experience</p>
@@ -99,14 +100,14 @@ export function ScheduleInterviewComponent() {
           </div>
         </Modal.Body>
         <Modal.Footer className=" flex justify-between">
-          <Button color="gray" onClick={() => { setOpenModal2(true); setOpenModal3(false); }}>
+          <button color="gray" onClick={() => { setOpenModal2(true); setOpenModal3(false); }} className="text-[30px] bg-[#D9D9D9] font-[DMSerifText] text-black border rounded-[10px] px-[18px] py-[6px] ">
             Back
-          </Button>
-          <Button onClick={() => { setOpenModal3(false); setOpenModal4(true); }}>Next</Button>
+          </button>
+          <button onClick={() => { setOpenModal3(false); setOpenModal4(true); }} className="text-[30px] bg-[#2B170C] font-[DMSerifText] text-white rounded-[10px] px-[35px] py-[6px] ">Next</button>
         </Modal.Footer>
       </Modal>
 
-      <Modal size={"4xl"} show={openModal4} onClose={() => setOpenModal4(false)}>
+      <Modal size={"3xl"} show={openModal4} onClose={() => setOpenModal4(false)}>
         <Modal.Body className="p-[30px]">
           <div className="text-center text-[30px] font-[DMSerifText]">
             <p>Availability</p>
@@ -123,10 +124,29 @@ export function ScheduleInterviewComponent() {
           
         </Modal.Body>
         <Modal.Footer className=" flex justify-between">
-          <Button color="gray" onClick={() => { setOpenModal3(true); setOpenModal4(false); }}>
+          <button color="gray" onClick={() => { setOpenModal3(true); setOpenModal4(false); }} className="text-[30px] bg-[#D9D9D9] font-[DMSerifText] text-black border rounded-[10px] px-[18px] py-[6px] ">
             Back
-          </Button>
-          <Button onClick={() => { setOpenModal3(false); setOpenModal4(true); }}>Next</Button>
+          </button>
+          <button onClick={() => { setOpenModal4(false); setOpenModal5(true); }} className="text-[30px] bg-[#2B170C] font-[DMSerifText] text-white rounded-[10px] px-[35px] py-[6px] ">Next</button>
+        </Modal.Footer>
+      </Modal>
+
+      <Modal size={"3xl"} show={openModal5} onClose={() => setOpenModal5(false)}>
+        <Modal.Body className="p-[30px]">
+          <div className="text-center text-[30px] font-[DMSerifText]">
+            <p>{`You’ve been scheduled!`}</p>
+          </div>
+          <div>
+            <p>{`An awesome peer will be waiting to meet you for a live {Type (Frontend)} interview session on {Date Chosen}`}</p>
+            <p>{`An awesome peer will be waiting to meet you for a live {Type (Frontend)} interview session on {Date Chosen}`}</p>
+          </div>
+          
+        </Modal.Body>
+        <Modal.Footer className=" flex justify-between">
+          <button color="gray" onClick={() => { setOpenModal4(true); setOpenModal5(false); }} className="text-[30px] bg-[#D9D9D9] font-[DMSerifText] text-black border rounded-[10px] px-[18px] py-[6px] ">
+            Back
+          </button>
+          <button onClick={() => { setOpenModal4(false); setOpenModal5(false); }} className="text-[30px] bg-[#2B170C] font-[DMSerifText] text-white rounded-[10px] px-[35px] py-[6px] ">Next</button>
         </Modal.Footer>
       </Modal>
     </>
