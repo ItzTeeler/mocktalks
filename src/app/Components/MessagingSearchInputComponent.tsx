@@ -1,3 +1,4 @@
+'use client'
 import React from 'react'
 import SearchIcon from '@/Assets/MessagingSearchIcon.png'
 import Image from 'next/image'
