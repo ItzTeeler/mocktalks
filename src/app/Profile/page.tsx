@@ -11,6 +11,7 @@ import ScheduleComponent from '../Components/ScheduleComponent'
 
 import { AddAppointmentModal } from '../Components/AddAppointmentModal'
 import { EditProfileModal } from '../Components/EditProfileModal'
+import { ScheduleInterviewComponent } from '../Components/ScheduleInterviewComponent'
 
 const Page = () => {
   const [openAppointmentModal, setOpenAppointmentModal] = useState<boolean>(false);
@@ -19,12 +20,6 @@ const Page = () => {
   return (
     <>
       <NavbarComponent /> {/* Top Navbar */}
-      {
-        openAppointmentModal && <AddAppointmentModal open={openAppointmentModal} close={setOpenAppointmentModal} />
-      }
-      {
-        openEditModal && <EditProfileModal open={openEditModal} close={setOpenEditModal}/>
-      }
       <div className='hidden min-[1440px]:block'>
         <div className='px-20 py-14'>
           {/* Top Section */}
@@ -48,7 +43,9 @@ const Page = () => {
                 </div>
               </div>
               <div className='flex justify-end'>
-                <Image onClick={() => setOpenEditModal(true)} src={listDashesImage} className='w-10 h-10 cursor-pointer' alt='test' />
+                <EditProfileModal open={false} close={function (value: React.SetStateAction<boolean>): void {
+                  throw new Error('Function not implemented.')
+                } }/>
               </div>
             </div>
           </div>
@@ -61,7 +58,7 @@ const Page = () => {
                 <p className='text-white text-xl min-[1440px]:text-lg 2xl:text-xl font-[Source-Sans-Pro] font-extralight'>Empower Your Success, One Mock Interview at a Time with MockTalks!</p>
               </div>
               <div>
-                <Button className='bg-[#2B170C] h-full min-[1440px]:h-32 2xl:h-full' onClick={() => setOpenAppointmentModal(true)}><span className='text-white text-4xl font-[Source-Sans-Pro] px-32'>START A PRACTICE SESSION</span></Button>
+                <ScheduleInterviewComponent/>
               </div>
             </div>
           </div>

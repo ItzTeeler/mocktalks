@@ -19,6 +19,7 @@ export default function LoginPage() {
 
   const handleRegister = () => {
     setRegisterBool(!registerBool);
+    setForgotBool(false)
   }
   const handleForgotPassword = () => {
     setForgotBool(!forgotBool)
@@ -84,7 +85,7 @@ export default function LoginPage() {
             <input type="password" onChange={(e) => setPassword(e.target.value)} className="h-[29px] md:h-[39px] mb-[17px] md:mb-[20px] w-full border-[1px] border-black rounded-[10px] text-[18px] font-[Source-Sans-Pro] pl-[16px]" placeholder="Enter Password" required />
           </div>
           <div className="">
-            {registerBool ? <p onClick={handleForgotPassword} className={`cursor-pointer ${color} text-[20px] mb-[19px] md:mb-[30px] font-[DMSerifText]`}>Forgot Password?</p> : <p className={`${color} text-[20px] mb-[19px] md:mb-[30px] font-[DMSerifText]`}>Please choose a strong password.</p>}
+            {registerBool ? <p onClick={handleForgotPassword} className={`cursor-pointer ${color} text-[20px] mb-[19px] md:mb-[30px] font-[DMSerifText]`}>{!forgotBool ? "Forgot Password?" : "Enter new password"}</p> : <p className={`${color} text-[20px] mb-[19px] md:mb-[30px] font-[DMSerifText]`}>Please choose a strong password.</p>}
           </div>
           <button onClick={handleSubmit} className="text-[20px] font-[DMSerifText] bg-[#2B170C] text-white max-w-[419px] w-full text-center rounded-[10px]">{forgotBool ? "Change Password" : (registerBool ? "Login" : "Create Account")}</button>
           <div className="mt-[24px] md:mt-[30px] mb-[75px] cursor-pointer">

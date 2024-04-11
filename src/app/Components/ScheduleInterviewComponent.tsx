@@ -12,7 +12,7 @@ export function ScheduleInterviewComponent() {
 
   return (
     <>
-      <Button onClick={() => setOpenModal(true)}>Toggle modal</Button>
+      <Button className='bg-[#2B170C] h-full min-[1440px]:h-32 2xl:h-full' onClick={() => setOpenModal(true)}><span className='text-white text-4xl font-[Source-Sans-Pro] px-32'>START A PRACTICE SESSION</span></Button>
       <Modal size={"3xl"} show={openModal} onClose={() => setOpenModal(false)}>
         <Modal.Body className="p-[30px]">
           <div className="text-center text-[50px] font-[DMSerifText]">
