@@ -28,10 +28,10 @@ const Page = () => {
       <div className='hidden min-[1440px]:block'>
         <div className='px-20 py-14'>
           {/* Top Section */}
-          <div className='bg-white w-full h-[330px] rounded-2xl p-[15px]'>
+          <div className='bg-white w-full h-auto rounded-2xl p-[15px]'>
             <div className='grid grid-flow-col'>
               <div className='flex justify-center'>
-                <Image src={profileImgPlaceholder} className='h-[300px] w-[300px]' alt='Profile Image' />
+                <Image src={profileImgPlaceholder} className='h-[300px] w-[300px] min-[1440px]:w-[200px] min-[1440px]:h-[200px] 2xl:h-[300px] 2xl:w-[300px]' alt='Profile Image' />
               </div>
               <div className='flex justify-center items-center'>
                 <div>
@@ -54,14 +54,14 @@ const Page = () => {
           </div>
 
           {/* Middle Section */}
-          <div className='flex justify-center m-20'>
+          <div className='flex justify-center m-20 min-[1440px]:m-10 2xl:m-20'>
             <div className='grid grid-flow-col space-x-48'>
               <div>
-                <h1 className='text-white text-4xl font-[DMSerifText] font-normal'>PRACTICE MAKES PERFECT</h1>
-                <p className='text-white text-xl font-[Source-Sans-Pro] font-extralight'>Empower Your Success, One Mock Interview at a Time with<br />MockTalks!</p>
+                <h1 className='text-white text-4xl min-[1440px]:text-2xl 2xl:text-4xl font-[DMSerifText] font-normal'>PRACTICE MAKES PERFECT</h1>
+                <p className='text-white text-xl min-[1440px]:text-lg 2xl:text-xl font-[Source-Sans-Pro] font-extralight'>Empower Your Success, One Mock Interview at a Time with MockTalks!</p>
               </div>
               <div>
-                <Button className='bg-[#2B170C] h-full' onClick={() => setOpenAppointmentModal(true)}><span className='text-white text-4xl font-[Source-Sans-Pro] px-32'>START A PRACTICE SESSION</span></Button>
+                <Button className='bg-[#2B170C] h-full min-[1440px]:h-32 2xl:h-full' onClick={() => setOpenAppointmentModal(true)}><span className='text-white text-4xl font-[Source-Sans-Pro] px-32'>START A PRACTICE SESSION</span></Button>
               </div>
             </div>
           </div>
