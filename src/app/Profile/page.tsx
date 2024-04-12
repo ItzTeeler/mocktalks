@@ -92,7 +92,9 @@ const Page = () => {
         <div className='px-2 py-3'>
           <div className='bg-white w-full h-auto rounded-2xl p-[15px]'>
             <div className='flex justify-end'>
-              <Image onClick={() => setOpenEditModal(true)} src={listDashesImage} className='w-6 h-6 cursor-pointer' alt='test' />
+            <EditProfileModal open={false} close={function (value: React.SetStateAction<boolean>): void {
+                  throw new Error('Function not implemented.')
+                } }/>
             </div>
             <div className='flex justify-center'>
               <Image src={profileImgPlaceholder} className='h-[150px] w-[150px]' alt='Profile Image' />
@@ -114,7 +116,7 @@ const Page = () => {
                 <h1 className='text-white text-xl font-[DMSerifText] font-normal'>PRACTICE MAKES PERFECT</h1>
                 <p className='text-white max-[300px]:text-sm text-lg font-[Source-Sans-Pro] font-extralight'>Empower Your Success, One Mock Interview at a Time with MockTalks!</p>
               </div>
-              <Button className='bg-[#2B170C] w-full text-white text-xl font-[Source-Sans-Pro] my-2' onClick={() => setOpenAppointmentModal(true)}>START A PRACTICE SESSION</Button>
+              <ScheduleInterviewComponent/>
             </div>
           </div>
         </div>
