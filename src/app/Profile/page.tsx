@@ -17,6 +17,18 @@ import { IAppointments, IProfileData, IUserData } from '@/Interfaces/Interfaces'
 const Page = () => {
   const [openAppointmentModal, setOpenAppointmentModal] = useState<boolean>(false);
   const [openEditModal, setOpenEditModal] = useState<boolean>(false);
+
+  const [userIdInfo, setUserIdInfo] = useState<any>();
+
+  useEffect(() => {
+    const outerCall = () => {
+      const innerCall = async () => {
+        setUserIdInfo(loggedInData())
+      }
+      innerCall()
+    }
+    outerCall();
+  }, [])
   const [appointmentData, setAppointmentData] = useState<IAppointments[]>([]);
   const [submitBool, setSubmitBool] = useState<boolean>(true);
 
@@ -49,6 +61,11 @@ const Page = () => {
   return (
     <>
       <NavbarComponent /> {/* Top Navbar */}
+
+      {
+        openModal && <EditProfileModal open={openModal} close={setOpenModal} />
+      }
+
       <div className='hidden min-[1440px]:block'>
         <div className='px-20 py-14'>
           {/* Top Section */}
@@ -75,7 +92,7 @@ const Page = () => {
                 {/* <EditProfileModal open={false} close={function (value: React.SetStateAction<boolean>): void {
                   throw new Error('Function not implemented.')
                 } }/> */}
-                <Image onClick={()=>setOpenModal(true)} src={listDashesImage} className='w-auto cursor-pointer' alt='test' />
+                <Image onClick={() => setOpenModal(true)} src={listDashesImage} className='w-auto cursor-pointer' alt='test' />
               </div>
             </div>
           </div>
