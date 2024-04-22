@@ -11,12 +11,11 @@ import ScheduleComponent from '../Components/ScheduleComponent'
 import { EditProfileModal } from '../Components/EditProfileModal'
 
 import { AddAppointmentModal } from '../Components/AddAppointmentModal'
-import { EditProfileModal } from '../Components/EditProfileModal'
 import { ScheduleInterviewComponent } from '../Components/ScheduleInterviewComponent'
 
 const Page = () => {
   const [openAppointmentModal, setOpenAppointmentModal] = useState<boolean>(false);
-  const [openEditModal, setOpenEditModal] = useState<boolean>(false);
+  const [openModal, setOpenModal] = useState<boolean>(false);
 
   return (
     <>
@@ -49,9 +48,10 @@ const Page = () => {
                 </div>
               </div>
               <div className='flex justify-end'>
-                <EditProfileModal open={false} close={function (value: React.SetStateAction<boolean>): void {
+                {/* <EditProfileModal open={false} close={function (value: React.SetStateAction<boolean>): void {
                   throw new Error('Function not implemented.')
-                } }/>
+                } }/> */}
+                <Image onClick={()=>setOpenModal(true)} src={listDashesImage} className='w-auto cursor-pointer' alt='test' />
               </div>
             </div>
           </div>
