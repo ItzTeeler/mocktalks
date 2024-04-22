@@ -10,7 +10,6 @@ import listDashesImage from '@/Assets/ListDashes.svg'
 import ScheduleComponent from '../Components/ScheduleComponent'
 
 import { AddAppointmentModal } from '../Components/AddAppointmentModal'
-import { EditProfileModal } from '../Components/EditProfileModal'
 import { ScheduleInterviewComponent } from '../Components/ScheduleInterviewComponent'
 import { getAppointments, getProfileItemByUserId, loggedInData } from '@/utils/Dataservices'
 import { IAppointments, IProfileData, IUserData } from '@/Interfaces/Interfaces'
@@ -73,9 +72,10 @@ const Page = () => {
                 </div>
               </div>
               <div className='flex justify-end'>
-                <EditProfileModal open={false} close={function (value: React.SetStateAction<boolean>): void {
+                {/* <EditProfileModal open={false} close={function (value: React.SetStateAction<boolean>): void {
                   throw new Error('Function not implemented.')
-                }} />
+                } }/> */}
+                <Image onClick={()=>setOpenModal(true)} src={listDashesImage} className='w-auto cursor-pointer' alt='test' />
               </div>
             </div>
           </div>

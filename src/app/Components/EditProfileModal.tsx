@@ -51,6 +51,7 @@ export function EditProfileModal(props: IEditProfileProps) {
               </div>
             </div>
           </div>
+
           <div className="flex flex-col">
             <div className="flex flex-col">
               <p className="mb-[10px]">What city do you live in?</p>
@@ -86,11 +87,12 @@ export function EditProfileModal(props: IEditProfileProps) {
             </div>
           </div>
         </Modal.Body>
+
         <div className="flex justify-between pb-[15px] px-[24px] pt-[10px]">
           <button onClick={() => setOpenModal(false)} className="text-[30px] bg-[#D9D9D9] font-[DMSerifText] text-black border rounded-[10px] px-[18px] py-[6px] ">Cancel</button>
           <button onClick={() => setOpenModal(false)} className="text-[30px] bg-[#2B170C] font-[DMSerifText] text-white rounded-[10px] px-[35px] py-[6px] ">Save</button>
         </div>
       </Modal>
-    </div>
+    </div >
   );
 }
