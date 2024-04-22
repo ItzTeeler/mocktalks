@@ -2,6 +2,7 @@ import { IToken, IUserData, IUserInfo } from "@/Interfaces/Interfaces";
 
 const url = "https://mocktalksapihosting.azurewebsites.net";
 let userData: IUserData;
+
 export const createAccount = async (createUser: IUserInfo) => {
     const res = await fetch(url + '/MT_User/NewUser', {
         method: "POST",

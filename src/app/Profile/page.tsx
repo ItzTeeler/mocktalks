@@ -1,6 +1,6 @@
 'use client'
 
-import React, { useState } from 'react'
+import React, { useEffect, useState } from 'react'
 import { Button } from 'flowbite-react'
 import NavbarComponent from '../Components/NavbarComponent'
 import Image from 'next/image'
@@ -12,19 +12,32 @@ import { EditProfileModal } from '../Components/EditProfileModal'
 
 import { AddAppointmentModal } from '../Components/AddAppointmentModal'
 import { ScheduleInterviewComponent } from '../Components/ScheduleInterviewComponent'
+import { loggedInData } from '@/utils/Dataservices'
 
 const Page = () => {
   const [openAppointmentModal, setOpenAppointmentModal] = useState<boolean>(false);
   const [openModal, setOpenModal] = useState<boolean>(false);
 
+  const [userIdInfo, setUserIdInfo] = useState<any>();
+
+  useEffect(() => {
+    const outerCall = () => {
+      const innerCall = async () => {
+        setUserIdInfo(loggedInData())
+      }
+      innerCall()
+    }
+    outerCall();
+  }, [])
+
   return (
     <>
       <NavbarComponent /> {/* Top Navbar */}
-      
+
       {
-        openModal && <EditProfileModal open={openModal} close={setOpenModal}/>
+        openModal && <EditProfileModal open={openModal} close={setOpenModal} />
       }
-      
+
       <div className='hidden min-[1440px]:block'>
         <div className='px-20 py-14'>
           {/* Top Section */}
@@ -51,7 +64,7 @@ const Page = () => {
                 {/* <EditProfileModal open={false} close={function (value: React.SetStateAction<boolean>): void {
                   throw new Error('Function not implemented.')
                 } }/> */}
-                <Image onClick={()=>setOpenModal(true)} src={listDashesImage} className='w-auto cursor-pointer' alt='test' />
+                <Image onClick={() => setOpenModal(true)} src={listDashesImage} className='w-auto cursor-pointer' alt='test' />
               </div>
             </div>
           </div>
@@ -64,7 +77,7 @@ const Page = () => {
                 <p className='text-white text-xl min-[1440px]:text-lg 2xl:text-xl font-[Source-Sans-Pro] font-extralight'>Empower Your Success, One Mock Interview at a Time with MockTalks!</p>
               </div>
               <div>
-                <ScheduleInterviewComponent/>
+                <ScheduleInterviewComponent />
               </div>
             </div>
           </div>
@@ -98,9 +111,9 @@ const Page = () => {
         <div className='px-2 py-3'>
           <div className='bg-white w-full h-auto rounded-2xl p-[15px]'>
             <div className='flex justify-end'>
-            <EditProfileModal open={false} close={function (value: React.SetStateAction<boolean>): void {
-                  throw new Error('Function not implemented.')
-                } }/>
+              <EditProfileModal open={false} close={function (value: React.SetStateAction<boolean>): void {
+                throw new Error('Function not implemented.')
+              }} />
             </div>
             <div className='flex justify-center'>
               <Image src={profileImgPlaceholder} className='h-[150px] w-[150px]' alt='Profile Image' />
@@ -122,11 +135,11 @@ const Page = () => {
                 <h1 className='text-white text-xl font-[DMSerifText] font-normal'>PRACTICE MAKES PERFECT</h1>
                 <p className='text-white max-[300px]:text-sm text-lg font-[Source-Sans-Pro] font-extralight'>Empower Your Success, One Mock Interview at a Time with MockTalks!</p>
               </div>
-              <ScheduleInterviewComponent/>
+              <ScheduleInterviewComponent />
             </div>
           </div>
         </div>
-        
+
         <div className='px-2 py-3'>
           <div className='bg-white w-full h-auto rounded-2xl pb-4'>
             <h1 className='text-black text-xl font-[DMSerifText] text-center py-3'>UPCOMING PRACTICE INTERVIEWS</h1>

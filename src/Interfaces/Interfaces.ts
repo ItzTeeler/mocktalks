@@ -9,7 +9,7 @@ export interface IUserInfo{
 
 export interface IUserData{
     userId: number
-    publicName: string
+    username: string
 }
 
 export interface IMockInterviewProps{
