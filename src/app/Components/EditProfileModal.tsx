@@ -4,6 +4,7 @@ import { Button, FileInput, Modal } from "flowbite-react";
 import { useEffect, useState } from "react";
 import { DropDownComponent } from "./DropDownComponent";
 import { DropZoneComponent } from "./DropZoneComponent";
+
 import Image from "next/image";
 import EditProfileIcon from '@/Assets/ListDashes.png'
 import { IEditProfileProps } from "@/Interfaces/Interfaces";
@@ -33,7 +34,6 @@ export function EditProfileModal(props: IEditProfileProps) {
         <p className="font-[DMSerifText] text-[30px] px-[24px] pt-[15px]">Edit Profile</p>
         <Modal.Body className="font-[DMSerifText] text-[30px] pt-0">
           <div>
-            <div className="grid grid-cols-3">
               <div className="flex flex-col col-span-2 justify-end">
                 <p className="mb-[10px]">Full Name</p>
                 <input className="mr-[18px] mb-[10px] rounded-[10px]" type="text" />

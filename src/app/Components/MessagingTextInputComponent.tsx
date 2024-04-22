@@ -1,3 +1,4 @@
+'use client'
 import React from 'react'
 import Image from 'next/image'
 import FileAdd from '@/Assets/MessagingFileInput.png'
@@ -10,7 +11,7 @@ const MessagingTextInputComponent = () => {
                 <div className='absolute p-2'>
                     <Image src={FileAdd} alt="Search Icon" />
                 </div>
-                <input type="text" className='rounded-[10px] w-full px-12 py-[12px] text-left text-[18px] text-black' placeholder='Enter Message' />
+                <input type="text" className='font-[Source-Sans-Pro] rounded-[10px] w-full px-12 py-[12px] text-left text-[18px] text-black' placeholder='Enter Message' />
                 <div className='absolute right-14'>
                     <Image src={SendIcon} alt="Send Message" className='' />
                 </div>
