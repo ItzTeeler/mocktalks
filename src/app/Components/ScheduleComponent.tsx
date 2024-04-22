@@ -10,19 +10,19 @@ const ScheduleComponent = (props: IMockInterviewProps) => {
             <div className='hidden min-[1440px]:block'>
                 <hr />
                 <div className='grid grid-flow-col p-3'>
-                    <div className='w-80'>
-                        <p className='text-4xl text-black font-[Source-Sans-Pro]'>{props.date}</p>
+                    <div className='w-80 min-[1440px]:w-40 2xl:w-80'>
+                        <p className='text-4xl text-black font-[Source-Sans-Pro] min-[1440px]:text-2xl 2xl:text-4xl'>{props.date}</p>
                     </div>
-                    <div className='w-48'>
-                        <p className='text-4xl text-black font-[Source-Sans-Pro]'>{props.type}</p>
+                    <div className='w-48 min-[1440px]:w-40 2xl:w-48'>
+                        <p className='text-4xl text-black font-[Source-Sans-Pro] min-[1440px]:text-2xl 2xl:text-4xl'>{props.type}</p>
                     </div>
-                    <div className='w-96'>
-                        <p className='text-4xl text-black font-[Source-Sans-Pro]'>{props.questions}</p>
+                    <div className='w-96 min-[1440px]:w-40 2xl:w-96'>
+                        <p className='text-4xl text-black font-[Source-Sans-Pro] min-[1440px]:text-2xl 2xl:text-4xl'>{props.questions}</p>
                     </div>
-                    <div className='w-60'>
-                        <p className='text-4xl text-black font-[Source-Sans-Pro]'>{props.language}</p>
+                    <div className='w-60 min-[1440px]:w-40 2xl:w-60'>
+                        <p className='text-4xl text-black font-[Source-Sans-Pro] min-[1440px]:text-2xl 2xl:text-4xl'>{props.language}</p>
                     </div>
-                    <div className='w-[480px]'>
+                    <div className='w-[480px] min-[1440px]:w-[320px] 2xl:w-[480px]'>
                         <div className='flex flex-row space-x-4'>
                             <Button className='bg-[#D9D9D9] w-48'><span className='text-black text-4xl font-[Source-Sans-Pro]'>Cancel</span></Button>
                             <Button className='bg-[#2B170C] w-full'><span className='text-white text-4xl font-[Source-Sans-Pro]'>Reschedule</span></Button>
