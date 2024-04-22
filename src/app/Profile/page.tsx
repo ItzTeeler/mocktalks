@@ -11,6 +11,7 @@ import ScheduleComponent from '../Components/ScheduleComponent'
 
 import { AddAppointmentModal } from '../Components/AddAppointmentModal'
 import { ScheduleInterviewComponent } from '../Components/ScheduleInterviewComponent'
+import { loggedInData } from '@/utils/Dataservices'
 import { getAppointments, getProfileItemByUserId, loggedInData } from '@/utils/Dataservices'
 import { IAppointments, IProfileData, IUserData } from '@/Interfaces/Interfaces'
 import { EditProfileModal } from '../Components/EditProfileModal'
@@ -18,6 +19,18 @@ import { EditProfileModal } from '../Components/EditProfileModal'
 const Page = () => {
   const [openAppointmentModal, setOpenAppointmentModal] = useState<boolean>(false);
   const [openModal, setOpenModal] = useState<boolean>(false);
+
+  const [userIdInfo, setUserIdInfo] = useState<any>();
+
+  useEffect(() => {
+    const outerCall = () => {
+      const innerCall = async () => {
+        setUserIdInfo(loggedInData())
+      }
+      innerCall()
+    }
+    outerCall();
+  }, [])
 
   const [userProfileInfo, setUserProfileInfo] = useState<IProfileData>();
   const [isNotCreateProfile, setIsNotCreateProfile] = useState<boolean>(true);
@@ -67,7 +80,7 @@ const Page = () => {
       <NavbarComponent /> {/* Top Navbar */}
 
       {
-        openModal && userGlobalInfo && <EditProfileModal userInfoPass={userGlobalInfo} setUserProfile={setUserProfileInfo} setIsNotCreate={setIsNotCreateProfile} isNotCreate={isNotCreateProfile} open={openModal} close={setOpenModal} />
+        openModal && <EditProfileModal open={openModal} close={setOpenModal} />
       }
 
 
