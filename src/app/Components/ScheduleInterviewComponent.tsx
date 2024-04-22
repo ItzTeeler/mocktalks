@@ -2,6 +2,9 @@
 
 import { Button, Modal } from "flowbite-react";
 import { useState } from "react";
+import Image from "next/image";
+import LeftButton from '@/Assets/LeftButton.png'
+import RightButton from '@/Assets/RightButton.png'
 
 export function ScheduleInterviewComponent() {
   const [openModal, setOpenModal] = useState(false);
@@ -9,6 +12,90 @@ export function ScheduleInterviewComponent() {
   const [openModal3, setOpenModal3] = useState(false);
   const [openModal4, setOpenModal4] = useState(false);
   const [openModal5, setOpenModal5] = useState(false);
+  const [startDate, setStartDate] = useState(new Date());
+
+  const renderCalendarDays = () => {
+    const days = [];
+    const currentDate = new Date(startDate);
+  
+    for (let i = 0; i < 7; i++) {
+      const dayOfWeek = currentDate.toLocaleDateString('en-US', { weekday: 'short' });
+      const dateOfMonth = currentDate.getDate();
+      const month = currentDate.toLocaleDateString('en-US', { month: 'short' });
+      const suffix = getSuffix(dateOfMonth);
+  
+      const timeSlots = [];
+      for (let hour = 8; hour <= 20; hour += 2) {
+        const hour12hr = (hour % 12 === 0 ? 12 : hour % 12);
+        const ampm = hour >= 12 ? 'PM' : 'AM';
+        const startTime = `${hour12hr}:00 ${ampm}`;
+        timeSlots.push(
+          <div key={hour} className="text-center">
+            {startTime}
+          </div>
+        );
+      }
+  
+      days.push(
+        <div key={i} className="flex flex-col items-center">
+          <div className="text-[20px] text-center font-[DMSerifText]">{dayOfWeek}</div>
+          <div className="text-[20px] text-center font-[DMSerifText]">{month} {dateOfMonth}{suffix}</div>
+          <div className="mt-2">
+            {timeSlots}
+          </div>
+        </div>
+      );
+  
+      currentDate.setDate(currentDate.getDate() + 1);
+    }
+  
+    return (
+      <div className="flex flex-row justify-between">
+        {days.map((day, index) => (
+          <div key={index} className="w-[100px]">
+            {day}
+          </div>
+        ))}
+      </div>
+    );
+  };
+  
+  const getSuffix = (date: number) => {
+    if (date >= 11 && date <= 13) {
+      return 'th';
+    }
+    const lastDigit = date % 10;
+    switch (lastDigit) {
+      case 1:
+        return 'st';
+      case 2:
+        return 'nd';
+      case 3:
+        return 'rd';
+      default:
+        return 'th';
+    }
+  };
+  
+
+  const nextTwoWeeks = () => {
+    const newStartDate = new Date(startDate);
+    newStartDate.setDate(newStartDate.getDate() + 7);
+    const today = new Date();
+    const twoWeeksFromNow = new Date(today.setDate(today.getDate() + 14));
+    if (newStartDate <= twoWeeksFromNow) {
+      setStartDate(newStartDate);
+    }
+  };
+
+  const prevTwoWeeks = () => {
+    const newStartDate = new Date(startDate);
+    const today = new Date();
+    if (newStartDate > today) {
+      newStartDate.setDate(newStartDate.getDate() - 7);
+      setStartDate(newStartDate);
+    }
+  };
 
   return (
     <>
@@ -25,7 +112,7 @@ export function ScheduleInterviewComponent() {
               <button className=" py-[30px] border rounded-[10px] text-[20px] font-[DMSerifText] border-black">Behavioral</button>
             </div>
             <div className="flex flex-col gap-5">
-            <button className="px-[10px] py-[30px] border rounded-[10px] text-[20px] font-[DMSerifText] border-black">Frontend</button>
+              <button className="px-[10px] py-[30px] border rounded-[10px] text-[20px] font-[DMSerifText] border-black">Frontend</button>
               <button className="px-[10px] py-[30px] border rounded-[10px] text-[20px] font-[DMSerifText] border-black">System Design</button>
               <button className="px-[10px] py-[30px] border rounded-[10px] text-[20px] font-[DMSerifText] border-black">Practice with a Friend</button>
             </div>
@@ -40,7 +127,7 @@ export function ScheduleInterviewComponent() {
       </Modal>
 
 
-      <Modal size={"3xl"} show={openModal2} onClose={() => setOpenModal2(false) }>
+      <Modal size={"3xl"} show={openModal2} onClose={() => setOpenModal2(false)}>
         <Modal.Body className="p-[20px]">
           <div className="text-center text-[50px] font-[DMSerifText]">
             <p>Choose type of practice</p>
@@ -52,18 +139,18 @@ export function ScheduleInterviewComponent() {
                 <p className="text-[16px] font-[Source-Sans-Pro]">Free mock interviews with other MockTalk users where you take turns asking each other questions</p>
               </button>
               <button className=" py-[35px] border rounded-[10px] text-left border-black p-10">
-              <p className=" text-[20px] font-[DMSerifText]">Expert mock interview</p>
+                <p className=" text-[20px] font-[DMSerifText]">Expert mock interview</p>
                 <p className=" font-[Source-Sans-Pro] text-[16px]">Get interviewed 1 - 1 by an expert coach. </p>
-                </button>
+              </button>
             </div>
-           
+
           </div>
         </Modal.Body>
         <Modal.Footer className=" flex justify-between">
           <button color="gray" onClick={() => { setOpenModal(true); setOpenModal2(false); }} className="text-[30px] bg-[#D9D9D9] font-[DMSerifText] text-black border rounded-[10px] px-[18px] py-[6px] ">
             Back
           </button>
-          <button onClick={() => {setOpenModal2(false); setOpenModal3(true);}} className="text-[30px] bg-[#2B170C] font-[DMSerifText] text-white rounded-[10px] px-[35px] py-[6px] ">Next</button>
+          <button onClick={() => { setOpenModal2(false); setOpenModal3(true); }} className="text-[30px] bg-[#2B170C] font-[DMSerifText] text-white rounded-[10px] px-[35px] py-[6px] ">Next</button>
         </Modal.Footer>
       </Modal>
 
@@ -89,14 +176,14 @@ export function ScheduleInterviewComponent() {
               </button>
             </div>
             <div className="flex flex-col gap-5">
-            <button className="px-[10px] py-[30px] border rounded-[10px] border-black">
-              <p className="text-[20px] font-[DMSerifText]">Beginner</p>
-              <p className="text-[16px] font-[Source-Sans-Pro]">Know a little about job interviews</p>
-            </button>
+              <button className="px-[10px] py-[30px] border rounded-[10px] border-black">
+                <p className="text-[20px] font-[DMSerifText]">Beginner</p>
+                <p className="text-[16px] font-[Source-Sans-Pro]">Know a little about job interviews</p>
+              </button>
               <button className="px-[10px] py-[30px] border rounded-[10px] border-black">
                 <p className="text-[20px] font-[DMSerifText]">Advanced</p>
                 <p className="text-[16px] font-[Source-Sans-Pro]">Pretty good at job interviews</p>
-                </button>            </div>
+              </button>            </div>
           </div>
         </Modal.Body>
         <Modal.Footer className=" flex justify-between">
@@ -108,20 +195,22 @@ export function ScheduleInterviewComponent() {
       </Modal>
 
       <Modal size={"3xl"} show={openModal4} onClose={() => setOpenModal4(false)}>
-        <Modal.Body className="p-[30px]">
+        <Modal.Body className="p-[0px]">
           <div className="text-center text-[30px] font-[DMSerifText]">
             <p>Availability</p>
             <p>Please select a slot</p>
           </div>
 
           <div className="bg-[#D9D9D9]">
-              <div></div>
-              <div></div>
-              <div></div>
-              <div></div>
-              <div></div>
+            <div >
+              <div className="flex justify-evenly">
+                <button onClick={prevTwoWeeks}><Image src={LeftButton} alt="Left Button"/></button>
+                <div>{renderCalendarDays()}</div>
+                <button onClick={nextTwoWeeks}><Image src={RightButton} alt="Right Button"/></button>
+              </div>
+            </div>
           </div>
-          
+
         </Modal.Body>
         <Modal.Footer className=" flex justify-between">
           <button color="gray" onClick={() => { setOpenModal3(true); setOpenModal4(false); }} className="text-[30px] bg-[#D9D9D9] font-[DMSerifText] text-black border rounded-[10px] px-[18px] py-[6px] ">
@@ -140,7 +229,7 @@ export function ScheduleInterviewComponent() {
             <p>{`An awesome peer will be waiting to meet you for a live {Type (Frontend)} interview session on {Date Chosen}`}</p>
             <p>{`An awesome peer will be waiting to meet you for a live {Type (Frontend)} interview session on {Date Chosen}`}</p>
           </div>
-          
+
         </Modal.Body>
         <Modal.Footer className=" flex justify-between">
           <button color="gray" onClick={() => { setOpenModal4(true); setOpenModal5(false); }} className="text-[30px] bg-[#D9D9D9] font-[DMSerifText] text-black border rounded-[10px] px-[18px] py-[6px] ">
@@ -152,3 +241,4 @@ export function ScheduleInterviewComponent() {
     </>
   );
 }
+
