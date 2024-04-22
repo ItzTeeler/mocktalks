@@ -8,6 +8,7 @@ import Image from 'next/image'
 import profileImgPlaceholder from '@/Assets/Ellipse.png'
 import listDashesImage from '@/Assets/ListDashes.svg'
 import ScheduleComponent from '../Components/ScheduleComponent'
+import { EditProfileModal } from '../Components/EditProfileModal'
 
 import { AddAppointmentModal } from '../Components/AddAppointmentModal'
 import { EditProfileModal } from '../Components/EditProfileModal'
@@ -20,6 +21,11 @@ const Page = () => {
   return (
     <>
       <NavbarComponent /> {/* Top Navbar */}
+      
+      {
+        openModal && <EditProfileModal open={openModal} close={setOpenModal}/>
+      }
+      
       <div className='hidden min-[1440px]:block'>
         <div className='px-20 py-14'>
           {/* Top Section */}
@@ -120,7 +126,7 @@ const Page = () => {
             </div>
           </div>
         </div>
-
+        
         <div className='px-2 py-3'>
           <div className='bg-white w-full h-auto rounded-2xl pb-4'>
             <h1 className='text-black text-xl font-[DMSerifText] text-center py-3'>UPCOMING PRACTICE INTERVIEWS</h1>
