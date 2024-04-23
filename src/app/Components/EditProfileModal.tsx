@@ -38,8 +38,8 @@ export function EditProfileModal(props: IEditProfileProps) {
         <Modal.Body className="font-[DMSerifText] text-[30px] pt-0">
           <div>
             <div className="grid grid-cols-3">
-              <div className="flex flex-col justify-end">
-                <p className="mb-[10px]">First Name</p>
+              <div className="flex flex-col col-span-2 justify-end">
+                <p className="mb-[10px]">Full Name</p>
                 <input className="mr-[18px] mb-[10px] rounded-[10px]" type="text" />
               </div>
               <div className="flex flex-col justify-end">
@@ -52,6 +52,22 @@ export function EditProfileModal(props: IEditProfileProps) {
             </div>
           </div>
           <div className="flex flex-col">
+            <div className="flex flex-col">
+              <p className="mb-[10px]">What city do you live in?</p>
+              <input type="text" className="rounded-[10px] mb-[10px]" />
+            </div>
+            <div className="flex flex-col">
+              <p className="mb-[10px]">Education</p>
+              <input type="text" className="rounded-[10px] mb-[10px]" />
+            </div>
+            <div className="flex flex-col">
+              <p className="mb-[10px]">Years of Experience</p>
+              <input type="text" className="rounded-[10px] mb-[10px]" />
+            </div>
+            <div className="flex flex-col">
+              <p className="mb-[10px]">What is your current level at job interviews?</p>
+              <DropDownComponent />
+            </div>
             <div className="flex flex-col">
               <p className="mb-[10px]">What city do you live in?</p>
               <input type="text" className="rounded-[10px] mb-[10px]" />

@@ -1,6 +1,6 @@
 'use client'
 
-import React, { useState } from 'react'
+import React, { useEffect, useState } from 'react'
 import { Button } from 'flowbite-react'
 import NavbarComponent from '../Components/NavbarComponent'
 import Image from 'next/image'
@@ -30,16 +30,16 @@ const Page = () => {
               </div>
               <div className='flex justify-center items-center'>
                 <div>
-                  <p className='text-[36px] font-[Source-Sans-Pro]'>NAME: Tyler Nguyen</p>
-                  <p className='text-[36px] font-[Source-Sans-Pro]'>LOCATION: Stockton, CA</p>
-                  <p className='text-[36px] font-[Source-Sans-Pro]'>EDUCATION: Student</p>
+                  <p className='text-[36px] font-[Source-Sans-Pro] min-[1440px]:text-[28px] 2xl:text-[36px]'>NAME: Tyler Nguyen</p>
+                  <p className='text-[36px] font-[Source-Sans-Pro] min-[1440px]:text-[28px] 2xl:text-[36px]'>LOCATION: Stockton, CA</p>
+                  <p className='text-[36px] font-[Source-Sans-Pro] min-[1440px]:text-[28px] 2xl:text-[36px]'>EDUCATION: Student</p>
                 </div>
               </div>
               <div className='flex justify-center items-center'>
                 <div>
-                  <p className='text-[36px] font-[Source-Sans-Pro]'>YEARS OF EXPERIENCE: Less than 1 year</p>
-                  <p className='text-[36px] font-[Source-Sans-Pro]'>CURRENT LEVEL: Beginner</p>
-                  <p className='text-[36px] font-[Source-Sans-Pro] text-white cursor-default' style={{ userSelect: "none" }}>a</p>
+                  <p className='text-[36px] font-[Source-Sans-Pro] min-[1440px]:text-[28px] 2xl:text-[36px]'>YEARS OF EXPERIENCE: Less than 1 year</p>
+                  <p className='text-[36px] font-[Source-Sans-Pro] min-[1440px]:text-[28px] 2xl:text-[36px]'>CURRENT LEVEL: Beginner</p>
+                  <p className='text-[36px] font-[Source-Sans-Pro] min-[1440px]:text-[28px] 2xl:text-[36px] text-white cursor-default' style={{ userSelect: "none" }}>a</p>
                 </div>
               </div>
               <div className='flex justify-end'>
@@ -69,11 +69,11 @@ const Page = () => {
             <div className='bg-[#D9D9D9]'>
               <hr style={{ border: '1px black solid' }} />
               <div className='grid grid-flow-col p-3'>
-                <p className='text-4xl text-black font-[DMSerifText] w-80'>When</p>
-                <p className='text-4xl text-black font-[DMSerifText] w-48'>Type</p>
-                <p className='text-4xl text-black font-[DMSerifText] w-96'>Test Questions</p>
-                <p className='text-4xl text-black font-[DMSerifText] w-60'>Language</p>
-                <p className='text-4xl text-black font-[DMSerifText] w-[480px]'>Action</p>
+                <p className='text-4xl text-black font-[DMSerifText] w-80 min-[1440px]:text-2xl min-[1440px]:w-40 2xl:text-4xl 2xl:w-80'>When</p>
+                <p className='text-4xl text-black font-[DMSerifText] w-48 min-[1440px]:text-2xl min-[1440px]:w-40 2xl:text-4xl 2xl:w-48'>Type</p>
+                <p className='text-4xl text-black font-[DMSerifText] w-96 min-[1440px]:text-2xl min-[1440px]:w-40 2xl:text-4xl 2xl:w-96'>Test Questions</p>
+                <p className='text-4xl text-black font-[DMSerifText] w-60 min-[1440px]:text-2xl min-[1440px]:w-40 2xl:text-4xl 2xl:w-60'>Language</p>
+                <p className='text-4xl text-black font-[DMSerifText] w-[480px] min-[1440px]:w-[320px] min-[1440px]:text-2xl 2xl:text-4xl 2xl:w-[480px]'>Action</p>
               </div>
               <hr style={{ border: '1px black solid' }} />
             </div>

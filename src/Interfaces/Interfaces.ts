@@ -29,3 +29,23 @@ export interface IAddAppointmentProps {
     open: boolean,
     close: React.Dispatch<React.SetStateAction<boolean>>;
 }
+
+export interface IProfileData {
+    id: number,
+    fullName: string,
+    occupation: string,
+    experienceLevel: string,
+    jobInterviewLevel: string,
+    locationed: string,
+    profileImg: string
+}
+
+export interface IPracticeData {
+    id: number,
+    pairingId: number,
+    practiceInterview: string,
+    typePractice: string,
+    typeExperience: string,
+    datePick: string,
+    timePick: string
+}
