@@ -20,12 +20,21 @@ const Page = () => {
   const [openAppointmentModal, setOpenAppointmentModal] = useState<boolean>(false);
   const [openModal, setOpenModal] = useState<boolean>(false);
 
-  const [userIdInfo, setUserIdInfo] = useState<any>();
+  const [userProfileInfo, setUserProfileInfo] = useState<IProfileData>();
+  const [isNotCreateProfile, setIsNotCreateProfile] = useState<boolean>(true);
+  const [userGlobalInfo, setUserGlobalInfo] = useState<IUserData>();
 
   useEffect(() => {
     const outerCall = () => {
       const innerCall = async () => {
-        setUserIdInfo(loggedInData())
+        let userInfo = loggedInData()
+        setUserGlobalInfo(loggedInData())
+        try {
+          setUserProfileInfo(await getProfileItemByUserId(userInfo.id));
+        } catch {
+          setOpenModal(true);
+          setIsNotCreateProfile(false);
+        }
       }
       innerCall()
     }
@@ -80,7 +89,7 @@ const Page = () => {
       <NavbarComponent /> {/* Top Navbar */}
 
       {
-        openModal && <EditProfileModal open={openModal} close={setOpenModal} />
+        openModal && userGlobalInfo && <EditProfileModal userInfoPass={userGlobalInfo} isNotCreate={isNotCreateProfile} open={openModal} close={setOpenModal} />
       }
 
 
