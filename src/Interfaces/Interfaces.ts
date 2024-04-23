@@ -22,8 +22,13 @@ export interface IMockInterviewProps{
 }
 
 export interface IEditProfileProps {
+    isNotCreate: boolean,
     open: boolean,
     close: React.Dispatch<React.SetStateAction<boolean>>;
+    userInfoPass: {
+        id: number
+        username: string  
+    }
 }
 
 export interface IAddAppointmentProps {
@@ -33,6 +38,7 @@ export interface IAddAppointmentProps {
 
 export interface IProfileData {
     id: number,
+    userId: number,
     fullName: string,
     occupation: string,
     experienceLevel: string,

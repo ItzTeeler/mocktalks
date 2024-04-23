@@ -1,4 +1,4 @@
-import { IAppointments, IToken, IUserData, IUserInfo } from "@/Interfaces/Interfaces";
+import { IProfileData, IAppointments, IToken, IUserData, IUserInfo } from "@/Interfaces/Interfaces";
 
 const url = "https://mocktalksapihosting.azurewebsites.net";
 let userData: IUserData;
@@ -46,6 +46,28 @@ export const getUserData = async (username: string) => {
 export const loggedInData = () => {
     return userData;
 }
+
+export const createProfileItem = async (profileData: IProfileData) => {
+    const res = await fetch (url + "/MT_Profile/CreateProfileItem", {
+        method: "POST",
+        headers: {
+            'Content-Type': "application/json"
+        },
+        body: JSON.stringify(profileData)
+    });
+
+    if (!res.ok) {
+        const message = "An error has Occurred " + res.status;
+        throw new Error(message);
+    }
+
+    const data = await res.json();
+    return data;
+}
+
+
+
+
 
 export const checkToken = () => {
     let result = false;

@@ -18,12 +18,21 @@ const Page = () => {
   const [openAppointmentModal, setOpenAppointmentModal] = useState<boolean>(false);
   const [openEditModal, setOpenEditModal] = useState<boolean>(false);
 
-  const [userIdInfo, setUserIdInfo] = useState<any>();
+  const [userProfileInfo, setUserProfileInfo] = useState<IProfileData>();
+  const [isNotCreateProfile, setIsNotCreateProfile] = useState<boolean>(true);
+  const [userGlobalInfo, setUserGlobalInfo] = useState<IUserData>();
 
   useEffect(() => {
     const outerCall = () => {
       const innerCall = async () => {
-        setUserIdInfo(loggedInData())
+        let userInfo = loggedInData()
+        setUserGlobalInfo(loggedInData())
+        try {
+          setUserProfileInfo(await getProfileItemByUserId(userInfo.id));
+        } catch {
+          setOpenModal(true);
+          setIsNotCreateProfile(false);
+        }
       }
       innerCall()
     }
@@ -63,39 +72,42 @@ const Page = () => {
       <NavbarComponent /> {/* Top Navbar */}
 
       {
-        openModal && <EditProfileModal open={openModal} close={setOpenModal} />
+        openModal && userGlobalInfo && <EditProfileModal userInfoPass={userGlobalInfo} isNotCreate={isNotCreateProfile} open={openModal} close={setOpenModal} />
       }
 
-      <div className='hidden min-[1440px]:block'>
-        <div className='px-20 py-14'>
-          {/* Top Section */}
-          <div className='bg-white w-full h-auto rounded-2xl p-[15px]'>
-            <div className='grid grid-flow-col'>
-              <div className='flex justify-center'>
-                <Image src={profileImgPlaceholder} className='h-[300px] w-[300px] min-[1440px]:w-[200px] min-[1440px]:h-[200px] 2xl:h-[300px] 2xl:w-[300px]' alt='Profile Image' />
-              </div>
-              <div className='flex justify-center items-center'>
-                <div>
-                  <p className='text-[36px] font-[Source-Sans-Pro] min-[1440px]:text-[28px] 2xl:text-[36px]'>NAME: Tyler Nguyen</p>
-                  <p className='text-[36px] font-[Source-Sans-Pro] min-[1440px]:text-[28px] 2xl:text-[36px]'>LOCATION: Stockton, CA</p>
-                  <p className='text-[36px] font-[Source-Sans-Pro] min-[1440px]:text-[28px] 2xl:text-[36px]'>EDUCATION: Student</p>
-                </div>
-              </div>
-              <div className='flex justify-center items-center'>
-                <div>
-                  <p className='text-[36px] font-[Source-Sans-Pro] min-[1440px]:text-[28px] 2xl:text-[36px]'>YEARS OF EXPERIENCE: Less than 1 year</p>
-                  <p className='text-[36px] font-[Source-Sans-Pro] min-[1440px]:text-[28px] 2xl:text-[36px]'>CURRENT LEVEL: Beginner</p>
-                  <p className='text-[36px] font-[Source-Sans-Pro] min-[1440px]:text-[28px] 2xl:text-[36px] text-white cursor-default' style={{ userSelect: "none" }}>a</p>
-                </div>
-              </div>
-              <div className='flex justify-end'>
-                {/* <EditProfileModal open={false} close={function (value: React.SetStateAction<boolean>): void {
+      {
+        isNotCreateProfile &&
+        <div>
+          <div className='hidden min-[1440px]:block'>
+            <div className='px-20 py-14'>
+              {/* Top Section */}
+              <div className='bg-white w-full h-auto rounded-2xl p-[15px]'>
+                <div className='grid grid-flow-col'>
+                  <div className='flex justify-center'>
+                    <Image src={profileImgPlaceholder} className='h-[300px] w-[300px] min-[1440px]:w-[200px] min-[1440px]:h-[200px] 2xl:h-[300px] 2xl:w-[300px]' alt='Profile Image' />
+                  </div>
+                  <div className='flex justify-center items-center'>
+                    <div>
+                      <p className='text-[36px] font-[Source-Sans-Pro]'>NAME: Tyler Nguyen</p>
+                      <p className='text-[36px] font-[Source-Sans-Pro]'>LOCATION: Stockton, CA</p>
+                      <p className='text-[36px] font-[Source-Sans-Pro]'>EDUCATION: Student</p>
+                    </div>
+                  </div>
+                  <div className='flex justify-center items-center'>
+                    <div>
+                      <p className='text-[36px] font-[Source-Sans-Pro]'>YEARS OF EXPERIENCE: Less than 1 year</p>
+                      <p className='text-[36px] font-[Source-Sans-Pro]'>CURRENT LEVEL: Beginner</p>
+                      <p className='text-[36px] font-[Source-Sans-Pro] text-white cursor-default' style={{ userSelect: "none" }}>a</p>
+                    </div>
+                  </div>
+                  <div className='flex justify-end'>
+                    {/* <EditProfileModal open={false} close={function (value: React.SetStateAction<boolean>): void {
                   throw new Error('Function not implemented.')
                 } }/> */}
-                <Image onClick={() => setOpenModal(true)} src={listDashesImage} className='w-auto cursor-pointer' alt='test' />
+                    <Image onClick={() => setOpenModal(true)} src={listDashesImage} className='w-auto cursor-pointer' alt='test' />
+                  </div>
+                </div>
               </div>
-            </div>
-          </div>
 
           {/* Middle Section */}
           <div className='flex justify-center m-20 min-[1440px]:m-10 2xl:m-20'>
