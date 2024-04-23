@@ -4,10 +4,16 @@ import { Button, FileInput, Modal } from "flowbite-react";
 import { useState } from "react";
 import { DropDownComponent } from "./DropDownComponent";
 import { DropZoneComponent } from "./DropZoneComponent";
-import { IEditProfileProps } from "@/Interfaces/Interfaces";
+import { IEditProfileProps, IProfileData } from "@/Interfaces/Interfaces";
 
 
 export function EditProfileModal(props: IEditProfileProps) {
+  const [fullName, setFullName] = useState<string>("");
+  const [location, setLocation] = useState<string>("");
+  const [education, setEducation] = useState<string>("");
+  const [YoE, setYoE] = useState<string>("");
+  const [jobInterviewLevel, setJobInterviewLevel] = useState<string>("");
+
   const [profileImg, setProfileImg] = useState<string>("");
 
   const handleImage = (e: React.ChangeEvent<HTMLInputElement>) => {
@@ -24,11 +30,25 @@ export function EditProfileModal(props: IEditProfileProps) {
     }
   };
 
+  const submitCreateProfile = () => {
+    let profileData: IProfileData = {
+      id: 0,
+      userId: n,
+      fullName: fullName,
+      occupation: education,
+      experienceLevel: YoE,
+      jobInterviewLevel: jobInterviewLevel,
+      locationed: location,
+      profileImg: ""
+    }
+  }
 
   return (
     <div className="font-[DMSerifText]">
       <Modal show={props.open} onClose={() => props.close(false)}>
-        <p className="font-[DMSerifText] text-[30px] px-[24px] pt-[15px]">Edit Profile</p>
+        {
+          props.isNotCreate ? <p className="font-[DMSerifText] text-[30px] px-[24px] pt-[15px]">Edit Profile</p> : <p className="font-[DMSerifText] text-[30px] px-[24px] pt-[15px]">Create Profile</p>
+        }
         <Modal.Body className="font-[DMSerifText] text-[30px] pt-0">
           <div>
             <div className="grid grid-cols-3">
@@ -66,10 +86,19 @@ export function EditProfileModal(props: IEditProfileProps) {
           </div>
         </Modal.Body>
 
-        <div className="flex justify-between pb-[15px] px-[24px] pt-[10px]">
-          <button onClick={() => props.close(false)} className="text-[30px] bg-[#D9D9D9] font-[DMSerifText] text-black border rounded-[10px] px-[18px] py-[6px] ">Cancel</button>
-          <button onClick={() => props.close(false)} className="text-[30px] bg-[#2B170C] font-[DMSerifText] text-white rounded-[10px] px-[35px] py-[6px] ">Save</button>
-        </div>
+        {
+          props.isNotCreate &&
+          <div className="flex justify-between pb-[15px] px-[24px] pt-[10px]">
+            <button onClick={() => props.close(false)} className="text-[30px] bg-[#D9D9D9] font-[DMSerifText] text-black border rounded-[10px] px-[18px] py-[6px] ">Cancel</button>
+            <button onClick={() => props.close(false)} className="text-[30px] bg-[#2B170C] font-[DMSerifText] text-white rounded-[10px] px-[35px] py-[6px] ">Save</button>
+          </div>
+        }
+        {
+          props.isNotCreate === false &&
+          <div className="flex justify-end pb-[15px] px-[24px] pt-[10px]">
+            <button onClick={() => props.close(false)} className="text-[30px] bg-[#2B170C] font-[DMSerifText] text-white rounded-[10px] px-[35px] py-[6px] ">Save</button>
+          </div>
+        }
       </Modal>
     </div >
   );
