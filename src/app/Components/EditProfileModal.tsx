@@ -5,6 +5,7 @@ import { useState } from "react";
 import { DropDownComponent } from "./DropDownComponent";
 import { DropZoneComponent } from "./DropZoneComponent";
 import { IEditProfileProps, IProfileData } from "@/Interfaces/Interfaces";
+import { createProfileItem } from "@/utils/Dataservices";
 
 
 export function EditProfileModal(props: IEditProfileProps) {
@@ -33,7 +34,7 @@ export function EditProfileModal(props: IEditProfileProps) {
   const submitCreateProfile = () => {
     let profileData: IProfileData = {
       id: 0,
-      userId: n,
+      userId: props.userInfoPass.id,
       fullName: fullName,
       occupation: education,
       experienceLevel: YoE,
@@ -41,6 +42,8 @@ export function EditProfileModal(props: IEditProfileProps) {
       locationed: location,
       profileImg: ""
     }
+    createProfileItem(profileData);
+    props.close(false);
   }
 
   return (
