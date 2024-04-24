@@ -5,8 +5,10 @@ import { useEffect, useState } from "react";
 import Image from "next/image";
 import LeftButton from "@/Assets/LeftButton.png";
 import RightButton from "@/Assets/RightButton.png";
+import { createAppointment } from "@/utils/Dataservices";
+import { IAppointments } from "@/Interfaces/Interfaces";
 
-export function ScheduleInterviewComponent() {
+export function ScheduleInterviewComponent(props: {submitBool: () => void}) {
   const [openModal, setOpenModal] = useState<boolean>(false);
   const [openModal2, setOpenModal2] = useState<boolean>(false);
   const [openModal3, setOpenModal3] = useState<boolean>(false);
@@ -20,18 +22,27 @@ export function ScheduleInterviewComponent() {
   const [selectedDate, setSelectedDate] = useState("");
   const [selectedTime, setSelectedTime] = useState("");
 
-  const [interviewObject, setInterviewObject] = useState({});
+  const [interviewObject, setInterviewObject] = useState<IAppointments>();
 
   const handleSubmit = () => {
-    setInterviewObject(
-      {
-        interviewPractice: pracInterview,
-        typePractice: typeOfInterview,
-        typeExperience: typeOfExperience,
-        selectedDate: selectedDate,
-        timezone: selectedTime
-      })
-    console.log(interviewObject);
+    const newAppointment: IAppointments = {
+      id: 0,
+      userId: 0,
+      partnerId: 0,
+      interviewPractice: pracInterview,
+      typePractice: typeOfInterview,
+      typeExperience: typeOfExperience,
+      selectedDate: selectedDate,
+      timezone: selectedTime,
+      testQuestions: "Build a Calculator App",
+      language: "HTML/CSS/JS",
+      isPartnered: false,
+      isDeleted: false
+    };
+    props.submitBool();
+    setInterviewObject(newAppointment);
+    createAppointment(newAppointment);
+    console.log(newAppointment);
   }
 
 
