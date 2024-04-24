@@ -86,3 +86,7 @@ export interface ScheduleComponentProps {
   export interface IAppointmentData {
     appointments: IAppointments[];
   }
+
+export interface IDropDownState {
+    passUseState: React.Dispatch<React.SetStateAction<string>>;
+}
