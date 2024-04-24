@@ -20,7 +20,7 @@ const Page = () => {
   return (
     <>
       <NavbarComponent /> {/* Top Navbar */}
-      <div className='hidden min-[1440px]:block'>
+      <div className='hidden min-[1440px]:block'> {/* Desktop Design */}
         <div className='px-20 py-14'>
           {/* Top Section */}
           <div className='bg-white w-full h-auto rounded-2xl p-[15px]'>
@@ -45,7 +45,7 @@ const Page = () => {
               <div className='flex justify-end'>
                 <EditProfileModal open={false} close={function (value: React.SetStateAction<boolean>): void {
                   throw new Error('Function not implemented.')
-                } }/>
+                }} />
               </div>
             </div>
           </div>
@@ -58,7 +58,7 @@ const Page = () => {
                 <p className='text-white text-xl min-[1440px]:text-lg 2xl:text-xl font-[Source-Sans-Pro] font-extralight'>Empower Your Success, One Mock Interview at a Time with MockTalks!</p>
               </div>
               <div>
-                <ScheduleInterviewComponent/>
+                <ScheduleInterviewComponent />
               </div>
             </div>
           </div>
@@ -88,11 +88,13 @@ const Page = () => {
           </div>
         </div>
       </div>
-      <div className='block min-[1440px]:hidden'>
+      <div className='block min-[1440px]:hidden'> {/* Mobile Design */}
         <div className='px-2 py-3'>
           <div className='bg-white w-full h-auto rounded-2xl p-[15px]'>
             <div className='flex justify-end'>
-              <Image onClick={() => setOpenEditModal(true)} src={listDashesImage} className='w-6 h-6 cursor-pointer' alt='test' />
+              <EditProfileModal open={false} close={function (value: React.SetStateAction<boolean>): void {
+                throw new Error('Function not implemented.')
+              }} />
             </div>
             <div className='flex justify-center'>
               <Image src={profileImgPlaceholder} className='h-[150px] w-[150px]' alt='Profile Image' />
@@ -114,7 +116,9 @@ const Page = () => {
                 <h1 className='text-white text-xl font-[DMSerifText] font-normal'>PRACTICE MAKES PERFECT</h1>
                 <p className='text-white max-[300px]:text-sm text-lg font-[Source-Sans-Pro] font-extralight'>Empower Your Success, One Mock Interview at a Time with MockTalks!</p>
               </div>
-              <Button className='bg-[#2B170C] w-full text-white text-xl font-[Source-Sans-Pro] my-2' onClick={() => setOpenAppointmentModal(true)}>START A PRACTICE SESSION</Button>
+              <div className='mt-3'>
+                <ScheduleInterviewComponent />
+              </div>
             </div>
           </div>
         </div>

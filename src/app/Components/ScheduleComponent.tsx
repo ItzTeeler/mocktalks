@@ -3,6 +3,7 @@
 import { IMockInterviewProps } from '@/Interfaces/Interfaces';
 import { Button } from 'flowbite-react';
 import React from 'react'
+import { CancelAppointmentModal } from './CancelAppointmentModal';
 
 const ScheduleComponent = (props: IMockInterviewProps) => {
     return (
@@ -23,8 +24,10 @@ const ScheduleComponent = (props: IMockInterviewProps) => {
                         <p className='text-4xl text-black font-[Source-Sans-Pro] min-[1440px]:text-2xl 2xl:text-4xl'>{props.language}</p>
                     </div>
                     <div className='w-[480px] min-[1440px]:w-[320px] 2xl:w-[480px]'>
-                        <div className='flex flex-row space-x-4'>
-                            <Button className='bg-[#D9D9D9] w-48'><span className='text-black text-4xl font-[Source-Sans-Pro]'>Cancel</span></Button>
+                        <div className='flex flex-row space-x-4'>                        
+                            <CancelAppointmentModal open={false} close={function (value: React.SetStateAction<boolean>): void {
+                                throw new Error('Function not implemented.')
+                            }} />
                             <Button className='bg-[#2B170C] w-full'><span className='text-white text-4xl font-[Source-Sans-Pro]'>Reschedule</span></Button>
                         </div>
                     </div>
