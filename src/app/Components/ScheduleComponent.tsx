@@ -1,23 +1,23 @@
 'use client';
 
-import { IMockInterviewProps } from '@/Interfaces/Interfaces';
+import { IAppointments, IMockInterviewProps, ScheduleComponentProps } from '@/Interfaces/Interfaces';
 import { Button } from 'flowbite-react';
 import React from 'react'
 
-const ScheduleComponent = (props: IMockInterviewProps) => {
+const ScheduleComponent = (props: ScheduleComponentProps) => {
     return (
         <>
             <div className='hidden min-[1440px]:block'>
                 <hr />
                 <div className='grid grid-flow-col p-3'>
                     <div className='w-80 min-[1440px]:w-40 2xl:w-80'>
-                        <p className='text-4xl text-black font-[Source-Sans-Pro] min-[1440px]:text-2xl 2xl:text-4xl'>{props.date}</p>
+                        <p className='text-4xl text-black font-[Source-Sans-Pro] min-[1440px]:text-2xl 2xl:text-4xl'>{props.selectedDate}</p>
                     </div>
                     <div className='w-48 min-[1440px]:w-40 2xl:w-48'>
-                        <p className='text-4xl text-black font-[Source-Sans-Pro] min-[1440px]:text-2xl 2xl:text-4xl'>{props.type}</p>
+                        <p className='text-4xl text-black font-[Source-Sans-Pro] min-[1440px]:text-2xl 2xl:text-4xl'>{props.typePractice}</p>
                     </div>
                     <div className='w-96 min-[1440px]:w-40 2xl:w-96'>
-                        <p className='text-4xl text-black font-[Source-Sans-Pro] min-[1440px]:text-2xl 2xl:text-4xl'>{props.questions}</p>
+                        <p className='text-4xl text-black font-[Source-Sans-Pro] min-[1440px]:text-2xl 2xl:text-4xl'>{props.testQuestions}</p>
                     </div>
                     <div className='w-60 min-[1440px]:w-40 2xl:w-60'>
                         <p className='text-4xl text-black font-[Source-Sans-Pro] min-[1440px]:text-2xl 2xl:text-4xl'>{props.language}</p>
@@ -53,13 +53,13 @@ const ScheduleComponent = (props: IMockInterviewProps) => {
                     </div>
                     <div className='grid grid-row-5 bg-white'>
                         <div className='flex items-center pl-5 max-[300px]:pl-1 font-[Source-Sans-Pro] text-xl h-16'>
-                            {props.date}
+                            {props.selectedDate}
                         </div>
                         <div className='flex items-center pl-5 max-[300px]:pl-1 font-[Source-Sans-Pro] text-xl h-16'>
-                            {props.type}
+                            {props.typePractice}
                         </div>
                         <div className='flex items-center pl-5 max-[300px]:pl-1 font-[Source-Sans-Pro] text-xl h-16'>
-                            {props.questions}
+                            {props.testQuestions}
                         </div>
                         <div className='flex items-center pl-5 max-[300px]:pl-1 font-[Source-Sans-Pro] text-xl h-16'>
                             {props.language}

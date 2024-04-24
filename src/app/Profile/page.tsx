@@ -12,11 +12,27 @@ import ScheduleComponent from '../Components/ScheduleComponent'
 import { AddAppointmentModal } from '../Components/AddAppointmentModal'
 import { EditProfileModal } from '../Components/EditProfileModal'
 import { ScheduleInterviewComponent } from '../Components/ScheduleInterviewComponent'
+import { getAppointments } from '@/utils/Dataservices'
+import { IAppointments } from '@/Interfaces/Interfaces'
 
 const Page = () => {
   const [openAppointmentModal, setOpenAppointmentModal] = useState<boolean>(false);
   const [openEditModal, setOpenEditModal] = useState<boolean>(false);
+  const [appointmentData, setAppointmentData] = useState<IAppointments[]>([]);
+  const [submitBool, setSubmitBool] = useState<boolean>(true);
 
+  useEffect(() => {
+    const getData = async () => {
+      const dataAppoint = await getAppointments();
+      setAppointmentData(dataAppoint);
+      console.log(dataAppoint);
+    };
+    getData();
+  }, [submitBool]);
+
+  const handleSubmitBool = () =>{
+    setSubmitBool(!submitBool)
+  }
   return (
     <>
       <NavbarComponent /> {/* Top Navbar */}
@@ -45,7 +61,7 @@ const Page = () => {
               <div className='flex justify-end'>
                 <EditProfileModal open={false} close={function (value: React.SetStateAction<boolean>): void {
                   throw new Error('Function not implemented.')
-                } }/>
+                }} />
               </div>
             </div>
           </div>
@@ -58,7 +74,7 @@ const Page = () => {
                 <p className='text-white text-xl min-[1440px]:text-lg 2xl:text-xl font-[Source-Sans-Pro] font-extralight'>Empower Your Success, One Mock Interview at a Time with MockTalks!</p>
               </div>
               <div>
-                <ScheduleInterviewComponent/>
+                <ScheduleInterviewComponent submitBool={handleSubmitBool} />
               </div>
             </div>
           </div>
@@ -78,13 +94,21 @@ const Page = () => {
               <hr style={{ border: '1px black solid' }} />
             </div>
             <div className='p-3'>
-              <ScheduleComponent date='Fri, Feb 27, 2024, 8:00PM' type='Frontend' questions='Build a Calculator App' language='HTML/CSS/JS' />
-              <ScheduleComponent date='Fri, Feb 27, 2024, 8:00PM' type='Frontend' questions='Build a Calculator App' language='HTML/CSS/JS' />
-              <ScheduleComponent date='Fri, Feb 27, 2024, 8:00PM' type='Frontend' questions='Build a Calculator App' language='HTML/CSS/JS' />
-              <ScheduleComponent date='Fri, Feb 27, 2024, 8:00PM' type='Frontend' questions='Build a Calculator App' language='HTML/CSS/JS' />
-              <ScheduleComponent date='Fri, Feb 27, 2024, 8:00PM' type='Frontend' questions='Build a Calculator App' language='HTML/CSS/JS' />
-              <ScheduleComponent date='Fri, Feb 27, 2024, 8:00PM' type='Frontend' questions='Build a Calculator App' language='HTML/CSS/JS' />
+              {appointmentData ? (
+                appointmentData.map((appointment: any, index: any) => (
+                  <ScheduleComponent
+                    key={index}
+                    selectedDate={appointment.selectedDate}
+                    typePractice={appointment.typePractice}
+                    testQuestions={appointment.testQuestions}
+                    language={appointment.language}
+                  />
+                ))
+              ) : (
+                <p>No appointments available</p>
+              )}
             </div>
+
           </div>
         </div>
       </div>
@@ -92,9 +116,9 @@ const Page = () => {
         <div className='px-2 py-3'>
           <div className='bg-white w-full h-auto rounded-2xl p-[15px]'>
             <div className='flex justify-end'>
-            <EditProfileModal open={false} close={function (value: React.SetStateAction<boolean>): void {
-                  throw new Error('Function not implemented.')
-                } }/>
+              <EditProfileModal open={false} close={function (value: React.SetStateAction<boolean>): void {
+                throw new Error('Function not implemented.')
+              }} />
             </div>
             <div className='flex justify-center'>
               <Image src={profileImgPlaceholder} className='h-[150px] w-[150px]' alt='Profile Image' />
@@ -116,22 +140,27 @@ const Page = () => {
                 <h1 className='text-white text-xl font-[DMSerifText] font-normal'>PRACTICE MAKES PERFECT</h1>
                 <p className='text-white max-[300px]:text-sm text-lg font-[Source-Sans-Pro] font-extralight'>Empower Your Success, One Mock Interview at a Time with MockTalks!</p>
               </div>
-              <ScheduleInterviewComponent/>
+              <ScheduleInterviewComponent submitBool={handleSubmitBool}/>
             </div>
           </div>
         </div>
 
-        <div className='px-2 py-3'>
-          <div className='bg-white w-full h-auto rounded-2xl pb-4'>
-            <h1 className='text-black text-xl font-[DMSerifText] text-center py-3'>UPCOMING PRACTICE INTERVIEWS</h1>
-            <ScheduleComponent date='Fri, Feb 27, 2024, 8:00PM' type='Frontend' questions='Build a Calculator App' language='HTML/CSS/JS' />
-            <ScheduleComponent date='Fri, Feb 27, 2024, 8:00PM' type='Frontend' questions='Build a Calculator App' language='HTML/CSS/JS' />
-            <ScheduleComponent date='Fri, Feb 27, 2024, 8:00PM' type='Frontend' questions='Build a Calculator App' language='HTML/CSS/JS' />
-            <ScheduleComponent date='Fri, Feb 27, 2024, 8:00PM' type='Frontend' questions='Build a Calculator App' language='HTML/CSS/JS' />
-            <ScheduleComponent date='Fri, Feb 27, 2024, 8:00PM' type='Frontend' questions='Build a Calculator App' language='HTML/CSS/JS' />
-            <ScheduleComponent date='Fri, Feb 27, 2024, 8:00PM' type='Frontend' questions='Build a Calculator App' language='HTML/CSS/JS' />
-          </div>
+        <div className='p-3'>
+          {appointmentData ? (
+            appointmentData.map((appointment: any, index: any) => (
+              <ScheduleComponent
+                key={index}
+                selectedDate={appointment.selectedDate}
+                typePractice={appointment.typePractice}
+                testQuestions={appointment.testQuestions}
+                language={appointment.language}
+              />
+            ))
+          ) : (
+            <p>No appointments available</p>
+          )}
         </div>
+
       </div>
     </>
   )
