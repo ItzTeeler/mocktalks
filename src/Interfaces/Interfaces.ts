@@ -55,3 +55,7 @@ export interface IPracticeData {
     datePick: string,
     timePick: string
 }
+
+export interface IDropDownState {
+    passUseState: React.Dispatch<React.SetStateAction<string>>;
+}

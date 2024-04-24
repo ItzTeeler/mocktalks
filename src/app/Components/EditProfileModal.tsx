@@ -25,10 +25,11 @@ export function EditProfileModal(props: IEditProfileProps) {
       reader.onload = () => {
         setProfileImg(reader.result as string);
       };
-      reader.readAsDataURL(file);
-    } else {
-      setProfileImg("");
+      reader.readAsBinaryString(file);
     }
+    // else {
+    //   setProfileImg("");
+    // }
   };
 
   const submitCreateProfile = () => {
@@ -40,10 +41,27 @@ export function EditProfileModal(props: IEditProfileProps) {
       experienceLevel: YoE,
       jobInterviewLevel: jobInterviewLevel,
       locationed: location,
-      profileImg: ""
+      profileImg: "Empty"
     }
-    createProfileItem(profileData);
-    props.close(false);
+
+    if (profileData.occupation === "") {
+      profileData.occupation = "Empty";
+    }
+    if (profileData.experienceLevel === "") {
+      profileData.experienceLevel = "Empty";
+    }
+    if (profileData.locationed === "") {
+      profileData.locationed = "Empty";
+    }
+
+    console.log(profileData);
+
+    if (profileData.jobInterviewLevel === "" || profileData.fullName === "") {
+      console.log("idiot")
+    } else {
+      createProfileItem(profileData);
+      props.close(false);
+    }
   }
 
   return (
@@ -57,14 +75,14 @@ export function EditProfileModal(props: IEditProfileProps) {
             <div className="grid grid-cols-3">
               <div className="flex flex-col col-span-2 justify-end">
                 <p className="mb-[10px]">Full Name</p>
-                <input className="mr-[18px] mb-[10px] rounded-[10px]" type="text" />
+                <input onChange={(e) => setFullName(e.target.value)} className="mr-[18px] mb-[10px] rounded-[10px]" type="text" />
               </div>
               {/* <div className="flex flex-col justify-end">
                 <p className="mb-[10px]">Last Name</p>
                 <input type="text" className="mr-[54px] mb-[10px] rounded-[10px]" />
               </div> */}
               <div className="col-span-1">
-                <DropZoneComponent />
+                <DropZoneComponent /> {/* handleImage */}
               </div>
             </div>
           </div>
@@ -72,19 +90,19 @@ export function EditProfileModal(props: IEditProfileProps) {
           <div className="flex flex-col">
             <div className="flex flex-col">
               <p className="mb-[10px]">What city do you live in?</p>
-              <input type="text" className="rounded-[10px] mb-[10px]" />
+              <input onChange={(e) => setLocation(e.target.value)} type="text" className="rounded-[10px] mb-[10px]" />
             </div>
             <div className="flex flex-col">
               <p className="mb-[10px]">Education</p>
-              <input type="text" className="rounded-[10px] mb-[10px]" />
+              <input onChange={(e) => setEducation(e.target.value)} type="text" className="rounded-[10px] mb-[10px]" />
             </div>
             <div className="flex flex-col">
               <p className="mb-[10px]">Years of Experience</p>
-              <input type="text" className="rounded-[10px] mb-[10px]" />
+              <input onChange={(e) => setYoE(e.target.value)} type="text" className="rounded-[10px] mb-[10px]" />
             </div>
             <div className="flex flex-col">
               <p className="mb-[10px]">What is your current level at job interviews?</p>
-              <DropDownComponent />
+              <DropDownComponent passUseState={setJobInterviewLevel} />
             </div>
           </div>
         </Modal.Body>
@@ -93,13 +111,13 @@ export function EditProfileModal(props: IEditProfileProps) {
           props.isNotCreate &&
           <div className="flex justify-between pb-[15px] px-[24px] pt-[10px]">
             <button onClick={() => props.close(false)} className="text-[30px] bg-[#D9D9D9] font-[DMSerifText] text-black border rounded-[10px] px-[18px] py-[6px] ">Cancel</button>
-            <button onClick={() => props.close(false)} className="text-[30px] bg-[#2B170C] font-[DMSerifText] text-white rounded-[10px] px-[35px] py-[6px] ">Save</button>
+            <button onClick={() => submitCreateProfile()} className="text-[30px] bg-[#2B170C] font-[DMSerifText] text-white rounded-[10px] px-[35px] py-[6px] ">Save</button>
           </div>
         }
         {
           props.isNotCreate === false &&
           <div className="flex justify-end pb-[15px] px-[24px] pt-[10px]">
-            <button onClick={() => props.close(false)} className="text-[30px] bg-[#2B170C] font-[DMSerifText] text-white rounded-[10px] px-[35px] py-[6px] ">Save</button>
+            <button onClick={() => submitCreateProfile()} className="text-[30px] bg-[#2B170C] font-[DMSerifText] text-white rounded-[10px] px-[35px] py-[6px] ">Save</button>
           </div>
         }
       </Modal>
