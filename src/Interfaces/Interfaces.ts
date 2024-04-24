@@ -49,3 +49,29 @@ export interface IPracticeData {
     datePick: string,
     timePick: string
 }
+
+export interface IAppointments {
+        id: number,
+        userId: number,
+        partnerId: number,
+        interviewPractice: string,
+        typePractice: string,
+        typeExperience: string,
+        selectedDate: string,
+        timezone: string,
+        testQuestions: string,
+        language: string,
+        isPartnered: boolean,
+        isDeleted: boolean
+}
+
+export interface ScheduleComponentProps {
+    selectedDate: string;
+    typePractice: string;
+    testQuestions: string;
+    language: string;
+  }
+
+  export interface IAppointmentData {
+    appointments: IAppointments[];
+  }

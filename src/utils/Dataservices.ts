@@ -1,4 +1,4 @@
-import { IToken, IUserData, IUserInfo } from "@/Interfaces/Interfaces";
+import { IAppointments, IToken, IUserData, IUserInfo } from "@/Interfaces/Interfaces";
 
 const url = "https://mocktalksapihosting.azurewebsites.net";
 let userData: IUserData;
@@ -74,3 +74,30 @@ export const changePassword = async (username: string, password: string) => {
 
     return data;
 }
+
+
+export const createAppointment = async (appointment: IAppointments) => {
+    const res = await fetch(url + '/MT_Schedule/CreateScheduledMeeting', {
+        method: "POST",
+        headers: {
+            'Content-Type': "application/json"
+        },
+        body: JSON.stringify(appointment)
+    });
+
+    if (!res.ok) {
+        const message = "An error has Occurred " + res.status;
+        throw new Error(message);
+    }
+
+    const data = await res.json();
+}
+
+export const getAppointments = async () =>{
+    const res = await fetch(url + '/MT_Schedule/GetMeetingsByUserId/' + 0)
+    const data = await res.json();
+    console.log(data)
+    return data;
+}
+
+getAppointments();
