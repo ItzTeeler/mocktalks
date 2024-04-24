@@ -69,7 +69,9 @@ const ScheduleComponent = (props: IMockInterviewProps) => {
                         </div>
                         <div className='flex items-center max-[300px]:pl-1 px-2 font-[Source-Sans-Pro] text-xl h-16'>
                             <div className='w-full flex flex-col space-y-1'>
-                                <Button className='bg-[#D9D9D9] text-black font-[Source-Sans-Pro] rounded-full h-6'>Cancel</Button>
+                                <CancelAppointmentModal open={false} close={function (value: React.SetStateAction<boolean>): void {
+                                    throw new Error('Function not implemented.')
+                                }} />
                                 <Button className='bg-[#2B170C] text-white font-[Source-Sans-Pro] rounded-full h-6'>Reschedule</Button>
                             </div>
                         </div>
