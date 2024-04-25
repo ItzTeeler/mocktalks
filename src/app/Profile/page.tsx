@@ -89,7 +89,7 @@ const Page = () => {
       <NavbarComponent /> {/* Top Navbar */}
 
       {
-        openModal && userGlobalInfo && <EditProfileModal userInfoPass={userGlobalInfo} isNotCreate={isNotCreateProfile} open={openModal} close={setOpenModal} />
+        openModal && userGlobalInfo && <EditProfileModal userInfoPass={userGlobalInfo} setUserProfile={setUserProfileInfo} setIsNotCreate={setIsNotCreateProfile} isNotCreate={isNotCreateProfile} open={openModal} close={setOpenModal} />
       }
 
 
@@ -106,16 +106,16 @@ const Page = () => {
                   </div>
                   <div className='flex justify-center items-center'>
                     <div>
-                      <p className='text-[36px] font-[Source-Sans-Pro] min-[1440px]:text-[28px] 2xl:text-[36px]'>NAME: {userProfileInfo?.fullName}</p>
-                      <p className='text-[36px] font-[Source-Sans-Pro] min-[1440px]:text-[28px] 2xl:text-[36px]'>LOCATION: {userProfileInfo?.locationed}</p>
-                      <p className='text-[36px] font-[Source-Sans-Pro] min-[1440px]:text-[28px] 2xl:text-[36px]'>EDUCATION: {userProfileInfo?.occupation}</p>
+                      <p className='text-[36px] font-[Source-Sans-Pro]'>NAME: {userProfileInfo?.fullName}</p>
+                      <p className='text-[36px] font-[Source-Sans-Pro]'>LOCATION: {userProfileInfo?.locationed}</p>
+                      <p className='text-[36px] font-[Source-Sans-Pro]'>EDUCATION: {userProfileInfo?.occupation}</p>
                     </div>
                   </div>
                   <div className='flex justify-center items-center'>
                     <div>
-                      <p className='text-[36px] font-[Source-Sans-Pro] min-[1440px]:text-[28px] 2xl:text-[36px]'>YEARS OF EXPERIENCE: {userProfileInfo?.experienceLevel}</p>
-                      <p className='text-[36px] font-[Source-Sans-Pro] min-[1440px]:text-[28px] 2xl:text-[36px]'>CURRENT LEVEL: {userProfileInfo?.jobInterviewLevel}</p>
-                      <p className='text-[36px] font-[Source-Sans-Pro] min-[1440px]:text-[28px] 2xl:text-[36px] text-white cursor-default' style={{ userSelect: "none" }}>a</p>
+                      <p className='text-[36px] font-[Source-Sans-Pro]'>YEARS OF EXPERIENCE: {userProfileInfo?.experienceLevel}</p>
+                      <p className='text-[36px] font-[Source-Sans-Pro]'>CURRENT LEVEL: {userProfileInfo?.jobInterviewLevel}</p>
+                      <p className='text-[36px] font-[Source-Sans-Pro] text-white cursor-default' style={{ userSelect: "none" }}>a</p>
                     </div>
                   </div>
                   <div className='flex justify-end'>

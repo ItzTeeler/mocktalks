@@ -159,7 +159,7 @@ export function EditProfileModal(props: IEditProfileProps) {
             <div className="grid grid-cols-3">
               <div className="flex flex-col col-span-2 justify-end">
                 <p className="mb-[10px]">Full Name</p>
-                <input onChange={(e) => setFullName(e.target.value)} className="mr-[18px] mb-[10px] rounded-[10px]" type="text" />
+                <input placeholder={fullName} value={fullName} onChange={(e) => setFullName(e.target.value)} className="mr-[18px] mb-[10px] rounded-[10px]" type="text" />
               </div>
               <div className="col-span-1">
                 <DropZoneComponent /> {/* handleImage */}
