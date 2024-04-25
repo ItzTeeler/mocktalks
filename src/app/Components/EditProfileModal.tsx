@@ -5,7 +5,7 @@ import { useState } from "react";
 import { DropDownComponent } from "./DropDownComponent";
 import { DropZoneComponent } from "./DropZoneComponent";
 import { IEditProfileProps, IProfileData } from "@/Interfaces/Interfaces";
-import { createProfileItem } from "@/utils/Dataservices";
+import { createProfileItem, updateProfileItem } from "@/utils/Dataservices";
 
 
 export function EditProfileModal(props: IEditProfileProps) {
@@ -59,7 +59,42 @@ export function EditProfileModal(props: IEditProfileProps) {
     if (profileData.jobInterviewLevel === "" || profileData.fullName === "") {
       console.log("idiot")
     } else {
+      props.setUserProfile(profileData);
       createProfileItem(profileData);
+      props.close(false);
+      props.setIsNotCreate(true);
+    }
+  }
+
+  const submitUpdateProfile = () => {
+    let profileData: IProfileData = {
+      id: 0,
+      userId: props.userInfoPass.id,
+      fullName: fullName,
+      occupation: education,
+      experienceLevel: YoE,
+      jobInterviewLevel: jobInterviewLevel,
+      locationed: location,
+      profileImg: "Empty"
+    }
+
+    if (profileData.occupation === "") {
+      profileData.occupation = "Empty";
+    }
+    if (profileData.experienceLevel === "") {
+      profileData.experienceLevel = "Empty";
+    }
+    if (profileData.locationed === "") {
+      profileData.locationed = "Empty";
+    }
+
+    console.log(profileData);
+
+    if (profileData.jobInterviewLevel === "" || profileData.fullName === "") {
+      console.log("idiot")
+    } else {
+      props.setUserProfile(profileData);
+      updateProfileItem(profileData);
       props.close(false);
     }
   }
@@ -75,7 +110,7 @@ export function EditProfileModal(props: IEditProfileProps) {
             <div className="grid grid-cols-3">
               <div className="flex flex-col col-span-2 justify-end">
                 <p className="mb-[10px]">Full Name</p>
-                <input onChange={(e) => setFullName(e.target.value)} className="mr-[18px] mb-[10px] rounded-[10px]" type="text" />
+                <input placeholder={fullName} value={fullName} onChange={(e) => setFullName(e.target.value)} className="mr-[18px] mb-[10px] rounded-[10px]" type="text" />
               </div>
               <div className="flex flex-col justify-end">
                 <p className="mb-[10px]">Last Name</p>
@@ -124,10 +159,10 @@ export function EditProfileModal(props: IEditProfileProps) {
         </Modal.Body>
 
         {
-          props.isNotCreate &&
+          props.isNotCreate === true &&
           <div className="flex justify-between pb-[15px] px-[24px] pt-[10px]">
             <button onClick={() => props.close(false)} className="text-[30px] bg-[#D9D9D9] font-[DMSerifText] text-black border rounded-[10px] px-[18px] py-[6px] ">Cancel</button>
-            <button onClick={() => submitCreateProfile()} className="text-[30px] bg-[#2B170C] font-[DMSerifText] text-white rounded-[10px] px-[35px] py-[6px] ">Save</button>
+            <button onClick={() => submitUpdateProfile()} className="text-[30px] bg-[#2B170C] font-[DMSerifText] text-white rounded-[10px] px-[35px] py-[6px] ">Save</button>
           </div>
         }
         {
