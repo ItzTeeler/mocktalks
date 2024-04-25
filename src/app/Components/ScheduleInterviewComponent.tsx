@@ -8,7 +8,7 @@ import RightButton from "@/Assets/RightButton.png";
 import { createAppointment } from "@/utils/Dataservices";
 import { IAppointments } from "@/Interfaces/Interfaces";
 
-export function ScheduleInterviewComponent(props: {submitBool: () => void}) {
+export function ScheduleInterviewComponent(props: {submitBool: () => void, userId: number}) {
   const [openModal, setOpenModal] = useState<boolean>(false);
   const [openModal2, setOpenModal2] = useState<boolean>(false);
   const [openModal3, setOpenModal3] = useState<boolean>(false);
@@ -24,10 +24,10 @@ export function ScheduleInterviewComponent(props: {submitBool: () => void}) {
 
   const [interviewObject, setInterviewObject] = useState<IAppointments>();
 
-  const handleSubmit = () => {
+  const handleSubmit = async () => {
     const newAppointment: IAppointments = {
       id: 0,
-      userId: 0,
+      userId: props.userId,
       partnerId: 0,
       interviewPractice: pracInterview,
       typePractice: typeOfInterview,
@@ -39,10 +39,10 @@ export function ScheduleInterviewComponent(props: {submitBool: () => void}) {
       isPartnered: false,
       isDeleted: false
     };
-    props.submitBool();
     setInterviewObject(newAppointment);
-    createAppointment(newAppointment);
+    await createAppointment(newAppointment);
     console.log(newAppointment);
+    props.submitBool();
   }
 
 
@@ -161,7 +161,7 @@ export function ScheduleInterviewComponent(props: {submitBool: () => void}) {
         className="bg-[#2B170C] h-full min-[1440px]:h-32 2xl:h-full"
         onClick={() => setOpenModal(true)}
       >
-        <span className="text-white text-4xl font-[Source-Sans-Pro] px-32">
+        <span className="text-white text-[20px] lg:text-4xl font-[Source-Sans-Pro] px-[85px] lg:px-32">
           START A PRACTICE SESSION
         </span>
       </Button>
