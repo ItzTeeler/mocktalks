@@ -12,8 +12,8 @@ import ScheduleComponent from '../Components/ScheduleComponent'
 import { AddAppointmentModal } from '../Components/AddAppointmentModal'
 import { EditProfileModal } from '../Components/EditProfileModal'
 import { ScheduleInterviewComponent } from '../Components/ScheduleInterviewComponent'
-import { getAppointments } from '@/utils/Dataservices'
-import { IAppointments } from '@/Interfaces/Interfaces'
+import { getAppointments, getProfileItemByUserId, loggedInData } from '@/utils/Dataservices'
+import { IAppointments, IProfileData, IUserData } from '@/Interfaces/Interfaces'
 
 const Page = () => {
   const [openAppointmentModal, setOpenAppointmentModal] = useState<boolean>(false);
@@ -21,16 +21,28 @@ const Page = () => {
   const [appointmentData, setAppointmentData] = useState<IAppointments[]>([]);
   const [submitBool, setSubmitBool] = useState<boolean>(true);
 
+  const [userIdInfo, setUserIdInfo] = useState<any>();
+
   useEffect(() => {
+
     const getData = async () => {
-      const dataAppoint = await getAppointments();
+      const userId = sessionStorage.getItem('userId');
+      console.log(userId)
+      setUserIdInfo(userId);
+      const dataAppoint = await getAppointments(Number(userId));
       setAppointmentData(dataAppoint);
-      console.log(dataAppoint);
+      console.log(appointmentData);
     };
+
     getData();
+
+
   }, [submitBool]);
 
-  const handleSubmitBool = () =>{
+
+
+
+  const handleSubmitBool = () => {
     setSubmitBool(!submitBool)
   }
   return (
@@ -74,7 +86,7 @@ const Page = () => {
                 <p className='text-white text-xl min-[1440px]:text-lg 2xl:text-xl font-[Source-Sans-Pro] font-extralight'>Empower Your Success, One Mock Interview at a Time with MockTalks!</p>
               </div>
               <div>
-                <ScheduleInterviewComponent submitBool={handleSubmitBool} />
+                <ScheduleInterviewComponent submitBool={handleSubmitBool} userId={userIdInfo} />
               </div>
             </div>
           </div>
@@ -94,7 +106,7 @@ const Page = () => {
               <hr style={{ border: '1px black solid' }} />
             </div>
             <div className='p-3'>
-              {appointmentData ? (
+              {Array.isArray(appointmentData) && appointmentData.length > 0 ? (
                 appointmentData.map((appointment: any, index: any) => (
                   <ScheduleComponent
                     key={index}
@@ -140,13 +152,13 @@ const Page = () => {
                 <h1 className='text-white text-xl font-[DMSerifText] font-normal'>PRACTICE MAKES PERFECT</h1>
                 <p className='text-white max-[300px]:text-sm text-lg font-[Source-Sans-Pro] font-extralight'>Empower Your Success, One Mock Interview at a Time with MockTalks!</p>
               </div>
-              <ScheduleInterviewComponent submitBool={handleSubmitBool}/>
+              <ScheduleInterviewComponent submitBool={handleSubmitBool} userId={userIdInfo} />
             </div>
           </div>
         </div>
 
         <div className='p-3'>
-          {appointmentData ? (
+          {Array.isArray(appointmentData) && appointmentData.length > 0 ? (
             appointmentData.map((appointment: any, index: any) => (
               <ScheduleComponent
                 key={index}

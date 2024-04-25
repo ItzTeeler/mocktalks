@@ -75,6 +75,11 @@ export const changePassword = async (username: string, password: string) => {
     return data;
 }
 
+export const getProfileItemByUserId = async (id: number) => {
+    const res = await fetch (url + "/MT_Profile/GetProfileItemByUserId/" + id);
+    const data = await res.json();
+    return data;
+}
 
 export const createAppointment = async (appointment: IAppointments) => {
     const res = await fetch(url + '/MT_Schedule/CreateScheduledMeeting', {
@@ -93,11 +98,9 @@ export const createAppointment = async (appointment: IAppointments) => {
     const data = await res.json();
 }
 
-export const getAppointments = async () =>{
-    const res = await fetch(url + '/MT_Schedule/GetMeetingsByUserId/' + 0)
+export const getAppointments = async (userId: number) =>{
+    const res = await fetch(url + '/MT_Schedule/GetMeetingsByUserId/' + userId)
     const data = await res.json();
     console.log(data)
     return data;
 }
-
-getAppointments();

@@ -8,6 +8,7 @@ export interface IUserInfo{
 }
 
 export interface IUserData{
+    id: number
     userId: number
     publicName: string
 }
