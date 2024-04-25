@@ -12,6 +12,7 @@ import ScheduleComponent from '../Components/ScheduleComponent'
 import { AddAppointmentModal } from '../Components/AddAppointmentModal'
 import { EditProfileModal } from '../Components/EditProfileModal'
 import { ScheduleInterviewComponent } from '../Components/ScheduleInterviewComponent'
+import { PendingNotificationComponent } from '../Components/PendingNotificationComponent'
 
 const Page = () => {
   const [openAppointmentModal, setOpenAppointmentModal] = useState<boolean>(false);
@@ -20,6 +21,8 @@ const Page = () => {
   return (
     <>
       <NavbarComponent /> {/* Top Navbar */}
+      <PendingNotificationComponent/> {/* Notification Component */}
+      
       <div className='hidden min-[1440px]:block'> {/* Desktop Design */}
         <div className='px-20 py-14'>
           {/* Top Section */}
