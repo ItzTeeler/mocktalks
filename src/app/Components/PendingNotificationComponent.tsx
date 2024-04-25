@@ -20,7 +20,7 @@ export function PendingNotificationComponent() {
     return (
         <>
             <div className={`sm:absolute sm:right-12 ${visible}`}>
-                <div className="w-[360px] h-[84px] bg-white border-black border-2 px-5 py-2 shadow-xl">
+                <div className="w-full sm:w-[360px] h-[84px] bg-white border-black border-2 px-5 py-2 shadow-xl">
                     <div className="grid grid-cols-2">
                         <div className="w-[192px]">
                             <p className="text-[14px] font-[DMSerifText]">{name} has requested an appointment</p>
