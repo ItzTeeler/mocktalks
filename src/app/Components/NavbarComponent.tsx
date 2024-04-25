@@ -20,7 +20,6 @@ export default function NavbarComponent() {
     }
   };
 
-
   return (
     <>
       <Navbar fluid>
