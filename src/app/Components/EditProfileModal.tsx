@@ -70,6 +70,39 @@ export function EditProfileModal(props: IEditProfileProps) {
 
   const submitUpdateProfile = () => {
     let profileData: IProfileData = {
+      id: 0,
+      userId: props.userInfoPass.id,
+      fullName: fullName,
+      occupation: education,
+      experienceLevel: YoE,
+      jobInterviewLevel: jobInterviewLevel,
+      locationed: location,
+      profileImg: "Empty"
+    }
+
+    if (profileData.occupation === "") {
+      profileData.occupation = "Empty";
+    }
+    if (profileData.experienceLevel === "") {
+      profileData.experienceLevel = "Empty";
+    }
+    if (profileData.locationed === "") {
+      profileData.locationed = "Empty";
+    }
+
+    console.log(profileData);
+
+    if (profileData.jobInterviewLevel === "" || profileData.fullName === "") {
+      console.log("idiot")
+    } else {
+      props.setUserProfile(profileData);
+      updateProfileItem(profileData);
+      props.close(false);
+    }
+  }
+
+  const submitUpdateProfile = () => {
+    let profileData: IProfileData = {
       id: userData!.id,
       userId: props.userInfoPass.id,
       fullName: fullName,
@@ -126,7 +159,7 @@ export function EditProfileModal(props: IEditProfileProps) {
             <div className="grid grid-cols-3">
               <div className="flex flex-col col-span-2 justify-end">
                 <p className="mb-[10px]">Full Name</p>
-                <input onChange={(e) => setFullName(e.target.value)} className="mr-[18px] mb-[10px] rounded-[10px]" type="text" />
+                <input placeholder={fullName} value={fullName} onChange={(e) => setFullName(e.target.value)} className="mr-[18px] mb-[10px] rounded-[10px]" type="text" />
               </div>
               <div className="col-span-1">
                 <DropZoneComponent /> {/* handleImage */}
