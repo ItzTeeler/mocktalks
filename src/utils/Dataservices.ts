@@ -71,9 +71,23 @@ export const createProfileItem = async (profileData: IProfileData) => {
     return data;
 }
 
+export const updateProfileItem = async (profileData: IProfileData) => {
+    const res = await fetch (url + "/MT_Profile/UpdateProfileItem", {
+        method: "PUT",
+        headers: {
+            'Content-Type': "application/json"
+        },
+        body: JSON.stringify(profileData)
+    });
 
+    if (!res.ok) {
+        const message = "An error has Occurred " + res.status;
+        throw new Error(message);
+    }
 
-
+    const data = await res.json();
+    return data;
+}
 
 export const checkToken = () => {
     let result = false;

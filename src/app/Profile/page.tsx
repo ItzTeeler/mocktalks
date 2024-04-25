@@ -45,7 +45,7 @@ const Page = () => {
       <NavbarComponent /> {/* Top Navbar */}
 
       {
-        openModal && userGlobalInfo && <EditProfileModal userInfoPass={userGlobalInfo} isNotCreate={isNotCreateProfile} open={openModal} close={setOpenModal} />
+        openModal && userGlobalInfo && <EditProfileModal userInfoPass={userGlobalInfo} setUserProfile={setUserProfileInfo} setIsNotCreate={setIsNotCreateProfile} isNotCreate={isNotCreateProfile} open={openModal} close={setOpenModal} />
       }
 
       {
@@ -61,15 +61,15 @@ const Page = () => {
                   </div>
                   <div className='flex justify-center items-center'>
                     <div>
-                      <p className='text-[36px] font-[Source-Sans-Pro]'>NAME: Tyler Nguyen</p>
-                      <p className='text-[36px] font-[Source-Sans-Pro]'>LOCATION: Stockton, CA</p>
-                      <p className='text-[36px] font-[Source-Sans-Pro]'>EDUCATION: Student</p>
+                      <p className='text-[36px] font-[Source-Sans-Pro]'>NAME: {userProfileInfo?.fullName}</p>
+                      <p className='text-[36px] font-[Source-Sans-Pro]'>LOCATION: {userProfileInfo?.locationed}</p>
+                      <p className='text-[36px] font-[Source-Sans-Pro]'>EDUCATION: {userProfileInfo?.occupation}</p>
                     </div>
                   </div>
                   <div className='flex justify-center items-center'>
                     <div>
-                      <p className='text-[36px] font-[Source-Sans-Pro]'>YEARS OF EXPERIENCE: Less than 1 year</p>
-                      <p className='text-[36px] font-[Source-Sans-Pro]'>CURRENT LEVEL: Beginner</p>
+                      <p className='text-[36px] font-[Source-Sans-Pro]'>YEARS OF EXPERIENCE: {userProfileInfo?.experienceLevel}</p>
+                      <p className='text-[36px] font-[Source-Sans-Pro]'>CURRENT LEVEL: {userProfileInfo?.jobInterviewLevel}</p>
                       <p className='text-[36px] font-[Source-Sans-Pro] text-white cursor-default' style={{ userSelect: "none" }}>a</p>
                     </div>
                   </div>
@@ -77,7 +77,7 @@ const Page = () => {
                     {/* <EditProfileModal open={false} close={function (value: React.SetStateAction<boolean>): void {
                   throw new Error('Function not implemented.')
                 } }/> */}
-                    <Image onClick={() => setOpenModal(true)} src={listDashesImage} className='w-auto cursor-pointer' alt='test' />
+                    <Image onClick={() => setOpenModal(true)} src={listDashesImage} className='w-auto cursor-pointer' alt='User Profile Image' />
                   </div>
                 </div>
               </div>

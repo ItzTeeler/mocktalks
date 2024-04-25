@@ -21,6 +21,8 @@ export interface IMockInterviewProps{
 }
 
 export interface IEditProfileProps {
+    setIsNotCreate: React.Dispatch<React.SetStateAction<boolean>>,
+    setUserProfile: React.Dispatch<React.SetStateAction<IProfileData | undefined>>,
     isNotCreate: boolean,
     open: boolean,
     close: React.Dispatch<React.SetStateAction<boolean>>;
