@@ -1,4 +1,4 @@
-import { IToken, IUserData, IUserInfo } from "@/Interfaces/Interfaces";
+import { IAppointments, IProfileData, IToken, IUserData, IUserInfo } from "@/Interfaces/Interfaces";
 
 const url = "https://mocktalksapihosting.azurewebsites.net";
 let userData: IUserData;
@@ -47,14 +47,8 @@ export const loggedInData = () => {
     return userData;
 }
 
-export const getProfileItemByUserId = async (id: number) => {
-    const res = await fetch (url + "/MT_Profile/GetProfileItemByUserId/" + id);
-    const data = await res.json();
-    return data;
-}
-
 export const createProfileItem = async (profileData: IProfileData) => {
-    const res = await fetch (url + "/MT_Profile/CreateProfileItem", {
+    const res = await fetch(url + "/MT_Profile/CreateProfileItem", {
         method: "POST",
         headers: {
             'Content-Type': "application/json"
@@ -72,7 +66,7 @@ export const createProfileItem = async (profileData: IProfileData) => {
 }
 
 export const updateProfileItem = async (profileData: IProfileData) => {
-    const res = await fetch (url + "/MT_Profile/UpdateProfileItem", {
+    const res = await fetch(url + "/MT_Profile/UpdateProfileItem", {
         method: "PUT",
         headers: {
             'Content-Type': "application/json"
@@ -119,7 +113,7 @@ export const changePassword = async (username: string, password: string) => {
 }
 
 export const getProfileItemByUserId = async (id: number) => {
-    const res = await fetch (url + "/MT_Profile/GetProfileItemByUserId/" + id);
+    const res = await fetch(url + "/MT_Profile/GetProfileItemByUserId/" + id);
     const data = await res.json();
     return data;
 }
@@ -141,7 +135,7 @@ export const createAppointment = async (appointment: IAppointments) => {
     const data = await res.json();
 }
 
-export const getAppointments = async (userId: number) =>{
+export const getAppointments = async (userId: number) => {
     const res = await fetch(url + '/MT_Schedule/GetMeetingsByUserId/' + userId)
     const data = await res.json();
     console.log(data)
