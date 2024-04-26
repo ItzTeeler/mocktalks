@@ -70,6 +70,7 @@ const Page = () => {
         openModal && userGlobalInfo && <EditProfileModal userInfoPass={userGlobalInfo} setUserProfile={setUserProfileInfo} setIsNotCreate={setIsNotCreateProfile} isNotCreate={isNotCreateProfile} open={openModal} close={setOpenModal} />
       }
 
+
       {
         isNotCreateProfile &&
         <div>
@@ -114,38 +115,38 @@ const Page = () => {
                 </div>
               </div>
 
-          {/* Bottom Section */}
-          <div className='bg-white w-full rounded-2xl'>
-            <h1 className='text-black text-4xl font-[DMSerifText] text-center p-5'>UPCOMING PRACTICE INTERVIEWS</h1>
-            <div className='bg-[#D9D9D9]'>
-              <hr style={{ border: '1px black solid' }} />
-              <div className='grid grid-flow-col p-3'>
-                <p className='text-4xl text-black font-[DMSerifText] w-80 min-[1440px]:text-2xl min-[1440px]:w-40 2xl:text-4xl 2xl:w-80'>When</p>
-                <p className='text-4xl text-black font-[DMSerifText] w-48 min-[1440px]:text-2xl min-[1440px]:w-40 2xl:text-4xl 2xl:w-48'>Type</p>
-                <p className='text-4xl text-black font-[DMSerifText] w-96 min-[1440px]:text-2xl min-[1440px]:w-40 2xl:text-4xl 2xl:w-96'>Test Questions</p>
-                <p className='text-4xl text-black font-[DMSerifText] w-60 min-[1440px]:text-2xl min-[1440px]:w-40 2xl:text-4xl 2xl:w-60'>Language</p>
-                <p className='text-4xl text-black font-[DMSerifText] w-[480px] min-[1440px]:w-[320px] min-[1440px]:text-2xl 2xl:text-4xl 2xl:w-[480px]'>Action</p>
-              </div>
-              <hr style={{ border: '1px black solid' }} />
-            </div>
-            <div className='p-3'>
-              {Array.isArray(appointmentData) && appointmentData.length > 0 ? (
-                appointmentData.map((appointment: any, index: any) => (
-                  <ScheduleComponent
-                    key={index}
-                    id={appointment.id}
-                    selectedDate={appointment.selectedDate}
-                    typePractice={appointment.typePractice}
-                    testQuestions={appointment.testQuestions}
-                    language={appointment.language}
-                    time={appointment.timezone}
-                    submitBool={handleSubmitBool}
-                  />
-                ))
-              ) : (
-                <p>No appointments available</p>
-              )}
-            </div>
+              {/* Bottom Section */}
+              <div className='bg-white w-full rounded-2xl'>
+                <h1 className='text-black text-4xl font-[DMSerifText] text-center p-5'>UPCOMING PRACTICE INTERVIEWS</h1>
+                <div className='bg-[#D9D9D9]'>
+                  <hr style={{ border: '1px black solid' }} />
+                  <div className='grid grid-flow-col p-3'>
+                    <p className='text-4xl text-black font-[DMSerifText] w-80 min-[1440px]:text-2xl min-[1440px]:w-40 2xl:text-4xl 2xl:w-80'>When</p>
+                    <p className='text-4xl text-black font-[DMSerifText] w-48 min-[1440px]:text-2xl min-[1440px]:w-40 2xl:text-4xl 2xl:w-48'>Type</p>
+                    <p className='text-4xl text-black font-[DMSerifText] w-96 min-[1440px]:text-2xl min-[1440px]:w-40 2xl:text-4xl 2xl:w-96'>Test Questions</p>
+                    <p className='text-4xl text-black font-[DMSerifText] w-60 min-[1440px]:text-2xl min-[1440px]:w-40 2xl:text-4xl 2xl:w-60'>Language</p>
+                    <p className='text-4xl text-black font-[DMSerifText] w-[480px] min-[1440px]:w-[320px] min-[1440px]:text-2xl 2xl:text-4xl 2xl:w-[480px]'>Action</p>
+                  </div>
+                  <hr style={{ border: '1px black solid' }} />
+                </div>
+                <div className='p-3'>
+                  {Array.isArray(appointmentData) && appointmentData.length > 0 ? (
+                    appointmentData.map((appointment: any, index: any) => (
+                      <ScheduleComponent
+                        key={index}
+                        id={appointment.id}
+                        selectedDate={appointment.selectedDate}
+                        typePractice={appointment.typePractice}
+                        testQuestions={appointment.testQuestions}
+                        language={appointment.language}
+                        time={appointment.timezone}
+                        submitBool={handleSubmitBool}
+                      />
+                    ))
+                  ) : (
+                    <p>No appointments available</p>
+                  )}
+                </div>
 
               </div>
             </div>
@@ -181,28 +182,28 @@ const Page = () => {
               </div>
             </div>
 
-        <div className='p-3'>
-          {Array.isArray(appointmentData) && appointmentData.length > 0 ? (
-            appointmentData.map((appointment: any, index: any) => (
-              <ScheduleComponent
-                key={index}
-                id={appointment.id}
-                selectedDate={appointment.selectedDate}
-                typePractice={appointment.typePractice}
-                testQuestions={appointment.testQuestions}
-                language={appointment.language}
-                time={appointment.timezone}
-                submitBool={handleSubmitBool}
-              />
-            ))
-          ) : (
-            <p>No appointments available</p>
-          )}
-        </div>
+            <div className='p-3'>
+              {Array.isArray(appointmentData) && appointmentData.length > 0 ? (
+                appointmentData.map((appointment: any, index: any) => (
+                  <ScheduleComponent
+                    key={index}
+                    id={appointment.id}
+                    selectedDate={appointment.selectedDate}
+                    typePractice={appointment.typePractice}
+                    testQuestions={appointment.testQuestions}
+                    language={appointment.language}
+                    time={appointment.timezone}
+                    submitBool={handleSubmitBool}
+                  />
+                ))
+              ) : (
+                <p>No appointments available</p>
+              )}
+            </div>
 
-      </div>
-    </>
+          </div>
+        </>
   )
 }
 
-export default Page
+      export default Page
