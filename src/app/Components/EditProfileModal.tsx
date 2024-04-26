@@ -184,22 +184,6 @@ export function EditProfileModal(props: IEditProfileProps) {
               <p className="mb-[10px]">What is your current level at job interviews?</p>
               <DropDownComponent passUseState={setJobInterviewLevel} />
             </div>
-            <div className="flex flex-col">
-              <p className="mb-[10px]">What city do you live in?</p>
-              <input onChange={(e) => setLocation(e.target.value)} type="text" className="rounded-[10px] mb-[10px]" />
-            </div>
-            <div className="flex flex-col">
-              <p className="mb-[10px]">Education</p>
-              <input onChange={(e) => setEducation(e.target.value)} type="text" className="rounded-[10px] mb-[10px]" />
-            </div>
-            <div className="flex flex-col">
-              <p className="mb-[10px]">Years of Experience</p>
-              <input onChange={(e) => setYoE(e.target.value)} type="text" className="rounded-[10px] mb-[10px]" />
-            </div>
-            <div className="flex flex-col">
-              <p className="mb-[10px]">What is your current level at job interviews?</p>
-              <DropDownComponent passUseState={setJobInterviewLevel} />
-            </div>
           </div>
         </Modal.Body>
 
