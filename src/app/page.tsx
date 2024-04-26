@@ -2,7 +2,7 @@
 import Image from "next/image";
 import { useEffect, useState } from "react";
 import backArrow from '../Assets/BackArrow.png'
-import { changePassword, createAccount, getUserData, login } from "@/utils/Dataservices";
+import { changePassword, createAccount, getUserData, loggedInData, login } from "@/utils/Dataservices";
 import { IToken } from "@/Interfaces/Interfaces";
 import { useRouter } from "next/navigation";
 
@@ -46,7 +46,9 @@ export default function LoginPage() {
         let token: IToken = await login(userData);
         if (token.token != null) {
           localStorage.setItem("Token", token.token);
-          getUserData(username);
+          await getUserData(username);
+          let userId = await loggedInData()
+          sessionStorage.setItem("userId", String(userId?.id))
           router.push('/Profile');
         } else {
           alert("Login Failed");

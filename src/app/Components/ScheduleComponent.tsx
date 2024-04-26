@@ -1,39 +1,45 @@
 'use client';
 
-import { IMockInterviewProps } from '@/Interfaces/Interfaces';
+import { IAppointments, IMockInterviewProps, ScheduleComponentProps } from '@/Interfaces/Interfaces';
 import { Button } from 'flowbite-react';
 import React from 'react'
 import { CancelAppointmentModal } from './CancelAppointmentModal';
 
-const ScheduleComponent = (props: IMockInterviewProps) => {
+const ScheduleComponent = (props: ScheduleComponentProps) => {
     return (
         <>
             <div className='hidden min-[1440px]:block'>
                 <hr />
                 <div className='grid grid-flow-col p-3'>
+
                     <div className='w-80 min-[1440px]:w-40 2xl:w-80'>
-                        <p className='text-4xl text-black font-[Source-Sans-Pro] min-[1440px]:text-2xl 2xl:text-4xl'>{props.date}</p>
+                        <p className='text-4xl text-black font-[Source-Sans-Pro] min-[1440px]:text-2xl 2xl:text-4xl'>{props.selectedDate}</p>
                     </div>
+
                     <div className='w-48 min-[1440px]:w-40 2xl:w-48'>
-                        <p className='text-4xl text-black font-[Source-Sans-Pro] min-[1440px]:text-2xl 2xl:text-4xl'>{props.type}</p>
+                        <p className='text-4xl text-black font-[Source-Sans-Pro] min-[1440px]:text-2xl 2xl:text-4xl'>{props.typePractice}</p>
                     </div>
+
                     <div className='w-96 min-[1440px]:w-40 2xl:w-96'>
-                        <p className='text-4xl text-black font-[Source-Sans-Pro] min-[1440px]:text-2xl 2xl:text-4xl'>{props.questions}</p>
+                        <p className='text-4xl text-black font-[Source-Sans-Pro] min-[1440px]:text-2xl 2xl:text-4xl'>{props.testQuestions}</p>
                     </div>
+
                     <div className='w-60 min-[1440px]:w-40 2xl:w-60'>
                         <p className='text-4xl text-black font-[Source-Sans-Pro] min-[1440px]:text-2xl 2xl:text-4xl'>{props.language}</p>
                     </div>
+
                     <div className='w-[480px] min-[1440px]:w-[320px] 2xl:w-[480px]'>
-                        <div className='flex flex-row space-x-4'>                        
+                        <div className='flex flex-row space-x-4'>
                             <CancelAppointmentModal open={false} close={function (value: React.SetStateAction<boolean>): void {
                                 throw new Error('Function not implemented.')
                             }} />
                             <Button className='bg-[#2B170C] w-full'><span className='text-white text-4xl font-[Source-Sans-Pro]'>Reschedule</span></Button>
                         </div>
+                        <hr />
                     </div>
                 </div>
-                <hr />
             </div>
+
             <div className='block min-[1440px]:hidden'>
                 <hr />
                 <div className='grid grid-cols-2 h-auto'>
@@ -56,13 +62,13 @@ const ScheduleComponent = (props: IMockInterviewProps) => {
                     </div>
                     <div className='grid grid-row-5 bg-white'>
                         <div className='flex items-center pl-5 max-[300px]:pl-1 font-[Source-Sans-Pro] text-xl h-16'>
-                            {props.date}
+                            {props.selectedDate}
                         </div>
                         <div className='flex items-center pl-5 max-[300px]:pl-1 font-[Source-Sans-Pro] text-xl h-16'>
-                            {props.type}
+                            {props.typePractice}
                         </div>
                         <div className='flex items-center pl-5 max-[300px]:pl-1 font-[Source-Sans-Pro] text-xl h-16'>
-                            {props.questions}
+                            {props.testQuestions}
                         </div>
                         <div className='flex items-center pl-5 max-[300px]:pl-1 font-[Source-Sans-Pro] text-xl h-16'>
                             {props.language}

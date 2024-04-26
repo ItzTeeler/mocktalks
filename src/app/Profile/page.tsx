@@ -1,6 +1,6 @@
 'use client'
 
-import React, { useState } from 'react'
+import React, { useEffect, useState } from 'react'
 import { Button } from 'flowbite-react'
 import NavbarComponent from '../Components/NavbarComponent'
 import Image from 'next/image'
@@ -13,11 +13,39 @@ import { AddAppointmentModal } from '../Components/AddAppointmentModal'
 import { EditProfileModal } from '../Components/EditProfileModal'
 import { ScheduleInterviewComponent } from '../Components/ScheduleInterviewComponent'
 import { PendingNotificationComponent } from '../Components/PendingNotificationComponent'
+import { getAppointments, getProfileItemByUserId, loggedInData } from '@/utils/Dataservices'
+import { IAppointments, IProfileData, IUserData } from '@/Interfaces/Interfaces'
 
 const Page = () => {
   const [openAppointmentModal, setOpenAppointmentModal] = useState<boolean>(false);
   const [openEditModal, setOpenEditModal] = useState<boolean>(false);
+  const [appointmentData, setAppointmentData] = useState<IAppointments[]>([]);
+  const [submitBool, setSubmitBool] = useState<boolean>(true);
 
+  const [userIdInfo, setUserIdInfo] = useState<any>();
+
+  useEffect(() => {
+
+    const getData = async () => {
+      const userId = sessionStorage.getItem('userId');
+      console.log(userId)
+      setUserIdInfo(userId);
+      const dataAppoint = await getAppointments(Number(userId));
+      setAppointmentData(dataAppoint);
+      console.log(appointmentData);
+    };
+
+    getData();
+
+
+  }, [submitBool]);
+
+
+
+
+  const handleSubmitBool = () => {
+    setSubmitBool(!submitBool)
+  }
   return (
     <>
       <NavbarComponent /> {/* Top Navbar */}
@@ -61,7 +89,7 @@ const Page = () => {
                 <p className='text-white text-xl min-[1440px]:text-lg 2xl:text-xl font-[Source-Sans-Pro] font-extralight'>Empower Your Success, One Mock Interview at a Time with MockTalks!</p>
               </div>
               <div>
-                <ScheduleInterviewComponent />
+                <ScheduleInterviewComponent submitBool={handleSubmitBool} userId={userIdInfo} />
               </div>
             </div>
           </div>
@@ -81,13 +109,21 @@ const Page = () => {
               <hr style={{ border: '1px black solid' }} />
             </div>
             <div className='p-3'>
-              <ScheduleComponent date='Fri, Feb 27, 2024, 8:00PM' type='Frontend' questions='Build a Calculator App' language='HTML/CSS/JS' />
-              <ScheduleComponent date='Fri, Feb 27, 2024, 8:00PM' type='Frontend' questions='Build a Calculator App' language='HTML/CSS/JS' />
-              <ScheduleComponent date='Fri, Feb 27, 2024, 8:00PM' type='Frontend' questions='Build a Calculator App' language='HTML/CSS/JS' />
-              <ScheduleComponent date='Fri, Feb 27, 2024, 8:00PM' type='Frontend' questions='Build a Calculator App' language='HTML/CSS/JS' />
-              <ScheduleComponent date='Fri, Feb 27, 2024, 8:00PM' type='Frontend' questions='Build a Calculator App' language='HTML/CSS/JS' />
-              <ScheduleComponent date='Fri, Feb 27, 2024, 8:00PM' type='Frontend' questions='Build a Calculator App' language='HTML/CSS/JS' />
+              {Array.isArray(appointmentData) && appointmentData.length > 0 ? (
+                appointmentData.map((appointment: any, index: any) => (
+                  <ScheduleComponent
+                    key={index}
+                    selectedDate={appointment.selectedDate}
+                    typePractice={appointment.typePractice}
+                    testQuestions={appointment.testQuestions}
+                    language={appointment.language}
+                  />
+                ))
+              ) : (
+                <p>No appointments available</p>
+              )}
             </div>
+
           </div>
         </div>
       </div>
@@ -119,24 +155,27 @@ const Page = () => {
                 <h1 className='text-white text-xl font-[DMSerifText] font-normal'>PRACTICE MAKES PERFECT</h1>
                 <p className='text-white max-[300px]:text-sm text-lg font-[Source-Sans-Pro] font-extralight'>Empower Your Success, One Mock Interview at a Time with MockTalks!</p>
               </div>
-              <div className='mt-3'>
-                <ScheduleInterviewComponent />
-              </div>
+              <ScheduleInterviewComponent submitBool={handleSubmitBool} userId={userIdInfo} />
             </div>
           </div>
         </div>
 
-        <div className='px-2 py-3'>
-          <div className='bg-white w-full h-auto rounded-2xl pb-4'>
-            <h1 className='text-black text-xl font-[DMSerifText] text-center py-3'>UPCOMING PRACTICE INTERVIEWS</h1>
-            <ScheduleComponent date='Fri, Feb 27, 2024, 8:00PM' type='Frontend' questions='Build a Calculator App' language='HTML/CSS/JS' />
-            <ScheduleComponent date='Fri, Feb 27, 2024, 8:00PM' type='Frontend' questions='Build a Calculator App' language='HTML/CSS/JS' />
-            <ScheduleComponent date='Fri, Feb 27, 2024, 8:00PM' type='Frontend' questions='Build a Calculator App' language='HTML/CSS/JS' />
-            <ScheduleComponent date='Fri, Feb 27, 2024, 8:00PM' type='Frontend' questions='Build a Calculator App' language='HTML/CSS/JS' />
-            <ScheduleComponent date='Fri, Feb 27, 2024, 8:00PM' type='Frontend' questions='Build a Calculator App' language='HTML/CSS/JS' />
-            <ScheduleComponent date='Fri, Feb 27, 2024, 8:00PM' type='Frontend' questions='Build a Calculator App' language='HTML/CSS/JS' />
-          </div>
+        <div className='p-3'>
+          {Array.isArray(appointmentData) && appointmentData.length > 0 ? (
+            appointmentData.map((appointment: any, index: any) => (
+              <ScheduleComponent
+                key={index}
+                selectedDate={appointment.selectedDate}
+                typePractice={appointment.typePractice}
+                testQuestions={appointment.testQuestions}
+                language={appointment.language}
+              />
+            ))
+          ) : (
+            <p>No appointments available</p>
+          )}
         </div>
+
       </div>
     </>
   )
