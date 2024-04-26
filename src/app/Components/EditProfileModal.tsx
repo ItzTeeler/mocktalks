@@ -1,11 +1,11 @@
 "use client";
 
 import { Button, FileInput, Modal } from "flowbite-react";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { DropDownComponent } from "./DropDownComponent";
 import { DropZoneComponent } from "./DropZoneComponent";
 import { IEditProfileProps, IProfileData } from "@/Interfaces/Interfaces";
-import { createProfileItem, updateProfileItem } from "@/utils/Dataservices";
+import { createProfileItem, getProfileItemByUserId, updateProfileItem } from "@/utils/Dataservices";
 
 
 export function EditProfileModal(props: IEditProfileProps) {
@@ -16,6 +16,8 @@ export function EditProfileModal(props: IEditProfileProps) {
   const [jobInterviewLevel, setJobInterviewLevel] = useState<string>("");
 
   const [profileImg, setProfileImg] = useState<string>("");
+
+  const [userData, setUserData] = useState<IProfileData>();
 
   const handleImage = (e: React.ChangeEvent<HTMLInputElement>) => {
     let reader = new FileReader();
@@ -68,7 +70,7 @@ export function EditProfileModal(props: IEditProfileProps) {
 
   const submitUpdateProfile = () => {
     let profileData: IProfileData = {
-      id: 0,
+      id: userData!.id,
       userId: props.userInfoPass.id,
       fullName: fullName,
       occupation: education,
@@ -98,6 +100,20 @@ export function EditProfileModal(props: IEditProfileProps) {
       props.close(false);
     }
   }
+
+  useEffect(() => {
+    const outerCall = () => {
+      const innerCall = async () => {
+        try {
+          setUserData(await getProfileItemByUserId(props.userInfoPass.id));
+        }catch{
+          console.log("isCreate");
+        }
+      }
+      innerCall();
+    }
+    outerCall();
+  }, [props.isNotCreate === true])
 
   return (
     <div className="font-[DMSerifText]">
