@@ -92,7 +92,6 @@ const Page = () => {
         openModal && userGlobalInfo && <EditProfileModal userInfoPass={userGlobalInfo} setUserProfile={setUserProfileInfo} setIsNotCreate={setIsNotCreateProfile} isNotCreate={isNotCreateProfile} open={openModal} close={setOpenModal} />
       }
 
-
       {
         isNotCreateProfile &&
         <div>
@@ -106,20 +105,20 @@ const Page = () => {
                   </div>
                   <div className='flex justify-center items-center'>
                     <div>
-                      <p className='text-[36px] font-[Source-Sans-Pro]'>NAME: {userProfileInfo?.fullName}</p>
-                      <p className='text-[36px] font-[Source-Sans-Pro]'>LOCATION: {userProfileInfo?.locationed}</p>
-                      <p className='text-[36px] font-[Source-Sans-Pro]'>EDUCATION: {userProfileInfo?.occupation}</p>
+                      <p className='text-[36px] font-[Source-Sans-Pro] min-[1440px]:text-[28px] 2xl:text-[36px]'>NAME: {userProfileInfo?.fullName}</p>
+                      <p className='text-[36px] font-[Source-Sans-Pro] min-[1440px]:text-[28px] 2xl:text-[36px]'>LOCATION: {userProfileInfo?.locationed}</p>
+                      <p className='text-[36px] font-[Source-Sans-Pro] min-[1440px]:text-[28px] 2xl:text-[36px]'>EDUCATION: {userProfileInfo?.occupation}</p>
                     </div>
                   </div>
                   <div className='flex justify-center items-center'>
                     <div>
-                      <p className='text-[36px] font-[Source-Sans-Pro]'>YEARS OF EXPERIENCE: {userProfileInfo?.experienceLevel}</p>
-                      <p className='text-[36px] font-[Source-Sans-Pro]'>CURRENT LEVEL: {userProfileInfo?.jobInterviewLevel}</p>
-                      <p className='text-[36px] font-[Source-Sans-Pro] text-white cursor-default' style={{ userSelect: "none" }}>a</p>
+                      <p className='text-[36px] font-[Source-Sans-Pro] min-[1440px]:text-[28px] 2xl:text-[36px]'>YEARS OF EXPERIENCE: {userProfileInfo?.experienceLevel}</p>
+                      <p className='text-[36px] font-[Source-Sans-Pro] min-[1440px]:text-[28px] 2xl:text-[36px]'>CURRENT LEVEL: {userProfileInfo?.jobInterviewLevel}</p>
+                      <p className='text-[36px] font-[Source-Sans-Pro] min-[1440px]:text-[28px] 2xl:text-[36px] text-white cursor-default' style={{ userSelect: "none" }}>a</p>
                     </div>
                   </div>
                   <div className='flex justify-end'>
-                    <Image onClick={() => setOpenModal(true)} src={listDashesImage} className='cursor-pointer' alt='Edit Profile Button' />
+                    <Image onClick={() => setOpenModal(true)} src={listDashesImage} className='w-auto cursor-pointer' alt='User Profile Image' />
                   </div>
                 </div>
               </div>
@@ -137,6 +136,35 @@ const Page = () => {
                 </div>
               </div>
 
+              {/* Bottom Section */}
+              <div className='bg-white w-full rounded-2xl'>
+                <h1 className='text-black text-4xl font-[DMSerifText] text-center p-5'>UPCOMING PRACTICE INTERVIEWS</h1>
+                <div className='bg-[#D9D9D9]'>
+                  <hr style={{ border: '1px black solid' }} />
+                  <div className='grid grid-flow-col p-3'>
+                    <p className='text-4xl text-black font-[DMSerifText] w-80 min-[1440px]:text-2xl min-[1440px]:w-40 2xl:text-4xl 2xl:w-80'>When</p>
+                    <p className='text-4xl text-black font-[DMSerifText] w-48 min-[1440px]:text-2xl min-[1440px]:w-40 2xl:text-4xl 2xl:w-48'>Type</p>
+                    <p className='text-4xl text-black font-[DMSerifText] w-96 min-[1440px]:text-2xl min-[1440px]:w-40 2xl:text-4xl 2xl:w-96'>Test Questions</p>
+                    <p className='text-4xl text-black font-[DMSerifText] w-60 min-[1440px]:text-2xl min-[1440px]:w-40 2xl:text-4xl 2xl:w-60'>Language</p>
+                    <p className='text-4xl text-black font-[DMSerifText] w-[480px] min-[1440px]:w-[320px] min-[1440px]:text-2xl 2xl:text-4xl 2xl:w-[480px]'>Action</p>
+                  </div>
+                  <hr style={{ border: '1px black solid' }} />
+                </div>
+                <div className='p-3'>
+                  {Array.isArray(appointmentData) && appointmentData.length > 0 ? (
+                    appointmentData.map((appointment: any, index: any) => (
+                      <ScheduleComponent
+                        key={index}
+                        selectedDate={appointment.selectedDate}
+                        typePractice={appointment.typePractice}
+                        testQuestions={appointment.testQuestions}
+                        language={appointment.language}
+                      />
+                    ))
+                  ) : (
+                    <p>No appointments available</p>
+                  )}
+                </div>
           {/* Bottom Section */}
           <div className='bg-white w-full rounded-2xl'>
             <h1 className='text-black text-4xl font-[DMSerifText] text-center p-5'>UPCOMING PRACTICE INTERVIEWS</h1>
