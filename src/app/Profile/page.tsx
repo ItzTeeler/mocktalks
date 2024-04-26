@@ -5,7 +5,8 @@ import { Button } from 'flowbite-react'
 import NavbarComponent from '../Components/NavbarComponent'
 import Image from 'next/image'
 
-import profileImgPlaceholder from '@/Assets/Ellipse.png'
+// import profileImgPlaceholder from '@/Assets/Ellipse.png'
+import defaultPFP from '@/Assets/blank-profile-picture-973460_960_720-1.png'
 import listDashesImage from '@/Assets/ListDashes.svg'
 import ScheduleComponent from '../Components/ScheduleComponent'
 
@@ -79,7 +80,7 @@ const Page = () => {
               <div className='bg-white w-full h-auto rounded-2xl p-[15px]'>
                 <div className='grid grid-flow-col'>
                   <div className='flex justify-center'>
-                    <Image src={profileImgPlaceholder} className='h-[300px] w-[300px] min-[1440px]:w-[200px] min-[1440px]:h-[200px] 2xl:h-[300px] 2xl:w-[300px]' alt='Profile Image' />
+                    <Image src={defaultPFP} className='rounded-full h-[300px] w-[300px] min-[1440px]:w-[200px] min-[1440px]:h-[200px] 2xl:h-[300px] 2xl:w-[300px]' alt='Profile Image' />
                   </div>
                   <div className='flex justify-center items-center'>
                     <div>
@@ -154,7 +155,7 @@ const Page = () => {
                   <Image onClick={() => setOpenModal(true)} src={listDashesImage} className='w-auto cursor-pointer' alt='test' />
                 </div>
                 <div className='flex justify-center'>
-                  <Image src={profileImgPlaceholder} className='h-[150px] w-[150px]' alt='Profile Image' />
+                  <Image src={defaultPFP} className='h-[150px] w-[150px]' alt='Profile Image' />
                 </div>
                 <div className='flex flex-col space-y-4 mt-5'>
                   <p className='text-[16px] font-[Source-Sans-Pro] text-center'>NAME: Tyler Nguyen</p>

@@ -1,21 +1,21 @@
-export interface IToken{
+export interface IToken {
     token: string
 }
 
-export interface IUserInfo{
+export interface IUserInfo {
     username: string
     password: string
 }
 
-export interface IUserData{
+export interface IUserData {
     id: number
     username: string
 }
 
-export interface IMockInterviewProps{
-    date: string, 
-    type: string, 
-    questions: string, 
+export interface IMockInterviewProps {
+    date: string,
+    type: string,
+    questions: string,
     language: string
     id?: number
 }
@@ -28,7 +28,7 @@ export interface IEditProfileProps {
     close: React.Dispatch<React.SetStateAction<boolean>>;
     userInfoPass: {
         id: number
-        username: string  
+        username: string
     }
 }
 
@@ -59,18 +59,18 @@ export interface IPracticeData {
 }
 
 export interface IAppointments {
-        id: number,
-        userId: number,
-        partnerId: number,
-        interviewPractice: string,
-        typePractice: string,
-        typeExperience: string,
-        selectedDate: string,
-        timezone: string,
-        testQuestions: string,
-        language: string,
-        isPartnered: boolean,
-        isDeleted: boolean
+    id: number,
+    userId: number,
+    partnerId: number,
+    interviewPractice: string,
+    typePractice: string,
+    typeExperience: string,
+    selectedDate: string,
+    timezone: string,
+    testQuestions: string,
+    language: string,
+    isPartnered: boolean,
+    isDeleted: boolean
 }
 
 export interface ScheduleComponentProps {
@@ -78,12 +78,14 @@ export interface ScheduleComponentProps {
     typePractice: string;
     testQuestions: string;
     language: string;
-  }
+}
 
-  export interface IAppointmentData {
+export interface IAppointmentData {
     appointments: IAppointments[];
-  }
+}
 
 export interface IDropDownState {
     passUseState: React.Dispatch<React.SetStateAction<string>>;
+
+    passUse: string;
 }

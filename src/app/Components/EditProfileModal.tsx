@@ -9,6 +9,8 @@ import { createProfileItem, getProfileItemByUserId, updateProfileItem } from "@/
 
 
 export function EditProfileModal(props: IEditProfileProps) {
+  const [userData, setUserData] = useState<IProfileData>();
+
   const [fullName, setFullName] = useState<string>("");
   const [location, setLocation] = useState<string>("");
   const [education, setEducation] = useState<string>("");
@@ -16,8 +18,6 @@ export function EditProfileModal(props: IEditProfileProps) {
   const [jobInterviewLevel, setJobInterviewLevel] = useState<string>("");
 
   const [profileImg, setProfileImg] = useState<string>("");
-
-  const [userData, setUserData] = useState<IProfileData>();
 
   const handleImage = (e: React.ChangeEvent<HTMLInputElement>) => {
     let reader = new FileReader();
@@ -106,7 +106,13 @@ export function EditProfileModal(props: IEditProfileProps) {
       const innerCall = async () => {
         try {
           setUserData(await getProfileItemByUserId(props.userInfoPass.id));
-        }catch{
+          const localData = await getProfileItemByUserId(props.userInfoPass.id);
+          setFullName(await localData.fullName)
+          setLocation(await localData.locationed)
+          setEducation(await localData.occupation)
+          setYoE(await localData.experienceLevel)
+          setJobInterviewLevel(await localData.jobInterviewLevel)
+        } catch {
           console.log("isCreate");
         }
       }
@@ -126,7 +132,7 @@ export function EditProfileModal(props: IEditProfileProps) {
             <div className="grid grid-cols-3">
               <div className="flex flex-col col-span-2 justify-end">
                 <p className="mb-[10px]">Full Name</p>
-                <input placeholder={fullName} value={fullName} onChange={(e) => setFullName(e.target.value)} className="mr-[18px] mb-[10px] rounded-[10px]" type="text" />
+                <input defaultValue={userData?.fullName} value={fullName} onChange={(e) => setFullName(e.target.value)} className="mr-[18px] mb-[10px] rounded-[10px]" type="text" />
               </div>
               <div className="col-span-1">
                 <DropZoneComponent /> {/* handleImage */}
@@ -137,19 +143,21 @@ export function EditProfileModal(props: IEditProfileProps) {
           <div className="flex flex-col">
             <div className="flex flex-col">
               <p className="mb-[10px]">What city do you live in?</p>
-              <input onChange={(e) => setLocation(e.target.value)} type="text" className="rounded-[10px] mb-[10px]" />
+              <input defaultValue={userData?.locationed} value={location} onChange={(e) => setLocation(e.target.value)} type="text" className="rounded-[10px] mb-[10px]" />
             </div>
             <div className="flex flex-col">
               <p className="mb-[10px]">Education</p>
-              <input onChange={(e) => setEducation(e.target.value)} type="text" className="rounded-[10px] mb-[10px]" />
+              <input defaultValue={userData?.occupation} value={education} onChange={(e) => setEducation(e.target.value)} type="text" className="rounded-[10px] mb-[10px]" />
             </div>
             <div className="flex flex-col">
               <p className="mb-[10px]">Years of Experience</p>
-              <input onChange={(e) => setYoE(e.target.value)} type="text" className="rounded-[10px] mb-[10px]" />
+              <input defaultValue={userData?.experienceLevel} value={YoE} onChange={(e) => setYoE(e.target.value)} type="text" className="rounded-[10px] mb-[10px]" />
             </div>
             <div className="flex flex-col">
               <p className="mb-[10px]">What is your current level at job interviews?</p>
-              <DropDownComponent passUseState={setJobInterviewLevel} />
+              {
+                jobInterviewLevel && <DropDownComponent passUse={jobInterviewLevel} passUseState={setJobInterviewLevel} />
+              }
             </div>
           </div>
         </Modal.Body>
