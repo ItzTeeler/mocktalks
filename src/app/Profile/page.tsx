@@ -103,7 +103,7 @@ const Page = () => {
                     </div>
                   </div>
                   <div className='flex justify-end'>
-                    <Image onClick={() => setOpenModal(true)} src={listDashesImage} className='w-auto cursor-pointer' alt='User Profile Image' />
+                    <Image onClick={() => setOpenModal(true)} src={listDashesImage} className='cursor-pointer' alt='Edit Profile Button' />
                   </div>
                 </div>
               </div>
