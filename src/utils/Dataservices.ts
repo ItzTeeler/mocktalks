@@ -1,7 +1,8 @@
-import { IAppointments, IToken, IUserData, IUserInfo } from "@/Interfaces/Interfaces";
+import { IToken, IUserData, IUserInfo } from "@/Interfaces/Interfaces";
 
 const url = "https://mocktalksapihosting.azurewebsites.net";
 let userData: IUserData;
+
 export const createAccount = async (createUser: IUserInfo) => {
     const res = await fetch(url + '/MT_User/NewUser', {
         method: "POST",
@@ -44,6 +45,48 @@ export const getUserData = async (username: string) => {
 
 export const loggedInData = () => {
     return userData;
+}
+
+export const getProfileItemByUserId = async (id: number) => {
+    const res = await fetch (url + "/MT_Profile/GetProfileItemByUserId/" + id);
+    const data = await res.json();
+    return data;
+}
+
+export const createProfileItem = async (profileData: IProfileData) => {
+    const res = await fetch (url + "/MT_Profile/CreateProfileItem", {
+        method: "POST",
+        headers: {
+            'Content-Type': "application/json"
+        },
+        body: JSON.stringify(profileData)
+    });
+
+    if (!res.ok) {
+        const message = "An error has Occurred " + res.status;
+        throw new Error(message);
+    }
+
+    const data = await res.json();
+    return data;
+}
+
+export const updateProfileItem = async (profileData: IProfileData) => {
+    const res = await fetch (url + "/MT_Profile/UpdateProfileItem", {
+        method: "PUT",
+        headers: {
+            'Content-Type': "application/json"
+        },
+        body: JSON.stringify(profileData)
+    });
+
+    if (!res.ok) {
+        const message = "An error has Occurred " + res.status;
+        throw new Error(message);
+    }
+
+    const data = await res.json();
+    return data;
 }
 
 export const checkToken = () => {
