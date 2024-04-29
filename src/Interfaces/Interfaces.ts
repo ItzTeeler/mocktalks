@@ -9,8 +9,7 @@ export interface IUserInfo{
 
 export interface IUserData{
     id: number
-    userId: number
-    publicName: string
+    username: string
 }
 
 export interface IMockInterviewProps{
@@ -22,8 +21,15 @@ export interface IMockInterviewProps{
 }
 
 export interface IEditProfileProps {
+    setIsNotCreate: React.Dispatch<React.SetStateAction<boolean>>,
+    setUserProfile: React.Dispatch<React.SetStateAction<IProfileData | undefined>>,
+    isNotCreate: boolean,
     open: boolean,
     close: React.Dispatch<React.SetStateAction<boolean>>;
+    userInfoPass: {
+        id: number
+        username: string  
+    }
 }
 
 export interface ICancelAppointmentProps {
@@ -38,6 +44,7 @@ export interface IAddAppointmentProps {
 
 export interface IProfileData {
     id: number,
+    userId: number,
     fullName: string,
     occupation: string,
     experienceLevel: string,
@@ -81,3 +88,7 @@ export interface ScheduleComponentProps {
   export interface IAppointmentData {
     appointments: IAppointments[];
   }
+
+export interface IDropDownState {
+    passUseState: React.Dispatch<React.SetStateAction<string>>;
+}
