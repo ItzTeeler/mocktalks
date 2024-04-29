@@ -1,12 +1,12 @@
 "use client";
 
-import { Button, FileInput, Modal } from "flowbite-react";
+import { Modal } from "flowbite-react";
 import { useEffect, useState } from "react";
 import { DropDownComponent } from "./DropDownComponent";
 import { DropZoneComponent } from "./DropZoneComponent";
 import { IEditProfileProps, IProfileData } from "@/Interfaces/Interfaces";
 import { createProfileItem, getProfileItemByUserId, updateProfileItem } from "@/utils/Dataservices";
-
+import defaultImg from "@/Assets/blank-profile-picture-973460_960_720-1.png"
 
 export function EditProfileModal(props: IEditProfileProps) {
   const [userData, setUserData] = useState<IProfileData>();
@@ -19,21 +19,6 @@ export function EditProfileModal(props: IEditProfileProps) {
 
   const [profileImg, setProfileImg] = useState<string>("");
 
-  const handleImage = (e: React.ChangeEvent<HTMLInputElement>) => {
-    let reader = new FileReader();
-    const file = e.target.files?.[0];
-
-    if (file) {
-      reader.onload = () => {
-        setProfileImg(reader.result as string);
-      };
-      reader.readAsBinaryString(file);
-    }
-    // else {
-    //   setProfileImg("");
-    // }
-  };
-
   const submitCreateProfile = () => {
     let profileData: IProfileData = {
       id: 0,
@@ -43,7 +28,7 @@ export function EditProfileModal(props: IEditProfileProps) {
       experienceLevel: YoE,
       jobInterviewLevel: jobInterviewLevel,
       locationed: location,
-      profileImg: "Empty"
+      profileImg: profileImg
     }
 
     if (profileData.occupation === "") {
@@ -55,11 +40,14 @@ export function EditProfileModal(props: IEditProfileProps) {
     if (profileData.locationed === "") {
       profileData.locationed = "Empty";
     }
+    if (profileData.profileImg === "") {
+      profileData.profileImg = defaultImg.src
+    }
 
     console.log(profileData);
 
     if (profileData.jobInterviewLevel === "" || profileData.fullName === "") {
-      console.log("idiot")
+      alert("Please make sure to input your name and job interview level");
     } else {
       props.setUserProfile(profileData);
       createProfileItem(profileData);
@@ -77,7 +65,7 @@ export function EditProfileModal(props: IEditProfileProps) {
       experienceLevel: YoE,
       jobInterviewLevel: jobInterviewLevel,
       locationed: location,
-      profileImg: "Empty"
+      profileImg: profileImg
     }
 
     if (profileData.occupation === "") {
@@ -89,11 +77,14 @@ export function EditProfileModal(props: IEditProfileProps) {
     if (profileData.locationed === "") {
       profileData.locationed = "Empty";
     }
+    if (profileData.profileImg === "") {
+      profileData.profileImg = defaultImg.src
+    }
 
     console.log(profileData);
 
     if (profileData.jobInterviewLevel === "" || profileData.fullName === "") {
-      console.log("idiot")
+      alert("Please make sure to input your name and job interview level");
     } else {
       props.setUserProfile(profileData);
       updateProfileItem(profileData);
@@ -112,7 +103,19 @@ export function EditProfileModal(props: IEditProfileProps) {
           setEducation(await localData.occupation)
           setYoE(await localData.experienceLevel)
           setJobInterviewLevel(await localData.jobInterviewLevel)
+          setProfileImg(await localData.profileImg)
         } catch {
+          let emptyProfileData: IProfileData = {
+            id: 0,
+            userId: 0,
+            fullName: "",
+            occupation: "",
+            experienceLevel: "",
+            jobInterviewLevel: "",
+            locationed: "",
+            profileImg: ""
+          }
+          setUserData(emptyProfileData)
           console.log("isCreate");
         }
       }
@@ -127,41 +130,48 @@ export function EditProfileModal(props: IEditProfileProps) {
         {
           props.isNotCreate ? <p className="font-[DMSerifText] text-[30px] px-[24px] pt-[15px]">Edit Profile</p> : <p className="font-[DMSerifText] text-[30px] px-[24px] pt-[15px]">Create Profile</p>
         }
-        <Modal.Body className="font-[DMSerifText] text-[30px] pt-0">
-          <div>
-            <div className="grid grid-cols-3">
-              <div className="flex flex-col col-span-2 justify-end">
-                <p className="mb-[10px]">Full Name</p>
-                <input defaultValue={userData?.fullName} value={fullName} onChange={(e) => setFullName(e.target.value)} className="mr-[18px] mb-[10px] rounded-[10px]" type="text" />
+        { (userData) ?
+          <Modal.Body className="font-[DMSerifText] text-[30px] pt-0">
+            <div>
+              <div className="grid grid-cols-3">
+                <div className="flex flex-col col-span-2 justify-end">
+                  <p className="mb-[10px]">Full Name</p>
+                  <input defaultValue={userData.fullName} value={fullName} onChange={(e) => setFullName(e.target.value)} className="mr-[18px] mb-[10px] rounded-[10px]" type="text" />
+                </div>
+                <div className="col-span-1">
+                  <DropZoneComponent setProfileImg={setProfileImg} />
+                </div>
               </div>
-              <div className="col-span-1">
-                <DropZoneComponent /> {/* handleImage */}
+            </div>
+
+            <div className="flex flex-col">
+              <div className="flex flex-col">
+                <p className="mb-[10px]">What city do you live in?</p>
+                <input defaultValue={userData.locationed} value={location} onChange={(e) => setLocation(e.target.value)} type="text" className="rounded-[10px] mb-[10px]" />
+              </div>
+              <div className="flex flex-col">
+                <p className="mb-[10px]">Education</p>
+                <input defaultValue={userData.occupation} value={education} onChange={(e) => setEducation(e.target.value)} type="text" className="rounded-[10px] mb-[10px]" />
+              </div>
+              <div className="flex flex-col">
+                <p className="mb-[10px]">Years of Experience</p>
+                <input defaultValue={userData.experienceLevel} value={YoE} onChange={(e) => setYoE(e.target.value)} type="text" className="rounded-[10px] mb-[10px]" />
+              </div>
+              <div className="flex flex-col">
+                <p className="mb-[10px]">What is your current level at job interviews?</p>
+                {
+                  (props.isNotCreate === false || jobInterviewLevel) && <DropDownComponent passUse={jobInterviewLevel} passUseState={setJobInterviewLevel} />
+                }
               </div>
             </div>
-          </div>
-
-          <div className="flex flex-col">
-            <div className="flex flex-col">
-              <p className="mb-[10px]">What city do you live in?</p>
-              <input defaultValue={userData?.locationed} value={location} onChange={(e) => setLocation(e.target.value)} type="text" className="rounded-[10px] mb-[10px]" />
+          </Modal.Body>
+          :
+          <Modal.Body>
+            <div>
+              <p>Loading...</p>
             </div>
-            <div className="flex flex-col">
-              <p className="mb-[10px]">Education</p>
-              <input defaultValue={userData?.occupation} value={education} onChange={(e) => setEducation(e.target.value)} type="text" className="rounded-[10px] mb-[10px]" />
-            </div>
-            <div className="flex flex-col">
-              <p className="mb-[10px]">Years of Experience</p>
-              <input defaultValue={userData?.experienceLevel} value={YoE} onChange={(e) => setYoE(e.target.value)} type="text" className="rounded-[10px] mb-[10px]" />
-            </div>
-            <div className="flex flex-col">
-              <p className="mb-[10px]">What is your current level at job interviews?</p>
-              {
-                jobInterviewLevel && <DropDownComponent passUse={jobInterviewLevel} passUseState={setJobInterviewLevel} />
-              }
-            </div>
-          </div>
-        </Modal.Body>
-
+          </Modal.Body>
+        }
         {
           props.isNotCreate === true &&
           <div className="flex justify-between pb-[15px] px-[24px] pt-[10px]">

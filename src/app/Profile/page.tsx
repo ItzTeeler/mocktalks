@@ -61,8 +61,6 @@ const Page = () => {
     setSubmitBool(!submitBool)
   }
 
-
-
   return (
     <>
       <NavbarComponent /> {/* Top Navbar */}
@@ -72,7 +70,7 @@ const Page = () => {
       }
 
       {
-        isNotCreateProfile &&
+        isNotCreateProfile && userProfileInfo &&
         <div>
           <div className='hidden min-[1440px]:block'>
             <div className='px-20 py-14'>
@@ -80,19 +78,19 @@ const Page = () => {
               <div className='bg-white w-full h-auto rounded-2xl p-[15px]'>
                 <div className='grid grid-flow-col'>
                   <div className='flex justify-center'>
-                    <Image src={defaultPFP} className='rounded-full h-[300px] w-[300px] min-[1440px]:w-[200px] min-[1440px]:h-[200px] 2xl:h-[300px] 2xl:w-[300px]' alt='Profile Image' />
+                    <img src={userProfileInfo.profileImg} className='rounded-full h-[300px] w-[300px] min-[1440px]:w-[200px] min-[1440px]:h-[200px] 2xl:h-[300px] 2xl:w-[300px]' alt='Profile Image' />
                   </div>
                   <div className='flex justify-center items-center'>
                     <div>
-                      <p className='text-[36px] font-[Source-Sans-Pro] min-[1440px]:text-[28px] 2xl:text-[36px]'>NAME: {userProfileInfo?.fullName}</p>
-                      <p className='text-[36px] font-[Source-Sans-Pro] min-[1440px]:text-[28px] 2xl:text-[36px]'>LOCATION: {userProfileInfo?.locationed}</p>
-                      <p className='text-[36px] font-[Source-Sans-Pro] min-[1440px]:text-[28px] 2xl:text-[36px]'>EDUCATION: {userProfileInfo?.occupation}</p>
+                      <p className='text-[36px] font-[Source-Sans-Pro] min-[1440px]:text-[28px] 2xl:text-[36px]'>NAME: {userProfileInfo.fullName}</p>
+                      <p className='text-[36px] font-[Source-Sans-Pro] min-[1440px]:text-[28px] 2xl:text-[36px]'>LOCATION: {userProfileInfo.locationed}</p>
+                      <p className='text-[36px] font-[Source-Sans-Pro] min-[1440px]:text-[28px] 2xl:text-[36px]'>EDUCATION: {userProfileInfo.occupation}</p>
                     </div>
                   </div>
                   <div className='flex justify-center items-center'>
                     <div>
-                      <p className='text-[36px] font-[Source-Sans-Pro] min-[1440px]:text-[28px] 2xl:text-[36px]'>YEARS OF EXPERIENCE: {userProfileInfo?.experienceLevel}</p>
-                      <p className='text-[36px] font-[Source-Sans-Pro] min-[1440px]:text-[28px] 2xl:text-[36px]'>CURRENT LEVEL: {userProfileInfo?.jobInterviewLevel}</p>
+                      <p className='text-[36px] font-[Source-Sans-Pro] min-[1440px]:text-[28px] 2xl:text-[36px]'>YEARS OF EXPERIENCE: {userProfileInfo.experienceLevel}</p>
+                      <p className='text-[36px] font-[Source-Sans-Pro] min-[1440px]:text-[28px] 2xl:text-[36px]'>CURRENT LEVEL: {userProfileInfo.jobInterviewLevel}</p>
                       <p className='text-[36px] font-[Source-Sans-Pro] min-[1440px]:text-[28px] 2xl:text-[36px] text-white cursor-default' style={{ userSelect: "none" }}>a</p>
                     </div>
                   </div>

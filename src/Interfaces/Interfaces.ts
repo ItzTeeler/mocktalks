@@ -89,3 +89,7 @@ export interface IDropDownState {
 
     passUse: string;
 }
+
+export interface IDropZoneImage {
+    setProfileImg: React.Dispatch<React.SetStateAction<string>>;
+}
