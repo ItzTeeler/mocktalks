@@ -97,7 +97,7 @@ const Page = () => {
                       <p className='text-[36px] font-[Source-Sans-Pro] min-[1440px]:text-[28px] 2xl:text-[36px] text-white cursor-default' style={{ userSelect: "none" }}>a</p>
                     </div>
                   </div>
-                  <div className='flex justify-end'>
+                  <div className='flex justify-end items-start'>
                     <Image onClick={() => setOpenModal(true)} src={listDashesImage} className='cursor-pointer' alt='Edit Profile Button' />
                   </div>
                 </div>
