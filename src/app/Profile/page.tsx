@@ -38,13 +38,15 @@ const Page = () => {
 
 
   }, [submitBool]);
-
-
-
-
+  // Fetch Appointments
+  // Compare dates and time 
+  // set Appointment with partner UserId
+  // set isPartnered Bool to true
   const handleSubmitBool = () => {
     setSubmitBool(!submitBool)
   }
+
+  
   return (
     <>
       <NavbarComponent /> {/* Top Navbar */}
@@ -110,10 +112,13 @@ const Page = () => {
                 appointmentData.map((appointment: any, index: any) => (
                   <ScheduleComponent
                     key={index}
+                    id={appointment.id}
                     selectedDate={appointment.selectedDate}
                     typePractice={appointment.typePractice}
                     testQuestions={appointment.testQuestions}
                     language={appointment.language}
+                    time={appointment.timezone}
+                    submitBool={handleSubmitBool}
                   />
                 ))
               ) : (
@@ -162,10 +167,13 @@ const Page = () => {
             appointmentData.map((appointment: any, index: any) => (
               <ScheduleComponent
                 key={index}
+                id={appointment.id}
                 selectedDate={appointment.selectedDate}
                 typePractice={appointment.typePractice}
                 testQuestions={appointment.testQuestions}
                 language={appointment.language}
+                time={appointment.timezone}
+                submitBool={handleSubmitBool}
               />
             ))
           ) : (

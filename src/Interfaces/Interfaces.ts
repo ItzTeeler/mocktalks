@@ -67,10 +67,14 @@ export interface IAppointments {
 }
 
 export interface ScheduleComponentProps {
+    key: number;
+    id: number;
     selectedDate: string;
     typePractice: string;
     testQuestions: string;
     language: string;
+    time: string;
+    submitBool: () => void;
   }
 
   export interface IAppointmentData {

@@ -101,6 +101,30 @@ export const createAppointment = async (appointment: IAppointments) => {
 export const getAppointments = async (userId: number) =>{
     const res = await fetch(url + '/MT_Schedule/GetMeetingsByUserId/' + userId)
     const data = await res.json();
-    console.log(data)
+    return data;
+}
+
+export const getAppointmentsById = async (id: number) => {
+    const res = await fetch(url + '/MT_Schedule/GetMeetingById/' + id)
+    const data = await res.json();
+    return data
+}
+
+export const updateAppointments = async (appointment: IAppointments) =>{
+    const res = await fetch(url + '/MT_Schedule/UpdateScheduleTime', {
+        method: "PUT",
+        headers: {
+            'Content-Type': 'application/json'
+        },
+        body: JSON.stringify(appointment)
+    });
+
+    if (!res.ok) {
+        const message = "An error has Occurred " + res.status;
+        throw new Error(message);
+    }
+
+    const data = await res.json();
+
     return data;
 }
