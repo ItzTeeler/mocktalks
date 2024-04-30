@@ -45,9 +45,9 @@ export default function LoginPage() {
         // Normal login
         let token: IToken = await login(userData);
         if (token.token != null) {
-          localStorage.setItem("Token", token.token);
+          sessionStorage.setItem("Token", token.token);
           await getUserData(username);
-          let userId = await loggedInData()
+          let userId = loggedInData()
           sessionStorage.setItem("userId", String(userId?.id))
           router.push('/Profile');
         } else {
