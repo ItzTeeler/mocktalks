@@ -22,7 +22,7 @@ export function EditProfileModal(props: IEditProfileProps) {
   const submitCreateProfile = () => {
     let profileData: IProfileData = {
       id: 0,
-      userId: props.userInfoPass.id,
+      userId: Number(props.userInfoPass),
       fullName: fullName,
       occupation: education,
       experienceLevel: YoE,
@@ -58,41 +58,8 @@ export function EditProfileModal(props: IEditProfileProps) {
 
   const submitUpdateProfile = () => {
     let profileData: IProfileData = {
-      id: 0,
-      userId: props.userInfoPass.id,
-      fullName: fullName,
-      occupation: education,
-      experienceLevel: YoE,
-      jobInterviewLevel: jobInterviewLevel,
-      locationed: location,
-      profileImg: "Empty"
-    }
-
-    if (profileData.occupation === "") {
-      profileData.occupation = "Empty";
-    }
-    if (profileData.experienceLevel === "") {
-      profileData.experienceLevel = "Empty";
-    }
-    if (profileData.locationed === "") {
-      profileData.locationed = "Empty";
-    }
-
-    console.log(profileData);
-
-    if (profileData.jobInterviewLevel === "" || profileData.fullName === "") {
-      console.log("idiot")
-    } else {
-      props.setUserProfile(profileData);
-      updateProfileItem(profileData);
-      props.close(false);
-    }
-  }
-
-  const submitUpdateProfile = () => {
-    let profileData: IProfileData = {
       id: userData!.id,
-      userId: props.userInfoPass.id,
+      userId: Number(props.userInfoPass),
       fullName: fullName,
       occupation: education,
       experienceLevel: YoE,
@@ -129,8 +96,8 @@ export function EditProfileModal(props: IEditProfileProps) {
     const outerCall = () => {
       const innerCall = async () => {
         try {
-          setUserData(await getProfileItemByUserId(props.userInfoPass.id));
-          const localData = await getProfileItemByUserId(props.userInfoPass.id);
+          setUserData(await getProfileItemByUserId(Number(props.userInfoPass)));
+          const localData = await getProfileItemByUserId(Number(props.userInfoPass));
           setFullName(await localData.fullName)
           setLocation(await localData.locationed)
           setEducation(await localData.occupation)

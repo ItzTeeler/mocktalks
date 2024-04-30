@@ -27,10 +27,7 @@ export interface IEditProfileProps {
     isNotCreate: boolean,
     open: boolean,
     close: React.Dispatch<React.SetStateAction<boolean>>;
-    userInfoPass: {
-        id: number
-        username: string
-    }
+    userInfoPass: string | null
 }
 
 export interface IAddAppointmentProps {
@@ -91,7 +88,6 @@ export interface IAppointmentData {
 
 export interface IDropDownState {
     passUseState: React.Dispatch<React.SetStateAction<string>>;
-
     passUse: string;
 }
 
