@@ -1,44 +1,93 @@
+'use client';
 
-"use client";
+import { IAppointments, IMockInterviewProps, ScheduleComponentProps } from '@/Interfaces/Interfaces';
+import { Button } from 'flowbite-react';
+import React from 'react'
+import ReScheduleComponent from './ReScheduleComponent';
+import { CancelAppointmentModal } from './CancelAppointmentModal';
 
-import Link from "next/link";
-import { Button, CustomFlowbiteTheme, FlowbiteNavbarCollapseTheme, Navbar } from "flowbite-react";
+const ScheduleComponent = (props: ScheduleComponentProps & { submitBool: () => void }) => {
+    return (
+        <>
+            <div className='hidden min-[1440px]:block'>
+                <hr />
+                <div className='grid grid-flow-col p-3'>
 
-import Image from "next/image";
+                    <div className='w-80 min-[1440px]:w-40 2xl:w-80'>
+                        <p className='text-4xl text-black font-[Source-Sans-Pro] min-[1440px]:text-2xl 2xl:text-4xl'>{props.selectedDate} {props.time}</p>
+                    </div>
 
-import icon from '@/Assets/MockTalkIcon.png'
-import bellIcon from '@/Assets/BellIcon.png'
-import chatDots from '@/Assets/ChatCenteredDots.png'
+                    <div className='w-48 min-[1440px]:w-40 2xl:w-48'>
+                        <p className='text-4xl text-black font-[Source-Sans-Pro] min-[1440px]:text-2xl 2xl:text-4xl'>{props.typePractice}</p>
+                    </div>
 
-export default function NavbarComponent() {
-  const customTheme: FlowbiteNavbarCollapseTheme = {
-    base: 'w-full md:block md:w-auto',
-    list: 'mt-4 flex flex-col md:mt-0 md:flex-row md:space-x-8 md:text-sm md:font-medium',
-    hidden: {
-      on: 'hidden',
-      off: ''
-    }
-  };
+                    <div className='w-96 min-[1440px]:w-40 2xl:w-96'>
+                        <p className='text-4xl text-black font-[Source-Sans-Pro] min-[1440px]:text-2xl 2xl:text-4xl'>{props.testQuestions}</p>
+                    </div>
 
-  return (
-    <>
-      <Navbar fluid>
-        <Navbar.Brand as={Link} href="/Profile">
-          <Image src={icon} className="mr-1 sm:mr-3 h-3 w-auto sm:h-9" alt="Flowbite React Logo" />
-          <span className="self-center whitespace-nowrap sm:text-4xl dark:text-white font-[DMSerifText]">MockTalks</span>
-        </Navbar.Brand>
-        <Navbar.Collapse theme={customTheme}>
-          <Navbar.Link href="#">
-            <Image src={bellIcon} alt="Bell Icon" />
-          </Navbar.Link>
-          <Navbar.Link href="/MessagingPage">
-            <Image src={chatDots} alt="Centered Chat Dots" />
-          </Navbar.Link>
-          <Navbar.Link href="/">
-            <span className="self-center whitespace-nowrap text-[36px] dark:text-white font-[DMSerifText]">Logout</span>
-          </Navbar.Link>
-        </Navbar.Collapse>
-      </Navbar>
-    </>
-  );
+                    <div className='w-60 min-[1440px]:w-40 2xl:w-60'>
+                        <p className='text-4xl text-black font-[Source-Sans-Pro] min-[1440px]:text-2xl 2xl:text-4xl'>{props.language}</p>
+                    </div>
+
+                    <div className='w-[480px] min-[1440px]:w-[320px] 2xl:w-[480px]'>
+                        <div className='flex flex-row space-x-4'>
+                            <CancelAppointmentModal open={false} close={function (value: React.SetStateAction<boolean>): void {
+                                throw new Error('Function not implemented.')
+                            }} />
+                            <ReScheduleComponent id={props.id} submitBool={props.submitBool} />              
+                        </div>
+                        <hr />
+                    </div>
+                </div>
+            </div>
+
+            <div className='block min-[1440px]:hidden'>
+                <hr />
+                <div className='grid grid-cols-2 h-auto'>
+                    <div className='grid grid-row-5 bg-[#D9D9D9]'>
+                        <div className='flex items-center pl-5 font-[DMSerifText] text-xl h-16'>
+                            When
+                        </div>
+                        <div className='flex items-center pl-5 font-[DMSerifText] text-xl h-16'>
+                            Type
+                        </div>
+                        <div className='flex items-center pl-5 font-[DMSerifText] text-xl h-16'>
+                            Test Questions
+                        </div>
+                        <div className='flex items-center pl-5 font-[DMSerifText] text-xl h-16'>
+                            Language
+                        </div>
+                        <div className='flex items-center pl-5 font-[DMSerifText] text-xl h-16'>
+                            Action
+                        </div>
+                    </div>
+                    <div className='grid grid-row-5 bg-white'>
+                        <div className='flex items-center pl-5 max-[300px]:pl-1 font-[Source-Sans-Pro] text-xl h-16'>
+                            {props.selectedDate} {props.time}
+                        </div>
+                        <div className='flex items-center pl-5 max-[300px]:pl-1 font-[Source-Sans-Pro] text-xl h-16'>
+                            {props.typePractice}
+                        </div>
+                        <div className='flex items-center pl-5 max-[300px]:pl-1 font-[Source-Sans-Pro] text-xl h-16'>
+                            {props.testQuestions}
+                        </div>
+                        <div className='flex items-center pl-5 max-[300px]:pl-1 font-[Source-Sans-Pro] text-xl h-16'>
+                            {props.language}
+                        </div>
+                        <div className='flex items-center max-[300px]:pl-1 px-2 font-[Source-Sans-Pro] text-xl h-16'>
+                            <div className='w-full flex flex-col space-y-1'>
+                                <CancelAppointmentModal open={false} close={function (value: React.SetStateAction<boolean>): void {
+                                    throw new Error('Function not implemented.')
+                                }} />
+                                <ReScheduleComponent id={props.id} submitBool={props.submitBool} />                               
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <hr />
+            </div>
+        </>
+    )
 }
+
+export default ScheduleComponent
