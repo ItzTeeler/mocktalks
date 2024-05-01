@@ -5,7 +5,7 @@ import { Button } from 'flowbite-react'
 import NavbarComponent from '../Components/NavbarComponent'
 import Image from 'next/image'
 
-import profileImgPlaceholder from '@/Assets/Ellipse.png'
+import defaultPFP from '@/Assets/blank-profile-picture-973460_960_720-1.png'
 import listDashesImage from '@/Assets/ListDashes.svg'
 import ScheduleComponent from '../Components/ScheduleComponent'
 
@@ -22,15 +22,15 @@ const Page = () => {
 
   const [userProfileInfo, setUserProfileInfo] = useState<IProfileData>();
   const [isNotCreateProfile, setIsNotCreateProfile] = useState<boolean>(true);
-  const [userGlobalInfo, setUserGlobalInfo] = useState<IUserData>();
+  const [userGlobalInfo, setUserGlobalInfo] = useState<string | null>();
 
   useEffect(() => {
     const outerCall = () => {
       const innerCall = async () => {
-        let userInfo = loggedInData()
-        setUserGlobalInfo(loggedInData())
+        const userId = sessionStorage.getItem('userId');
+        setUserGlobalInfo(userId);
         try {
-          setUserProfileInfo(await getProfileItemByUserId(userInfo.id));
+          setUserProfileInfo(await getProfileItemByUserId(Number(userId)));
         } catch {
           setOpenModal(true);
           setIsNotCreateProfile(false);
@@ -61,8 +61,6 @@ const Page = () => {
     setSubmitBool(!submitBool)
   }
 
-
-
   return (
     <>
       <NavbarComponent /> {/* Top Navbar */}
@@ -73,7 +71,7 @@ const Page = () => {
       }
 
       {
-        isNotCreateProfile &&
+        isNotCreateProfile && userProfileInfo &&
         <div>
           <div className='hidden min-[1440px]:block'>
             <div className='px-20 py-14'>
@@ -81,24 +79,24 @@ const Page = () => {
               <div className='bg-white w-full h-auto rounded-2xl p-[15px]'>
                 <div className='grid grid-flow-col'>
                   <div className='flex justify-center'>
-                    <Image src={profileImgPlaceholder} className='h-[300px] w-[300px] min-[1440px]:w-[200px] min-[1440px]:h-[200px] 2xl:h-[300px] 2xl:w-[300px]' alt='Profile Image' />
+                    <img src={userProfileInfo.profileImg} className='rounded-full h-[300px] w-[300px] min-[1440px]:w-[200px] min-[1440px]:h-[200px] 2xl:h-[300px] 2xl:w-[300px]' alt='Profile Image' />
                   </div>
                   <div className='flex justify-center items-center'>
                     <div>
-                      <p className='text-[36px] font-[Source-Sans-Pro] min-[1440px]:text-[28px] 2xl:text-[36px]'>NAME: {userProfileInfo?.fullName}</p>
-                      <p className='text-[36px] font-[Source-Sans-Pro] min-[1440px]:text-[28px] 2xl:text-[36px]'>LOCATION: {userProfileInfo?.locationed}</p>
-                      <p className='text-[36px] font-[Source-Sans-Pro] min-[1440px]:text-[28px] 2xl:text-[36px]'>EDUCATION: {userProfileInfo?.occupation}</p>
+                      <p className='text-[36px] font-[Source-Sans-Pro] min-[1440px]:text-[28px] 2xl:text-[36px]'>NAME: {userProfileInfo.fullName}</p>
+                      <p className='text-[36px] font-[Source-Sans-Pro] min-[1440px]:text-[28px] 2xl:text-[36px]'>LOCATION: {userProfileInfo.locationed}</p>
+                      <p className='text-[36px] font-[Source-Sans-Pro] min-[1440px]:text-[28px] 2xl:text-[36px]'>EDUCATION: {userProfileInfo.occupation}</p>
                     </div>
                   </div>
                   <div className='flex justify-center items-center'>
                     <div>
-                      <p className='text-[36px] font-[Source-Sans-Pro] min-[1440px]:text-[28px] 2xl:text-[36px]'>YEARS OF EXPERIENCE: {userProfileInfo?.experienceLevel}</p>
-                      <p className='text-[36px] font-[Source-Sans-Pro] min-[1440px]:text-[28px] 2xl:text-[36px]'>CURRENT LEVEL: {userProfileInfo?.jobInterviewLevel}</p>
+                      <p className='text-[36px] font-[Source-Sans-Pro] min-[1440px]:text-[28px] 2xl:text-[36px]'>YEARS OF EXPERIENCE: {userProfileInfo.experienceLevel}</p>
+                      <p className='text-[36px] font-[Source-Sans-Pro] min-[1440px]:text-[28px] 2xl:text-[36px]'>CURRENT LEVEL: {userProfileInfo.jobInterviewLevel}</p>
                       <p className='text-[36px] font-[Source-Sans-Pro] min-[1440px]:text-[28px] 2xl:text-[36px] text-white cursor-default' style={{ userSelect: "none" }}>a</p>
                     </div>
                   </div>
                   <div className='flex justify-end items-start'>
-                    <Image onClick={() => setOpenModal(true)} src={listDashesImage} className='cursor-pointer' alt='Edit Profile Button' />
+                    <Image onClick={() => setOpenModal(true)} src={listDashesImage} className='cursor-pointer' alt='User Profile Image' />
                   </div>
                 </div>
               </div>
@@ -115,7 +113,6 @@ const Page = () => {
                   </div>
                 </div>
               </div>
-
               {/* Bottom Section */}
               <div className='bg-white w-full rounded-2xl'>
                 <h1 className='text-black text-4xl font-[DMSerifText] text-center p-5'>UPCOMING PRACTICE INTERVIEWS</h1>
@@ -135,20 +132,24 @@ const Page = () => {
                     appointmentData.map((appointment: any, index: any) => (
                       <ScheduleComponent
                         key={index}
+                        id={appointment.id}
                         selectedDate={appointment.selectedDate}
                         typePractice={appointment.typePractice}
                         testQuestions={appointment.testQuestions}
                         language={appointment.language}
+                        time={appointment.timezone}
+                        submitBool={handleSubmitBool}
                       />
                     ))
                   ) : (
                     <p>No appointments available</p>
                   )}
                 </div>
-
               </div>
             </div>
           </div>
+
+          {/* Not Desktop */}
           <div className='block min-[1440px]:hidden'>
             <div className='px-2 py-3'>
               <div className='bg-white w-full h-auto rounded-2xl p-[15px]'>
@@ -156,7 +157,7 @@ const Page = () => {
                   <Image onClick={() => setOpenModal(true)} src={listDashesImage} className='w-auto cursor-pointer' alt='test' />
                 </div>
                 <div className='flex justify-center'>
-                  <Image src={profileImgPlaceholder} className='h-[150px] w-[150px]' alt='Profile Image' />
+                  <Image src={defaultPFP} className='h-[150px] w-[150px]' alt='Profile Image' />
                 </div>
                 <div className='flex flex-col space-y-4 mt-5'>
                   <p className='text-[16px] font-[Source-Sans-Pro] text-center'>NAME: Tyler Nguyen</p>
@@ -185,10 +186,13 @@ const Page = () => {
                 appointmentData.map((appointment: any, index: any) => (
                   <ScheduleComponent
                     key={index}
+                    id={appointment.id}
                     selectedDate={appointment.selectedDate}
                     typePractice={appointment.typePractice}
                     testQuestions={appointment.testQuestions}
                     language={appointment.language}
+                    time={appointment.timezone}
+                    submitBool={handleSubmitBool}
                   />
                 ))
               ) : (
@@ -201,5 +205,6 @@ const Page = () => {
     </>
   )
 }
+
 
 export default Page

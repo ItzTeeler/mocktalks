@@ -5,7 +5,7 @@ import { IDropDownState } from "@/Interfaces/Interfaces";
 
 export function DropDownComponent(props: IDropDownState) {
     return (
-        <select onChange={(e)=>props.passUseState(e.target.value)} className="rounded-[10px]">
+        <select defaultValue={props.passUse}  onChange={(e)=>props.passUseState(e.target.value)} className="rounded-[10px]">
             <option value="" className="text-[24px]">Select An Option</option>
             <option value="Clueless" className="text-[24px]">Clueless (Know nothing about job interviews)</option>
             <option value="Beginner" className="text-[24px]">Beginner (Know a little about job interviews)</option>
