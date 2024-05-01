@@ -30,6 +30,11 @@ export interface IEditProfileProps {
     userInfoPass: string | null
 }
 
+export interface ICancelAppointmentProps {
+    open: boolean,
+    close: React.Dispatch<React.SetStateAction<boolean>>;
+}
+
 export interface IAddAppointmentProps {
     open: boolean,
     close: React.Dispatch<React.SetStateAction<boolean>>;
