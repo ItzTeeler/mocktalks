@@ -157,14 +157,12 @@ export function ScheduleInterviewComponent(props: {submitBool: () => void, userI
 
   return (
     <>
-      <Button
-        className="bg-[#2B170C] h-full min-[1440px]:h-32 2xl:h-full"
-        onClick={() => setOpenModal(true)}
-      >
-        <span className="text-white text-[20px] lg:text-4xl font-[Source-Sans-Pro] px-[85px] lg:px-32">
-          START A PRACTICE SESSION
-        </span>
-      </Button>
+      <div className="block min-[1440px]:hidden">
+        <Button className='bg-[#2B170C] w-full' onClick={() => setOpenModal(true)}><span className='text-white text-xl font-[Source-Sans-Pro]'>START A PRACTICE SESSION</span></Button>
+      </div>
+      <div className="hidden min-[1440px]:block">
+        <Button className='bg-[#2B170C] h-full' onClick={() => setOpenModal(true)}><span className='text-white text-4xl font-[Source-Sans-Pro] px-32 min-[1440px]:px-16 2xl:px-32'>START A PRACTICE SESSION</span></Button>
+      </div>
       <Modal size={"3xl"} show={openModal} onClose={() => setOpenModal(false)}>
         <Modal.Body className="p-[30px]">
           <div className="text-center text-[50px] font-[DMSerifText]">
@@ -215,11 +213,8 @@ export function ScheduleInterviewComponent(props: {submitBool: () => void, userI
         </Modal.Footer>
       </Modal>
 
-      <Modal
-        size={"3xl"}
-        show={openModal2}
-        onClose={() => setOpenModal2(false)}
-      >
+
+      <Modal size={"3xl"} show={openModal2} onClose={() => setOpenModal2(false)}>
         <Modal.Body className="p-[20px]">
           <div className="text-center text-[50px] font-[DMSerifText]">
             <p>Choose type of practice</p>
@@ -387,6 +382,7 @@ export function ScheduleInterviewComponent(props: {submitBool: () => void, userI
             <p>{`An awesome peer will be waiting to meet you for a live {Type (Frontend)} interview session on {Date Chosen}`}</p>
             <p>{`An awesome peer will be waiting to meet you for a live {Type (Frontend)} interview session on {Date Chosen}`}</p>
           </div>
+
         </Modal.Body>
         <Modal.Footer className=" flex justify-between">
           <button

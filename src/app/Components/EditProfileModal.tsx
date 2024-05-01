@@ -136,7 +136,7 @@ export function EditProfileModal(props: IEditProfileProps) {
               <div className="grid grid-cols-3">
                 <div className="flex flex-col col-span-2 justify-end">
                   <p className="mb-[10px]">Full Name</p>
-                  <input defaultValue={userData.fullName} value={fullName} onChange={(e) => setFullName(e.target.value)} className="mr-[18px] mb-[10px] rounded-[10px]" type="text" />
+                  <input defaultValue={userData.fullName} onChange={(e) => setFullName(e.target.value)} className="mr-[18px] mb-[10px] rounded-[10px]" type="text" />
                 </div>
                 <div className="col-span-1">
                   <DropZoneComponent setProfileImg={setProfileImg} />
@@ -147,15 +147,15 @@ export function EditProfileModal(props: IEditProfileProps) {
             <div className="flex flex-col">
               <div className="flex flex-col">
                 <p className="mb-[10px]">What city do you live in?</p>
-                <input defaultValue={userData.locationed} value={location} onChange={(e) => setLocation(e.target.value)} type="text" className="rounded-[10px] mb-[10px]" />
+                <input defaultValue={userData.locationed} onChange={(e) => setLocation(e.target.value)} type="text" className="rounded-[10px] mb-[10px]" />
               </div>
               <div className="flex flex-col">
                 <p className="mb-[10px]">Education</p>
-                <input defaultValue={userData.occupation} value={education} onChange={(e) => setEducation(e.target.value)} type="text" className="rounded-[10px] mb-[10px]" />
+                <input defaultValue={userData.occupation} onChange={(e) => setEducation(e.target.value)} type="text" className="rounded-[10px] mb-[10px]" />
               </div>
               <div className="flex flex-col">
                 <p className="mb-[10px]">Years of Experience</p>
-                <input defaultValue={userData.experienceLevel} value={YoE} onChange={(e) => setYoE(e.target.value)} type="text" className="rounded-[10px] mb-[10px]" />
+                <input defaultValue={userData.experienceLevel} onChange={(e) => setYoE(e.target.value)} type="text" className="rounded-[10px] mb-[10px]" />
               </div>
               <div className="flex flex-col">
                 <p className="mb-[10px]">What is your current level at job interviews?</p>

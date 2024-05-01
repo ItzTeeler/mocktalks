@@ -11,6 +11,7 @@ import ScheduleComponent from '../Components/ScheduleComponent'
 
 import { AddAppointmentModal } from '../Components/AddAppointmentModal'
 import { ScheduleInterviewComponent } from '../Components/ScheduleInterviewComponent'
+import { PendingNotificationComponent } from '../Components/PendingNotificationComponent'
 import { getAppointments, getProfileItemByUserId, loggedInData } from '@/utils/Dataservices'
 import { IAppointments, IProfileData, IUserData } from '@/Interfaces/Interfaces'
 import { EditProfileModal } from '../Components/EditProfileModal'
@@ -63,13 +64,14 @@ const Page = () => {
   return (
     <>
       <NavbarComponent /> {/* Top Navbar */}
+      <PendingNotificationComponent />
 
       {
         openModal && userGlobalInfo && <EditProfileModal userInfoPass={userGlobalInfo} setUserProfile={setUserProfileInfo} setIsNotCreate={setIsNotCreateProfile} isNotCreate={isNotCreateProfile} open={openModal} close={setOpenModal} />
       }
 
       {
-        isNotCreateProfile && userProfileInfo &&
+        isNotCreateProfile && userProfileInfo ?
         <div>
           <div className='hidden min-[1440px]:block'>
             <div className='px-20 py-14'>
@@ -93,7 +95,7 @@ const Page = () => {
                       <p className='text-[36px] font-[Source-Sans-Pro] min-[1440px]:text-[28px] 2xl:text-[36px] text-white cursor-default' style={{ userSelect: "none" }}>a</p>
                     </div>
                   </div>
-                  <div className='flex justify-end'>
+                  <div className='flex justify-end items-start'>
                     <Image onClick={() => setOpenModal(true)} src={listDashesImage} className='cursor-pointer' alt='User Profile Image' />
                   </div>
                 </div>
@@ -155,14 +157,14 @@ const Page = () => {
                   <Image onClick={() => setOpenModal(true)} src={listDashesImage} className='w-auto cursor-pointer' alt='test' />
                 </div>
                 <div className='flex justify-center'>
-                  <Image src={defaultPFP} className='h-[150px] w-[150px]' alt='Profile Image' />
+                  <img src={userProfileInfo.profileImg} className='rounded-full h-[150px] w-[150px]' alt='Profile Image' />
                 </div>
                 <div className='flex flex-col space-y-4 mt-5'>
-                  <p className='text-[16px] font-[Source-Sans-Pro] text-center'>NAME: Tyler Nguyen</p>
-                  <p className='text-[16px] font-[Source-Sans-Pro] text-center'>LOCATION: Stockton, CA</p>
-                  <p className='text-[16px] font-[Source-Sans-Pro] text-center'>EDUCATION: Student</p>
-                  <p className='text-[16px] font-[Source-Sans-Pro] text-center'>YEARS OF EXPERIENCE: Less than 1 year</p>
-                  <p className='text-[16px] font-[Source-Sans-Pro] text-center'>CURRENT LEVEL: Beginner</p>
+                  <p className='text-[16px] font-[Source-Sans-Pro] text-center'>NAME: {userProfileInfo.fullName}</p>
+                  <p className='text-[16px] font-[Source-Sans-Pro] text-center'>LOCATION: {userProfileInfo.locationed}</p>
+                  <p className='text-[16px] font-[Source-Sans-Pro] text-center'>EDUCATION: {userProfileInfo.occupation}</p>
+                  <p className='text-[16px] font-[Source-Sans-Pro] text-center'>YEARS OF EXPERIENCE: {userProfileInfo.experienceLevel}</p>
+                  <p className='text-[16px] font-[Source-Sans-Pro] text-center'>CURRENT LEVEL: {userProfileInfo.jobInterviewLevel}</p>
                 </div>
               </div>
             </div>
@@ -199,6 +201,8 @@ const Page = () => {
             </div>
           </div>
         </div>
+        :
+        <p className='text-center text-6xl text-white mt-32 font-[DMSerifText]'>Loading...</p>
       }
     </>
   )
