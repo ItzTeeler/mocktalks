@@ -21,4 +21,3 @@ const MessagingTextInputComponent = () => {
 }
 
 export default MessagingTextInputComponent
-
