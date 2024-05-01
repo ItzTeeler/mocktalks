@@ -1,3 +1,4 @@
+'use client'
 import React from 'react'
 import Image from 'next/image'
 import FileAdd from '@/Assets/MessagingFileInput.png'
@@ -20,4 +21,3 @@ const MessagingTextInputComponent = () => {
 }
 
 export default MessagingTextInputComponent
-

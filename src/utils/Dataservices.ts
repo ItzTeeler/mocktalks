@@ -1,7 +1,8 @@
-import { IToken, IUserData, IUserInfo } from "@/Interfaces/Interfaces";
+import { IAppointments, IProfileData, IToken, IUserData, IUserInfo } from "@/Interfaces/Interfaces";
 
 const url = "https://mocktalksapihosting.azurewebsites.net";
 let userData: IUserData;
+
 export const createAccount = async (createUser: IUserInfo) => {
     const res = await fetch(url + '/MT_User/NewUser', {
         method: "POST",
@@ -46,6 +47,42 @@ export const loggedInData = () => {
     return userData;
 }
 
+export const createProfileItem = async (profileData: IProfileData) => {
+    const res = await fetch(url + "/MT_Profile/CreateProfileItem", {
+        method: "POST",
+        headers: {
+            'Content-Type': "application/json"
+        },
+        body: JSON.stringify(profileData)
+    });
+
+    if (!res.ok) {
+        const message = "An error has Occurred " + res.status;
+        throw new Error(message);
+    }
+
+    const data = await res.json();
+    return data;
+}
+
+export const updateProfileItem = async (profileData: IProfileData) => {
+    const res = await fetch(url + "/MT_Profile/UpdateProfileItem", {
+        method: "PUT",
+        headers: {
+            'Content-Type': "application/json"
+        },
+        body: JSON.stringify(profileData)
+    });
+
+    if (!res.ok) {
+        const message = "An error has Occurred " + res.status;
+        throw new Error(message);
+    }
+
+    const data = await res.json();
+    return data;
+}
+
 export const checkToken = () => {
     let result = false;
     let lsData = localStorage.getItem('Token');
@@ -63,6 +100,60 @@ export const changePassword = async (username: string, password: string) => {
         headers: {
             'Content-Type': "application/json"
         }
+    });
+
+    if (!res.ok) {
+        const message = "An error has Occurred " + res.status;
+        throw new Error(message);
+    }
+
+    const data = await res.json();
+
+    return data;
+}
+
+export const getProfileItemByUserId = async (id: number) => {
+    const res = await fetch(url + "/MT_Profile/GetProfileItemByUserId/" + id);
+    const data = await res.json();
+    return data;
+}
+
+export const createAppointment = async (appointment: IAppointments) => {
+    const res = await fetch(url + '/MT_Schedule/CreateScheduledMeeting', {
+        method: "POST",
+        headers: {
+            'Content-Type': "application/json"
+        },
+        body: JSON.stringify(appointment)
+    });
+
+    if (!res.ok) {
+        const message = "An error has Occurred " + res.status;
+        throw new Error(message);
+    }
+
+    const data = await res.json();
+}
+
+export const getAppointments = async (userId: number) => {
+    const res = await fetch(url + '/MT_Schedule/GetMeetingsByUserId/' + userId)
+    const data = await res.json();
+    return data;
+}
+
+export const getAppointmentsById = async (id: number) => {
+    const res = await fetch(url + '/MT_Schedule/GetMeetingById/' + id)
+    const data = await res.json();
+    return data
+}
+
+export const updateAppointments = async (appointment: IAppointments) =>{
+    const res = await fetch(url + '/MT_Schedule/UpdateScheduleTime', {
+        method: "PUT",
+        headers: {
+            'Content-Type': 'application/json'
+        },
+        body: JSON.stringify(appointment)
     });
 
     if (!res.ok) {

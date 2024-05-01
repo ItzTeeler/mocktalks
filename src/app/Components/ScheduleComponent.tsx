@@ -1,81 +1,44 @@
-'use client';
 
-import { IMockInterviewProps } from '@/Interfaces/Interfaces';
-import { Button } from 'flowbite-react';
-import React from 'react'
+"use client";
 
-const ScheduleComponent = (props: IMockInterviewProps) => {
-    return (
-        <>
-            <div className='hidden min-[1440px]:block'>
-                <hr />
-                <div className='grid grid-flow-col p-3'>
-                    <div className='w-80'>
-                        <p className='text-4xl text-black font-[Source-Sans-Pro]'>{props.date}</p>
-                    </div>
-                    <div className='w-48'>
-                        <p className='text-4xl text-black font-[Source-Sans-Pro]'>{props.type}</p>
-                    </div>
-                    <div className='w-96'>
-                        <p className='text-4xl text-black font-[Source-Sans-Pro]'>{props.questions}</p>
-                    </div>
-                    <div className='w-60'>
-                        <p className='text-4xl text-black font-[Source-Sans-Pro]'>{props.language}</p>
-                    </div>
-                    <div className='w-[480px]'>
-                        <div className='flex flex-row space-x-4'>
-                            <Button className='bg-[#D9D9D9] w-48'><span className='text-black text-4xl font-[Source-Sans-Pro]'>Cancel</span></Button>
-                            <Button className='bg-[#2B170C] w-full'><span className='text-white text-4xl font-[Source-Sans-Pro]'>Reschedule</span></Button>
-                        </div>
-                    </div>
-                </div>
-                <hr />
-            </div>
-            <div className='block min-[1440px]:hidden'>
-                <hr />
-                <div className='grid grid-cols-2 h-auto'>
-                    <div className='grid grid-row-5 bg-[#D9D9D9]'>
-                        <div className='flex items-center pl-5 font-[DMSerifText] text-xl h-16'>
-                            When
-                        </div>
-                        <div className='flex items-center pl-5 font-[DMSerifText] text-xl h-16'>
-                            Type
-                        </div>
-                        <div className='flex items-center pl-5 font-[DMSerifText] text-xl h-16'>
-                            Test Questions
-                        </div>
-                        <div className='flex items-center pl-5 font-[DMSerifText] text-xl h-16'>
-                            Language
-                        </div>
-                        <div className='flex items-center pl-5 font-[DMSerifText] text-xl h-16'>
-                            Action
-                        </div>
-                    </div>
-                    <div className='grid grid-row-5 bg-white'>
-                        <div className='flex items-center pl-5 max-[300px]:pl-1 font-[Source-Sans-Pro] text-xl h-16'>
-                            {props.date}
-                        </div>
-                        <div className='flex items-center pl-5 max-[300px]:pl-1 font-[Source-Sans-Pro] text-xl h-16'>
-                            {props.type}
-                        </div>
-                        <div className='flex items-center pl-5 max-[300px]:pl-1 font-[Source-Sans-Pro] text-xl h-16'>
-                            {props.questions}
-                        </div>
-                        <div className='flex items-center pl-5 max-[300px]:pl-1 font-[Source-Sans-Pro] text-xl h-16'>
-                            {props.language}
-                        </div>
-                        <div className='flex items-center max-[300px]:pl-1 px-2 font-[Source-Sans-Pro] text-xl h-16'>
-                            <div className='w-full flex flex-col space-y-1'>
-                                <Button className='bg-[#D9D9D9] text-black font-[Source-Sans-Pro] rounded-full h-6'>Cancel</Button>
-                                <Button className='bg-[#2B170C] text-white font-[Source-Sans-Pro] rounded-full h-6'>Reschedule</Button>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                <hr />
-            </div>
-        </>
-    )
+import Link from "next/link";
+import { Button, CustomFlowbiteTheme, FlowbiteNavbarCollapseTheme, Navbar } from "flowbite-react";
+
+import Image from "next/image";
+
+import icon from '@/Assets/MockTalkIcon.png'
+import bellIcon from '@/Assets/BellIcon.png'
+import chatDots from '@/Assets/ChatCenteredDots.png'
+
+export default function NavbarComponent() {
+  const customTheme: FlowbiteNavbarCollapseTheme = {
+    base: 'w-full md:block md:w-auto',
+    list: 'mt-4 flex flex-col md:mt-0 md:flex-row md:space-x-8 md:text-sm md:font-medium',
+    hidden: {
+      on: 'hidden',
+      off: ''
+    }
+  };
+
+  return (
+    <>
+      <Navbar fluid>
+        <Navbar.Brand as={Link} href="/Profile">
+          <Image src={icon} className="mr-1 sm:mr-3 h-3 w-auto sm:h-9" alt="Flowbite React Logo" />
+          <span className="self-center whitespace-nowrap sm:text-4xl dark:text-white font-[DMSerifText]">MockTalks</span>
+        </Navbar.Brand>
+        <Navbar.Collapse theme={customTheme}>
+          <Navbar.Link href="#">
+            <Image src={bellIcon} alt="Bell Icon" />
+          </Navbar.Link>
+          <Navbar.Link href="/MessagingPage">
+            <Image src={chatDots} alt="Centered Chat Dots" />
+          </Navbar.Link>
+          <Navbar.Link href="/">
+            <span className="self-center whitespace-nowrap text-[36px] dark:text-white font-[DMSerifText]">Logout</span>
+          </Navbar.Link>
+        </Navbar.Collapse>
+      </Navbar>
+    </>
+  );
 }
-
-export default ScheduleComponent

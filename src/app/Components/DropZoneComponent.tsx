@@ -1,9 +1,25 @@
 
 "use client";
-
+import { IDropZoneImage } from "@/Interfaces/Interfaces";
 import { FileInput, Label } from "flowbite-react";
 
-export function DropZoneComponent() {
+export function DropZoneComponent(props: IDropZoneImage) {
+  const handleImage = (e: React.ChangeEvent<HTMLInputElement>) => {
+    let reader = new FileReader();
+    const file = e.target.files?.[0];
+
+    if (file) {
+      reader.onload = () => {
+        props.setProfileImg(reader.result as string);
+        alert("Image accepted successfully")
+      };
+      reader.readAsDataURL(file);
+    } else {
+      alert("Image set to default")
+      props.setProfileImg("");
+    }
+  };
+
   return (
     <div className="flex w-full items-center justify-center">
       <Label
@@ -28,7 +44,7 @@ export function DropZoneComponent() {
           </svg>
 
         </div>
-        <FileInput id="dropzone-file" className="hidden" />
+        <FileInput onChange={handleImage} accept='image/png, image/jpg' id="dropzone-file" className="hidden" />
       </Label>
     </div>
   );
