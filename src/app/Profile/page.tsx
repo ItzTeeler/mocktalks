@@ -134,7 +134,6 @@ const Page = () => {
   return (
     <>
       <NavbarComponent /> {/* Top Navbar */}
-      <PendingNotificationComponent />
 
       {
         openModal && userGlobalInfo && <EditProfileModal userInfoPass={userGlobalInfo} setUserProfile={setUserProfileInfo} setIsNotCreate={setIsNotCreateProfile} isNotCreate={isNotCreateProfile} open={openModal} close={setOpenModal} />
