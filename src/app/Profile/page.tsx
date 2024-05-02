@@ -11,7 +11,6 @@ import ScheduleComponent from '../Components/ScheduleComponent'
 
 import { AddAppointmentModal } from '../Components/AddAppointmentModal'
 import { ScheduleInterviewComponent } from '../Components/ScheduleInterviewComponent'
-import { PendingNotificationComponent } from '../Components/PendingNotificationComponent'
 import { getAppointments, getProfileItemByUserId, loggedInData } from '@/utils/Dataservices'
 import { IAppointments, IProfileData, IUserData } from '@/Interfaces/Interfaces'
 import { EditProfileModal } from '../Components/EditProfileModal'
@@ -64,7 +63,6 @@ const Page = () => {
   return (
     <>
       <NavbarComponent /> {/* Top Navbar */}
-      <PendingNotificationComponent />
 
       {
         openModal && userGlobalInfo && <EditProfileModal userInfoPass={userGlobalInfo} setUserProfile={setUserProfileInfo} setIsNotCreate={setIsNotCreateProfile} isNotCreate={isNotCreateProfile} open={openModal} close={setOpenModal} />
