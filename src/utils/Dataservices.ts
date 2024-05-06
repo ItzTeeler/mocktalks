@@ -165,3 +165,21 @@ export const updateAppointments = async (appointment: IAppointments) =>{
 
     return data;
 }
+
+export const deleteAppointments = async (appointment: IAppointments) => {
+    const res = await fetch(url + '', {
+        method: "PUT",
+        headers: {
+            'Content-Type': 'application/json'
+        },
+        body: JSON.stringify(appointment)
+    })
+    if (!res.ok) {
+        const message = "An error has Occured" + res.status;
+        throw new Error(message);
+    }
+
+    const data = await res.json();
+
+    return data;
+}
