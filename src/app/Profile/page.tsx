@@ -250,28 +250,28 @@ const Page = () => {
                 </div>
               </div>
 
-              <div className='p-3'>
-                {Array.isArray(appointmentData) && appointmentData.length > 0 ? (
-                  appointmentData.map((appointment: any, index: any) => (
-                    <ScheduleComponent
-                      key={index}
-                      id={appointment.id}
-                      selectedDate={appointment.selectedDate}
-                      typePractice={appointment.typePractice}
-                      testQuestions={appointment.testQuestions}
-                      language={appointment.language}
-                      time={appointment.timezone}
-                      submitBool={handleSubmitBool}
-                    />
-                  ))
-                ) : (
-                  <p>No appointments available</p>
-                )}
-              </div>
+            <div className='p-3'>
+              {Array.isArray(appointmentData) && appointmentData.length > 0 ? ( 
+                appointmentData.map((appointment: any, index: any) => (
+                  <ScheduleComponent
+                    key={index}
+                    id={appointment.id}
+                    selectedDate={appointment.selectedDate}
+                    typePractice={appointment.typePractice}
+                    testQuestions={appointment.testQuestions}
+                    language={appointment.language}
+                    time={appointment.timezone}
+                    submitBool={handleSubmitBool}
+                  />
+                ))
+              ) : (
+                <p>No appointments available</p>
+              )}
             </div>
           </div>
-          :
-          <p className='text-center text-6xl text-white mt-32 font-[DMSerifText]'>Loading...</p>
+        </div>
+        :
+        <p className='text-center text-6xl text-white mt-32 font-[DMSerifText]'>Loading...</p>
       }
     </>
   )

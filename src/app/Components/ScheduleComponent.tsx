@@ -31,9 +31,7 @@ const ScheduleComponent = (props: ScheduleComponentProps & { submitBool: () => v
 
                     <div className='w-[480px] min-[1440px]:w-[320px] 2xl:w-[480px]'>
                         <div className='flex flex-row space-x-4'>
-                            <CancelAppointmentModal open={false} close={function (value: React.SetStateAction<boolean>): void {
-                                throw new Error('Function not implemented.')
-                            }} />
+                            <CancelAppointmentModal id={props.id} submitBool={props.submitBool}/>
                             <ReScheduleComponent id={props.id} submitBool={props.submitBool} />              
                         </div>
                         <hr />
@@ -76,9 +74,7 @@ const ScheduleComponent = (props: ScheduleComponentProps & { submitBool: () => v
                         </div>
                         <div className='flex items-center max-[300px]:pl-1 px-2 font-[Source-Sans-Pro] text-xl h-16'>
                             <div className='w-full flex flex-col space-y-1'>
-                                <CancelAppointmentModal open={false} close={function (value: React.SetStateAction<boolean>): void {
-                                    throw new Error('Function not implemented.')
-                                }} />
+                                <CancelAppointmentModal id={props.id} submitBool={props.submitBool}/>
                                 <ReScheduleComponent id={props.id} submitBool={props.submitBool} />                               
                             </div>
                         </div>
