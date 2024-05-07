@@ -165,3 +165,9 @@ export const updateAppointments = async (appointment: IAppointments) =>{
 
     return data;
 }
+
+export const getAllAppointments = async () => {
+    const res = await fetch(url + '/MT_Schedule/GetAllMeetings');
+    const data = await res.json();
+    return data;
+}
