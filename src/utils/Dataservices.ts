@@ -167,15 +167,16 @@ export const updateAppointments = async (appointment: IAppointments) =>{
 }
 
 export const deleteAppointments = async (appointment: IAppointments) => {
-    const res = await fetch(url + '', {
+    const res = await fetch(url + '/MT_Schedule/DeleteMeeting', {
         method: "PUT",
         headers: {
             'Content-Type': 'application/json'
         },
         body: JSON.stringify(appointment)
-    })
+    });
+
     if (!res.ok) {
-        const message = "An error has Occured" + res.status;
+        const message = "An error has Occurred " + res.status;
         throw new Error(message);
     }
 

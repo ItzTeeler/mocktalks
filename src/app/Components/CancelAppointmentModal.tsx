@@ -1,17 +1,38 @@
 'use client'
 
-import React, { useState } from "react"
+import React, { useEffect, useState } from "react"
 import { Modal, Button } from "flowbite-react"
-import { ICancelAppointmentProps } from "@/Interfaces/Interfaces"
+import { IAppointments, ICancelAppointmentProps } from "@/Interfaces/Interfaces"
+import { deleteAppointments, getAppointments, getAppointmentsById } from "@/utils/Dataservices";
 
-export function CancelAppointmentModal(props: ICancelAppointmentProps) {
+
+
+export function CancelAppointmentModal(props: { id: Number, submitBool: () => void }) {
     const [openModal, setOpenModal] = useState(false);
+    const [appointments, setAppointments] = useState<IAppointments>();
+    const [appById, setAppById] = useState<any>();
+    const [userIdSession, setUserIdSession] = useState<string>();
+
+    useEffect(() => {
+        const getData = async () => {
+            const userId = sessionStorage.getItem('userId');
+            setUserIdSession(String(userId));
+            const appointments = await getAppointments(Number(userId))
+            const appointmentById = await getAppointmentsById(Number(props.id))
+            setAppById(appointmentById);
+        }
+
+        getData();
+    }, [])
 
     const handleClose = () => {
         setOpenModal(false);
     }
 
-    const handleCancel = () => {
+    const handleCancel = async () => {
+        let deleteAppointment = await getAppointmentsById(Number(props.id));
+        await deleteAppointments(deleteAppointment);
+        props.submitBool();
         handleClose();
     }
 

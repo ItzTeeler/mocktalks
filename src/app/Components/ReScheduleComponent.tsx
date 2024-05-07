@@ -164,12 +164,7 @@ const ReScheduleComponent = (props: { id: Number, submitBool: () => void }) => {
 
     return (
         <div>
-            <Button
-                className="bg-[#2B170C] w-full"
-                onClick={() => setOpenModal(true)}
-            >
-                <span className='text-white text-4xl font-[Source-Sans-Pro]'>Reschedule</span>
-            </Button>
+            <Button className="bg-[#2B170C] w-full" onClick={() => setOpenModal(true)}><span className='text-white text-4xl font-[Source-Sans-Pro]'>Reschedule</span></Button>
             <Modal size={"3xl"} show={openModal} onClose={() => setOpenModal(false)}>
                 <Modal.Body className="p-[0px]">
                     <div className="text-center text-[30px] font-[DMSerifText]">
