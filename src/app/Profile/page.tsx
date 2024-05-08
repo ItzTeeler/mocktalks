@@ -252,28 +252,33 @@ const Page = () => {
                 </div>
               </div>
 
-            <div className='p-3'>
-              {Array.isArray(appointmentData) && appointmentData.length > 0 ? ( 
-                appointmentData.map((appointment: any, index: any) => (
-                  <ScheduleComponent
-                    key={index}
-                    id={appointment.id}
-                    selectedDate={appointment.selectedDate}
-                    typePractice={appointment.typePractice}
-                    testQuestions={appointment.testQuestions}
-                    language={appointment.language}
-                    time={appointment.timezone}
-                    submitBool={handleSubmitBool}
-                  />
-                ))
-              ) : (
-                <p>No appointments available</p>
-              )}
+              <div className='p-3'>
+                <div className='bg-white w-full rounded-2xl pb-5'>
+                  <h1 className='text-black text-[20px] font-[DMSerifText] text-center p-5'>UPCOMING PRACTICE INTERVIEWS</h1>
+                  <hr style={{ border: '1px black solid' }} />
+                  {Array.isArray(appointmentData) && appointmentData.length > 0 ? (
+                    appointmentData.map((appointment: any, index: any) => (
+                      <ScheduleComponent
+                        key={index}
+                        id={appointment.id}
+                        selectedDate={appointment.selectedDate}
+                        typePractice={appointment.typePractice}
+                        testQuestions={appointment.testQuestions}
+                        language={appointment.language}
+                        time={appointment.timezone}
+                        submitBool={handleSubmitBool}
+                      />
+                    ))
+                  ) : (
+                    <p>No appointments available</p>
+                  )}
+                  <hr style={{ border: '1px black solid' }} />
+                </div>
+              </div>
             </div>
           </div>
-        </div>
-        :
-        <p className='text-center text-6xl text-white mt-32 font-[DMSerifText]'>Loading...</p>
+          :
+          <p className='text-center text-6xl text-white mt-32 font-[DMSerifText]'>Loading...</p>
       }
     </>
   )
