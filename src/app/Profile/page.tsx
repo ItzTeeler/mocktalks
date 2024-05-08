@@ -53,8 +53,9 @@ const Page = () => {
       console.log(userId)
       setUserIdInfo(userId);
       const dataAppoint = await getAppointments(Number(userId));
-      setAppointmentData(dataAppoint);
-      console.log(appointmentData);
+      const filteredData = dataAppoint.filter((meeting: IAppointments) => meeting.isDeleted === false);
+      setAppointmentData(filteredData);
+      console.log(filteredData);
 
       const allAppointments = await getAllAppointments();
       setAllOfTheAppointments(allAppointments);
@@ -148,7 +149,7 @@ const Page = () => {
                 <div className='bg-white w-full h-auto rounded-2xl p-[15px]'>
                   <div className='grid grid-flow-col'>
                     <div className='flex justify-center'>
-                      <img src={userProfileInfo.profileImg} className='rounded-full h-[300px] w-[300px] min-[1440px]:w-[200px] min-[1440px]:h-[200px] 2xl:h-[300px] 2xl:w-[300px]' alt='Profile Image' />
+                      <img src={userProfileInfo.profileImg} className='rounded-full h-[300px] w-[300px] min-[1440px]:w-[200px] min-[1440px]:h-[200px] 2xl:h-[300px] 2xl:w-[300px] object-cover' alt='Profile Image' />
                     </div>
                     <div className='flex justify-center items-center'>
                       <div>
