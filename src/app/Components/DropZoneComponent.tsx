@@ -6,14 +6,20 @@ import { FileInput, Label } from "flowbite-react";
 export function DropZoneComponent(props: IDropZoneImage) {
   const handleImage = (e: React.ChangeEvent<HTMLInputElement>) => {
     let reader = new FileReader();
-    const file = e.target.files?.[0];
+    let file = e.target.files?.[0];
 
     if (file) {
-      reader.onload = () => {
-        props.setProfileImg(reader.result as string);
-        alert("Image accepted successfully")
-      };
-      reader.readAsDataURL(file);
+      // console.log(((file.size/1024)/1024).toFixed(4))
+      if (Number(((file.size/1024)/1024).toFixed(4)) < 5) {
+        reader.onload = () => {
+          props.setProfileImg(reader.result as string);
+          alert("Image accepted successfully")
+        };
+        reader.readAsDataURL(file);
+      } else {
+        alert("Image is too large!")
+        file = undefined;
+      }
     } else {
       alert("Image set to default")
       props.setProfileImg("");

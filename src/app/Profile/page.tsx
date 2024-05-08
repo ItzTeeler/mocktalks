@@ -11,7 +11,8 @@ import ScheduleComponent from '../Components/ScheduleComponent'
 
 import { AddAppointmentModal } from '../Components/AddAppointmentModal'
 import { ScheduleInterviewComponent } from '../Components/ScheduleInterviewComponent'
-import { getAppointments, getProfileItemByUserId, loggedInData } from '@/utils/Dataservices'
+import { PendingNotificationComponent } from '../Components/PendingNotificationComponent'
+import { getAllAppointments, getAppointments, getProfileItemByUserId, loggedInData, updateAppointments } from '@/utils/Dataservices'
 import { IAppointments, IProfileData, IUserData } from '@/Interfaces/Interfaces'
 import { EditProfileModal } from '../Components/EditProfileModal'
 
@@ -22,6 +23,8 @@ const Page = () => {
   const [userProfileInfo, setUserProfileInfo] = useState<IProfileData>();
   const [isNotCreateProfile, setIsNotCreateProfile] = useState<boolean>(true);
   const [userGlobalInfo, setUserGlobalInfo] = useState<string | null>();
+
+  const [allOfTheAppointments, setAllOfTheAppointments] = useState<any>();
 
   useEffect(() => {
     const outerCall = () => {
@@ -50,16 +53,83 @@ const Page = () => {
       console.log(userId)
       setUserIdInfo(userId);
       const dataAppoint = await getAppointments(Number(userId));
-      const filteredData = dataAppoint.filter((meeting: IAppointments) => meeting.isDeleted === false);
-      setAppointmentData(filteredData);
-      console.log(filteredData);
+      setAppointmentData(dataAppoint);
+      console.log(appointmentData);
+
+      const allAppointments = await getAllAppointments();
+      setAllOfTheAppointments(allAppointments);
+      console.log(allAppointments);
     };
     getData();
   }, [submitBool]);
 
+  useEffect(() => {
+    if (allOfTheAppointments) {
+      findPairs(allOfTheAppointments);
+    }
+  }, [allOfTheAppointments]);
   const handleSubmitBool = () => {
     setSubmitBool(!submitBool)
   }
+
+
+
+  const findPairs = async (appointments: any) => {
+    console.log(appointments);
+    if (!Array.isArray(appointments)) return;
+    for (let index1 = 0; index1 < appointments.length; index1++) {
+      const appointment1 = appointments[index1];
+      for (let index2 = index1 + 1; index2 < appointments.length; index2++) {
+        const appointment2 = appointments[index2];
+
+        if (
+          appointment1.selectedDate === appointment2.selectedDate &&
+          appointment1.timezone === appointment2.timezone &&
+          appointment1.interviewPractice === appointment2.interviewPractice &&
+          appointment1.typePractice === appointment2.typePractice &&
+          appointment1.isPartnered === false &&
+          appointment2.isPartnered === false &&
+          appointment1.isDeleted === false &&
+          appointment2.isDeleted === false &&
+          appointment1.userID !== appointment2.userID
+        ) {
+          const update = {
+            id: appointment1.id,
+            userId: Number(appointment1.userID),
+            partnerId: appointment2.userID,
+            interviewPractice: appointment1.interviewPractice,
+            typePractice: appointment1.typePractice,
+            typeExperience: appointment1.typeExperience,
+            selectedDate: appointment1.selectedDate,
+            timezone: appointment1.timezone,
+            testQuestions: "Build a Calculator App",
+            language: "HTML/CSS/JS",
+            isPartnered: true,
+            isDeleted: false
+          };
+          const updateData = await updateAppointments(update);
+
+          const update2 = {
+            id: appointment2.id,
+            userId: Number(appointment2.userID),
+            partnerId: appointment1.userID,
+            interviewPractice: appointment2.interviewPractice,
+            typePractice: appointment2.typePractice,
+            typeExperience: appointment2.typeExperience,
+            selectedDate: appointment2.selectedDate,
+            timezone: appointment2.timezone,
+            testQuestions: "Build a Calculator App",
+            language: "HTML/CSS/JS",
+            isPartnered: true,
+            isDeleted: false
+          };
+          const updateData2 = await updateAppointments(update2);
+        }
+      }
+    }
+  };
+
+
 
   return (
     <>
@@ -78,7 +148,7 @@ const Page = () => {
                 <div className='bg-white w-full h-auto rounded-2xl p-[15px]'>
                   <div className='grid grid-flow-col'>
                     <div className='flex justify-center'>
-                      <img src={userProfileInfo.profileImg} className='rounded-full h-[300px] w-[300px] min-[1440px]:w-[200px] min-[1440px]:h-[200px] 2xl:h-[300px] 2xl:w-[300px] object-cover' alt='Profile Image' />
+                      <img src={userProfileInfo.profileImg} className='rounded-full h-[300px] w-[300px] min-[1440px]:w-[200px] min-[1440px]:h-[200px] 2xl:h-[300px] 2xl:w-[300px]' alt='Profile Image' />
                     </div>
                     <div className='flex justify-center items-center'>
                       <div>
