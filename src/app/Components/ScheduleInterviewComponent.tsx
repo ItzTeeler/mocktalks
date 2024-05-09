@@ -1,7 +1,7 @@
 "use client";
 
 import { Button, Modal } from "flowbite-react";
-import { useEffect, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import Image from "next/image";
 import LeftButton from "@/Assets/LeftButton.png";
 import RightButton from "@/Assets/RightButton.png";
@@ -23,7 +23,13 @@ export function ScheduleInterviewComponent(props: {submitBool: () => void, userI
   const [selectedTime, setSelectedTime] = useState("");
 
   const [interviewObject, setInterviewObject] = useState<IAppointments>();
-
+  const modalRef = useRef<HTMLDivElement>(null);
+  useEffect(() => {
+    if (modalRef.current && openModal) {
+      modalRef.current.focus();
+    }
+  }, [modalRef, openModal]);
+  
   const handleSubmit = async () => {
     const newAppointment: IAppointments = {
       id: 0,
@@ -71,7 +77,7 @@ export function ScheduleInterviewComponent(props: {submitBool: () => void, userI
         timeSlots.push(
           <div key={hour} className="text-center mb-[5px] pt-[5px]">
             <button
-              className="border-black border py-[10px] px-[3px] w-[100px] rounded-[10px]"
+              className="border-black border py-[10px] px-[3px] w-[100px] rounded-[10px] focus:bg-[#757575] hover:bg-[#757575]"
               onClick={handleButtonClick(currentDate.toDateString(), startTime)}
             >
               {startTime}
@@ -158,36 +164,37 @@ export function ScheduleInterviewComponent(props: {submitBool: () => void, userI
   return (
     <>
       <div className="block min-[1440px]:hidden">
-        <Button className='bg-[#2B170C] w-full' onClick={() => setOpenModal(true)}><span className='text-white text-xl font-[Source-Sans-Pro]'>START A PRACTICE SESSION</span></Button>
+        <Button className='bg-[#2B170C] focus:bg-[#2b170c] w-full' onClick={() => setOpenModal(true)}><span className='text-white text-xl font-[Source-Sans-Pro]'>START A PRACTICE SESSION</span></Button>
       </div>
       <div className="hidden min-[1440px]:block">
         <Button className='bg-[#2B170C] h-full' onClick={() => setOpenModal(true)}><span className='text-white text-4xl font-[Source-Sans-Pro] px-32 min-[1440px]:px-16 2xl:px-32'>START A PRACTICE SESSION</span></Button>
       </div>
-      <Modal size={"3xl"} show={openModal} onClose={() => setOpenModal(false)}>
+      <Modal initialFocus={-1} autoFocus={false} ref={modalRef} size={"3xl"} show={openModal} onClose={() => setOpenModal(false)}>
         <Modal.Body className="p-[30px]">
           <div className="text-center text-[50px] font-[DMSerifText]">
             <p>Schedule your first practice interview</p>
           </div>
           <div className="grid grid-cols-2 gap-x-3">
             <div className="flex flex-col gap-5">
-              <button onClick={() => setPracInterview("Data Structure and Algorithms")} className=" py-[30px] border rounded-[10px] text-[20px] font-[DMSerifText] border-black">
+           
+              <button onClick={() => setPracInterview("Data Structure and Algorithms")} className=" py-[30px] border rounded-[10px] text-[20px] font-[Source-Sans-Pro] border-black hover:bg-[#757575] focus:bg-[#757575]">
                 Data Structure and Algorithms
               </button>
-              <button onClick={() => setPracInterview("Applied Data Science")} className=" py-[30px] border rounded-[10px] text-[20px] font-[DMSerifText] border-black">
+              <button onClick={() => setPracInterview("Applied Data Science")} className=" py-[30px] border rounded-[10px] text-[20px] font-[Source-Sans-Pro] border-black focus:bg-[#757575] hover:bg-[#757575]">
                 Applied Data Science
               </button>
-              <button onClick={() => setPracInterview("Behavioral")} className=" py-[30px] border rounded-[10px] text-[20px] font-[DMSerifText] border-black">
+              <button onClick={() => setPracInterview("Behavioral")} className=" py-[30px] border rounded-[10px] text-[20px] font-[Source-Sans-Pro] border-black focus:bg-[#757575] hover:bg-[#757575]">
                 Behavioral
               </button>
             </div>
             <div className="flex flex-col gap-5">
-              <button onClick={() => setPracInterview("Frontend")} className="px-[10px] py-[30px] border rounded-[10px] text-[20px] font-[DMSerifText] border-black">
+              <button onClick={() => setPracInterview("Frontend")} className="px-[10px] py-[30px] border rounded-[10px] text-[20px] font-[Source-Sans-Pro] border-black focus:bg-[#757575] hover:bg-[#757575]">
                 Frontend
               </button>
-              <button onClick={() => setPracInterview("System Design")} className="px-[10px] py-[30px] border rounded-[10px] text-[20px] font-[DMSerifText] border-black">
+              <button onClick={() => setPracInterview("System Design")} className="px-[10px] py-[30px] border rounded-[10px] text-[20px] font-[Source-Sans-Pro] border-black focus:bg-[#757575] hover:bg-[#757575]">
                 System Design
               </button>
-              <button onClick={() => setPracInterview("Practice with a Friend")} className="px-[10px] py-[30px] border rounded-[10px] text-[20px] font-[DMSerifText] border-black">
+              <button onClick={() => setPracInterview("Practice with a Friend")} className="px-[10px] py-[30px] border rounded-[10px] text-[20px] font-[Source-Sans-Pro] border-black focus:bg-[#757575] hover:bg-[#757575]">
                 Practice with a Friend
               </button>
             </div>
@@ -197,7 +204,7 @@ export function ScheduleInterviewComponent(props: {submitBool: () => void, userI
           <button
             color="gray"
             onClick={() => setOpenModal(false)}
-            className="text-[30px] bg-[#D9D9D9] font-[DMSerifText] text-black border rounded-[10px] px-[18px] py-[6px] "
+            className="text-[30px] bg-[#D9D9D9] font-[DMSerifText] text-black border rounded-[10px] px-[18px] py-[6px] focus:bg-[#757575]"
           >
             Back
           </button>
@@ -206,7 +213,7 @@ export function ScheduleInterviewComponent(props: {submitBool: () => void, userI
               setOpenModal(false);
               setOpenModal2(true);
             }}
-            className="text-[30px] bg-[#2B170C] font-[DMSerifText] text-white rounded-[10px] px-[35px] py-[6px] "
+            className="text-[30px] bg-[#2B170C] font-[DMSerifText] text-white rounded-[10px] px-[35px] py-[6px] focus:bg-[#757575]"
           >
             Next
           </button>
@@ -214,14 +221,14 @@ export function ScheduleInterviewComponent(props: {submitBool: () => void, userI
       </Modal>
 
 
-      <Modal size={"3xl"} show={openModal2} onClose={() => setOpenModal2(false)}>
+      <Modal initialFocus={-1} autoFocus={false} ref={modalRef} size={"3xl"} show={openModal2} onClose={() => setOpenModal2(false)}>
         <Modal.Body className="p-[20px]">
           <div className="text-center text-[50px] font-[DMSerifText]">
             <p>Choose type of practice</p>
           </div>
           <div className="">
             <div className="flex flex-col gap-5 pt-[50px]">
-              <button onClick={() => { setTypeOfInterview("Practice with Peers") }} className=" py-[35px] border rounded-[10px] text-left border-black p-10">
+              <button onClick={() => { setTypeOfInterview("Practice with Peers") }} className=" py-[35px] border rounded-[10px] text-left border-black p-10 focus:bg-[#757575]">
                 <p className=" text-[20px] font-[DMSerifText]">
                   Practice with Peers
                 </p>
@@ -230,7 +237,7 @@ export function ScheduleInterviewComponent(props: {submitBool: () => void, userI
                   turns asking each other questions
                 </p>
               </button>
-              <button onClick={() => { setTypeOfInterview("Expert mock interview") }} className=" py-[35px] border rounded-[10px] text-left border-black p-10">
+              <button onClick={() => { setTypeOfInterview("Expert mock interview") }} className=" py-[35px] border rounded-[10px] text-left border-black p-10 focus:bg-[#757575]">
                 <p className=" text-[20px] font-[DMSerifText]">
                   Expert mock interview
                 </p>
@@ -265,6 +272,9 @@ export function ScheduleInterviewComponent(props: {submitBool: () => void, userI
       </Modal>
 
       <Modal
+      initialFocus={-1}
+      autoFocus={false}
+      ref={modalRef}
         size={"3xl"}
         show={openModal3}
         onClose={() => setOpenModal3(false)}
@@ -275,19 +285,19 @@ export function ScheduleInterviewComponent(props: {submitBool: () => void, userI
           </div>
           <div className="grid grid-cols-2 gap-x-3">
             <div className="flex flex-col gap-5">
-              <button onClick={() => { setTypeOfExperience("Clueless") }} className=" py-[30px] border rounded-[10px] border-black">
+              <button onClick={() => { setTypeOfExperience("Clueless") }} className=" py-[30px] border rounded-[10px] border-black focus:bg-[#757575]">
                 <p className="text-[20px] font-[DMSerifText]">Clueless</p>
                 <p className="text-[16px] font-[Source-Sans-Pro]">
                   Know nothing about job interviews
                 </p>
               </button>
-              <button onClick={() => { setTypeOfExperience("Intermediate") }} className=" py-[30px] border rounded-[10px] border-black">
+              <button onClick={() => { setTypeOfExperience("Intermediate") }} className=" py-[30px] border rounded-[10px] border-black focus:bg-[#757575]">
                 <p className="text-[20px] font-[DMSerifText]">Intermediate</p>
                 <p className="text-[16px] font-[Source-Sans-Pro]">
                   Had a few job interviews, but need more practice
                 </p>
               </button>
-              <button onClick={() => { setTypeOfExperience("Champ") }} className=" py-[30px] border rounded-[10px] border-black">
+              <button onClick={() => { setTypeOfExperience("Champ") }} className=" py-[30px] border rounded-[10px] border-black focus:bg-[#757575]">
                 <p className="text-[20px] font-[DMSerifText]">Champ</p>
                 <p className="text-[16px] font-[Source-Sans-Pro]">
                   Eat job interview questions for breakfast!
@@ -295,13 +305,13 @@ export function ScheduleInterviewComponent(props: {submitBool: () => void, userI
               </button>
             </div>
             <div onClick={() => { setTypeOfExperience("Beginner") }} className="flex flex-col gap-5">
-              <button className="px-[10px] py-[30px] border rounded-[10px] border-black">
+              <button className="px-[10px] py-[30px] border rounded-[10px] border-black focus:bg-[#757575]">
                 <p className="text-[20px] font-[DMSerifText]">Beginner</p>
                 <p className="text-[16px] font-[Source-Sans-Pro]">
                   Know a little about job interviews
                 </p>
               </button>
-              <button onClick={() => { setTypeOfExperience("Advanced") }} className="px-[10px] py-[30px] border rounded-[10px] border-black">
+              <button onClick={() => { setTypeOfExperience("Advanced") }} className="px-[10px] py-[30px] border rounded-[10px] border-black focus:bg-[#757575]">
                 <p className="text-[20px] font-[DMSerifText]">Advanced</p>
                 <p className="text-[16px] font-[Source-Sans-Pro]">
                   Pretty good at job interviews
@@ -334,6 +344,9 @@ export function ScheduleInterviewComponent(props: {submitBool: () => void, userI
       </Modal>
 
       <Modal
+      initialFocus={-1}
+      autoFocus={false}
+      ref={modalRef}
         size={"3xl"}
         show={openModal4}
         onClose={() => setOpenModal4(false)}
@@ -370,6 +383,8 @@ export function ScheduleInterviewComponent(props: {submitBool: () => void, userI
       </Modal>
 
       <Modal
+      autoFocus={false}
+      ref={modalRef}
         size={"3xl"}
         show={openModal5}
         onClose={() => setOpenModal5(false)}
@@ -379,8 +394,8 @@ export function ScheduleInterviewComponent(props: {submitBool: () => void, userI
             <p>{`You’ve been scheduled!`}</p>
           </div>
           <div>
-            <p>{`An awesome peer will be waiting to meet you for a live {Type (Frontend)} interview session on {Date Chosen}`}</p>
-            <p>{`An awesome peer will be waiting to meet you for a live {Type (Frontend)} interview session on {Date Chosen}`}</p>
+            <p>{`An awesome peer will be waiting to meet you for a live ${pracInterview} interview session`}</p>
+            <p>{`You have been scheduled for ${selectedDate} at ${selectedTime}`}</p>
           </div>
 
         </Modal.Body>

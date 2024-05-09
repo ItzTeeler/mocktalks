@@ -1,17 +1,38 @@
 'use client'
 
-import React, { useState } from "react"
+import React, { useEffect, useState } from "react"
 import { Modal, Button } from "flowbite-react"
-import { ICancelAppointmentProps } from "@/Interfaces/Interfaces"
+import { IAppointments, ICancelAppointmentProps } from "@/Interfaces/Interfaces"
+import { deleteAppointments, getAppointments, getAppointmentsById } from "@/utils/Dataservices";
 
-export function CancelAppointmentModal(props: ICancelAppointmentProps) {
+
+
+export function CancelAppointmentModal(props: { id: Number, submitBool: () => void }) {
     const [openModal, setOpenModal] = useState(false);
+    const [appointments, setAppointments] = useState<IAppointments>();
+    const [appById, setAppById] = useState<any>();
+    const [userIdSession, setUserIdSession] = useState<string>();
+
+    useEffect(() => {
+        const getData = async () => {
+            const userId = sessionStorage.getItem('userId');
+            setUserIdSession(String(userId));
+            const appointments = await getAppointments(Number(userId))
+            const appointmentById = await getAppointmentsById(Number(props.id))
+            setAppById(appointmentById);
+        }
+
+        getData();
+    }, [])
 
     const handleClose = () => {
         setOpenModal(false);
     }
 
-    const handleCancel = () => {
+    const handleCancel = async () => {
+        let deleteAppointment = await getAppointmentsById(Number(props.id));
+        await deleteAppointments(deleteAppointment);
+        props.submitBool();
         handleClose();
     }
 
@@ -21,7 +42,7 @@ export function CancelAppointmentModal(props: ICancelAppointmentProps) {
                 <Button className='bg-[#D9D9D9] rounded-full h-6 w-full' onClick={() => setOpenModal(true)}><span className="text-black 4xl font-[Source-Sans-Pro]">Cancel</span></Button>
             </div>
             <div className="hidden min-[1440px]:block">
-                <Button className='bg-[#D9D9D9] w-48' onClick={() => setOpenModal(true)}><span className='text-black text-4xl font-[Source-Sans-Pro]'>Cancel</span></Button>
+                <Button className='bg-[#D9D9D9]' onClick={() => setOpenModal(true)}><span className='text-black text-4xl font-[Source-Sans-Pro]'>Cancel</span></Button>
             </div>
 
             <Modal size={'3xl'} show={openModal} onClose={() => setOpenModal(false)}>

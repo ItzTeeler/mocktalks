@@ -50,7 +50,7 @@ export function DropZoneComponent(props: IDropZoneImage) {
           </svg>
 
         </div>
-        <FileInput onChange={handleImage} accept='image/png, image/jpg' id="dropzone-file" className="hidden" />
+        <FileInput onChange={handleImage} accept='image/png, image/jpeg' id="dropzone-file" className="hidden" />
       </Label>
     </div>
   );

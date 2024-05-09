@@ -32,7 +32,7 @@ const ReScheduleComponent = (props: { id: Number, submitBool: () => void }) => {
         let updateAppointment = {
             id: appById.id,
             userId: Number(userIdSession),
-            partnerId: 0,
+            partnerId: appById.partnerId,
             interviewPractice: appById.interviewPractice,
             typePractice: appById.typePractice,
             typeExperience: appById.typeExperience,
@@ -40,7 +40,7 @@ const ReScheduleComponent = (props: { id: Number, submitBool: () => void }) => {
             timezone: selectedTime,
             testQuestions: "Build a Calculator App",
             language: "HTML/CSS/JS",
-            isPartnered: false,
+            isPartnered: appById.isPartnered,
             isDeleted: false
         }
         setAppointments(updateAppointment);
@@ -74,7 +74,7 @@ const ReScheduleComponent = (props: { id: Number, submitBool: () => void }) => {
                 timeSlots.push(
                     <div key={hour} className="text-center mb-[5px] pt-[5px]">
                         <button
-                            className="border-black border py-[10px] px-[3px] w-[100px] rounded-[10px]"
+                            className="border-black border py-[10px] px-[3px] w-[100px] rounded-[10px] focus:bg-[#757575] hover:bg-[#757575]"
                             onClick={handleButtonClick(currentDate.toDateString(), startTime)}
                         >
                             {startTime}
@@ -164,12 +164,14 @@ const ReScheduleComponent = (props: { id: Number, submitBool: () => void }) => {
 
     return (
         <div>
-            <Button
-                className="bg-[#2B170C] w-full"
-                onClick={() => setOpenModal(true)}
-            >
-                <span className='text-white text-4xl font-[Source-Sans-Pro]'>Reschedule</span>
-            </Button>
+            <div className="block min-[1440px]:hidden">
+                <Button className='bg-[#2B170C] rounded-full h-6 w-full' onClick={() => setOpenModal(true)}><span className="text-white 4xl font-[Source-Sans-Pro]">Reschedule</span></Button>
+            </div>
+            <div className="hidden min-[1440px]:block">
+                <Button className='bg-[#2B170C]' onClick={() => setOpenModal(true)}><span className='text-white text-4xl font-[Source-Sans-Pro]'>Reschedule</span></Button>
+            </div>
+            {/*<Button className="bg-[#2B170C] w-full" onClick={() => setOpenModal(true)}><span className='text-white text-4xl font-[Source-Sans-Pro]'>Reschedule</span></Button>*/}
+
             <Modal size={"3xl"} show={openModal} onClose={() => setOpenModal(false)}>
                 <Modal.Body className="p-[0px]">
                     <div className="text-center text-[30px] font-[DMSerifText]">

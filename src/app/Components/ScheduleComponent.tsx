@@ -11,7 +11,7 @@ const ScheduleComponent = (props: ScheduleComponentProps & { submitBool: () => v
         <>
             <div className='hidden min-[1440px]:block'>
                 <hr />
-                <div className='grid grid-flow-col p-3'>
+                <div className='flex flex-row p-3 items-center justify-between'>
 
                     <div className='w-80 min-[1440px]:w-40 2xl:w-80'>
                         <p className='text-4xl text-black font-[Source-Sans-Pro] min-[1440px]:text-2xl 2xl:text-4xl'>{props.selectedDate} {props.time}</p>
@@ -29,11 +29,9 @@ const ScheduleComponent = (props: ScheduleComponentProps & { submitBool: () => v
                         <p className='text-4xl text-black font-[Source-Sans-Pro] min-[1440px]:text-2xl 2xl:text-4xl'>{props.language}</p>
                     </div>
 
-                    <div className='w-[480px] min-[1440px]:w-[320px] 2xl:w-[480px]'>
+                    <div className=''>
                         <div className='flex flex-row space-x-4'>
-                            <CancelAppointmentModal open={false} close={function (value: React.SetStateAction<boolean>): void {
-                                throw new Error('Function not implemented.')
-                            }} />
+                            <CancelAppointmentModal id={props.id} submitBool={props.submitBool}/>
                             <ReScheduleComponent id={props.id} submitBool={props.submitBool} />              
                         </div>
                         <hr />
@@ -76,9 +74,7 @@ const ScheduleComponent = (props: ScheduleComponentProps & { submitBool: () => v
                         </div>
                         <div className='flex items-center max-[300px]:pl-1 px-2 font-[Source-Sans-Pro] text-xl h-16'>
                             <div className='w-full flex flex-col space-y-1'>
-                                <CancelAppointmentModal open={false} close={function (value: React.SetStateAction<boolean>): void {
-                                    throw new Error('Function not implemented.')
-                                }} />
+                                <CancelAppointmentModal id={props.id} submitBool={props.submitBool}/>
                                 <ReScheduleComponent id={props.id} submitBool={props.submitBool} />                               
                             </div>
                         </div>
