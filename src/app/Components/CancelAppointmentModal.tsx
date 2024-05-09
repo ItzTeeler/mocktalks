@@ -42,7 +42,7 @@ export function CancelAppointmentModal(props: { id: Number, submitBool: () => vo
                 <Button className='bg-[#D9D9D9] rounded-full h-6 w-full' onClick={() => setOpenModal(true)}><span className="text-black 4xl font-[Source-Sans-Pro]">Cancel</span></Button>
             </div>
             <div className="hidden min-[1440px]:block">
-                <Button className='bg-[#D9D9D9] w-48' onClick={() => setOpenModal(true)}><span className='text-black text-4xl font-[Source-Sans-Pro]'>Cancel</span></Button>
+                <Button className='bg-[#D9D9D9]' onClick={() => setOpenModal(true)}><span className='text-black text-4xl font-[Source-Sans-Pro]'>Cancel</span></Button>
             </div>
 
             <Modal size={'3xl'} show={openModal} onClose={() => setOpenModal(false)}>
