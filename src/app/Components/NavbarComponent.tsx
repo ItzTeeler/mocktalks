@@ -9,6 +9,7 @@ import Image from "next/image";
 import icon from '@/Assets/MockTalkIcon.png'
 import bellIcon from '@/Assets/BellIcon.png'
 import chatDots from '@/Assets/ChatCenteredDots.png'
+import { PendingNotificationComponent } from "./PendingNotificationComponent";
 
 export default function NavbarComponent() {
   const customTheme: FlowbiteNavbarCollapseTheme = {
@@ -39,6 +40,7 @@ export default function NavbarComponent() {
           </Navbar.Link>
         </Navbar.Collapse>
       </Navbar>
+      <PendingNotificationComponent/>
     </>
   );
 }

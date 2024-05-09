@@ -5,12 +5,15 @@ import backArrow from '../Assets/BackArrow.png'
 import { changePassword, createAccount, getUserData, loggedInData, login } from "@/utils/Dataservices";
 import { IToken } from "@/Interfaces/Interfaces";
 import { useRouter } from "next/navigation";
+import AccountCreateComponent from "./Components/AccountCreateComponent";
 
 
 export default function LoginPage() {
   const [registerBool, setRegisterBool] = useState<boolean>(true);
   const [color, setColor] = useState<string>('text-[#1973E7]');
   const [forgotBool, setForgotBool] = useState<boolean>(false);
+  const [alertBool, setAlertBool] = useState<string>("hidden");
+  const [alertText, setAlertText] = useState<string>("");
 
   const [username, setUsername] = useState<string>("");
   const [password, setPassword] = useState<string>("");
@@ -29,17 +32,24 @@ export default function LoginPage() {
       username: username,
       password: password
     };
-  
+
     if (registerBool) {
       // Logic for Sign In
       if (forgotBool) {
         // If forgot password, change password
         try {
           await changePassword(username, password);
-          alert("Password changed successfully!");
+          setAlertText("Password changed successfully!")
+          setAlertBool("block");
+          setTimeout(() => {
+            setAlertBool("hidden");
+          }, 4000);
         } catch (error) {
-          console.error("Password change failed", error);
-          alert("Failed to change password. Please try again.");
+          setAlertText("Failed to change password. Please try again.")
+          setAlertBool("block");
+          setTimeout(() => {
+            setAlertBool("hidden");
+          }, 4000);
         }
       } else {
         // Normal login
@@ -49,15 +59,29 @@ export default function LoginPage() {
           await getUserData(username);
           let userId = loggedInData()
           sessionStorage.setItem("userId", String(userId?.id))
+          setAlertText("Logging In")
+          setAlertBool("block");
+          setTimeout(() => {
+            setAlertBool("hidden");
+          }, 2000);
           router.push('/Profile');
         } else {
-          alert("Login Failed");
+          setAlertText("Login Failed")
+          setAlertBool("block");
+          setTimeout(() => {
+            setAlertBool("hidden");
+          }, 4000);
         }
       }
     } else {
       // Logic for Create Account
       createAccount(userData);
-      alert("Account Created");
+      setAlertText("Account Created")
+      setAlertBool("block");
+      setTimeout(() => {
+        setAlertBool("hidden");
+      }, 4000);
+
     }
   };
 
@@ -71,6 +95,7 @@ export default function LoginPage() {
 
   return (
     <div className="loginBgImage">
+      <AccountCreateComponent show={alertBool} text={alertText} />
       <div className="grid grid-flow-row justify-center pt-20 pl-[8px] pr-[8px] pb-20">
         <div className="bg-white max-w-[31.625rem] rounded-[20px] px-[36px] md:px-[44px]">
 
@@ -87,7 +112,7 @@ export default function LoginPage() {
             <input type="password" onChange={(e) => setPassword(e.target.value)} className="h-[29px] md:h-[39px] mb-[17px] md:mb-[20px] w-full border-[1px] border-black rounded-[10px] text-[18px] font-[Source-Sans-Pro] pl-[16px]" placeholder="Enter Password" required />
           </div>
           <div className="">
-            {registerBool ? <p onClick={handleForgotPassword} className={`cursor-pointer ${color} text-[20px] mb-[19px] md:mb-[30px] font-[DMSerifText]`}>{!forgotBool ? "Forgot Password?" : "Enter new password"}</p> : <p className={`${color} text-[20px] mb-[19px] md:mb-[30px] font-[DMSerifText]`}>Please choose a strong password.</p>}
+            {registerBool ? <p onClick={handleForgotPassword} className={`cursor-pointer ${color} text-[20px] mb-[19px] md:mb-[30px] font-[DMSerifText]`}>{!forgotBool ? "Forgot Password?" : "Enter new password"}</p> : <p className={` text-[20px] mb-[19px] md:mb-[30px] font-[DMSerifText]`}>Please choose a strong password.</p>}
           </div>
           <button onClick={handleSubmit} className="text-[20px] font-[DMSerifText] bg-[#2B170C] text-white max-w-[419px] w-full text-center rounded-[10px]">{forgotBool ? "Change Password" : (registerBool ? "Login" : "Create Account")}</button>
           <div className="mt-[24px] md:mt-[30px] mb-[75px] cursor-pointer">

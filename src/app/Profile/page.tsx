@@ -53,8 +53,9 @@ const Page = () => {
       console.log(userId)
       setUserIdInfo(userId);
       const dataAppoint = await getAppointments(Number(userId));
-      setAppointmentData(dataAppoint);
-      console.log(appointmentData);
+      const filteredData = dataAppoint.filter((meeting: IAppointments) => meeting.isDeleted === false);
+      setAppointmentData(filteredData);
+      console.log(filteredData);
 
       const allAppointments = await getAllAppointments();
       setAllOfTheAppointments(allAppointments);
@@ -68,6 +69,7 @@ const Page = () => {
       findPairs(allOfTheAppointments);
     }
   }, [allOfTheAppointments]);
+  
   const handleSubmitBool = () => {
     setSubmitBool(!submitBool)
   }
@@ -134,7 +136,6 @@ const Page = () => {
   return (
     <>
       <NavbarComponent /> {/* Top Navbar */}
-      <PendingNotificationComponent />
 
       {
         openModal && userGlobalInfo && <EditProfileModal userInfoPass={userGlobalInfo} setUserProfile={setUserProfileInfo} setIsNotCreate={setIsNotCreateProfile} isNotCreate={isNotCreateProfile} open={openModal} close={setOpenModal} />
@@ -144,12 +145,12 @@ const Page = () => {
         isNotCreateProfile && userProfileInfo ?
           <div>
             <div className='hidden min-[1440px]:block'>
-              <div className='px-20 py-14'>
+              <div className='px-10 py-14'>
                 {/* Top Section */}
                 <div className='bg-white w-full h-auto rounded-2xl p-[15px]'>
                   <div className='grid grid-flow-col'>
                     <div className='flex justify-center'>
-                      <img src={userProfileInfo.profileImg} className='rounded-full h-[300px] w-[300px] min-[1440px]:w-[200px] min-[1440px]:h-[200px] 2xl:h-[300px] 2xl:w-[300px]' alt='Profile Image' />
+                      <img src={userProfileInfo.profileImg} className='rounded-full h-[300px] w-[300px] min-[1440px]:w-[200px] min-[1440px]:h-[200px] 2xl:h-[300px] 2xl:w-[300px] object-cover' alt='Profile Image' />
                     </div>
                     <div className='flex justify-center items-center'>
                       <div>
@@ -189,11 +190,11 @@ const Page = () => {
                   <div className='bg-[#D9D9D9]'>
                     <hr style={{ border: '1px black solid' }} />
                     <div className='grid grid-flow-col p-3'>
-                      <p className='text-4xl text-black font-[DMSerifText] w-80 min-[1440px]:text-2xl min-[1440px]:w-40 2xl:text-4xl 2xl:w-80'>When</p>
-                      <p className='text-4xl text-black font-[DMSerifText] w-48 min-[1440px]:text-2xl min-[1440px]:w-40 2xl:text-4xl 2xl:w-48'>Type</p>
-                      <p className='text-4xl text-black font-[DMSerifText] w-96 min-[1440px]:text-2xl min-[1440px]:w-40 2xl:text-4xl 2xl:w-96'>Test Questions</p>
-                      <p className='text-4xl text-black font-[DMSerifText] w-60 min-[1440px]:text-2xl min-[1440px]:w-40 2xl:text-4xl 2xl:w-60'>Language</p>
-                      <p className='text-4xl text-black font-[DMSerifText] w-[480px] min-[1440px]:w-[320px] min-[1440px]:text-2xl 2xl:text-4xl 2xl:w-[480px]'>Action</p>
+                      <p className='text-4xl text-black font-[DMSerifText] '>When</p>
+                      <p className='text-4xl text-black font-[DMSerifText] '>Type</p>
+                      <p className='text-4xl text-black font-[DMSerifText]'>Test Questions</p>
+                      <p className='text-4xl text-black font-[DMSerifText] '>Language</p>
+                      <p className='text-4xl text-black font-[DMSerifText] '>Action</p>
                     </div>
                     <hr style={{ border: '1px black solid' }} />
                   </div>
@@ -241,7 +242,7 @@ const Page = () => {
 
               <div className='flex justify-center m-3'>
                 <div className='grid grid-flow-row space-y-12 w-full'>
-                  <div className='flex flex-col sm:flex-row'>
+                  <div className='flex flex-col gap-y-5 sm:flex-row justify-evenly'>
                     <div>
                       <h1 className='text-white text-xl font-[DMSerifText] font-normal'>PRACTICE MAKES PERFECT</h1>
                       <p className='text-white max-[300px]:text-sm text-lg font-[Source-Sans-Pro] font-extralight'>Empower Your Success, One Mock Interview at a Time with MockTalks!</p>
@@ -252,22 +253,27 @@ const Page = () => {
               </div>
 
               <div className='p-3'>
-                {Array.isArray(appointmentData) && appointmentData.length > 0 ? (
-                  appointmentData.map((appointment: any, index: any) => (
-                    <ScheduleComponent
-                      key={index}
-                      id={appointment.id}
-                      selectedDate={appointment.selectedDate}
-                      typePractice={appointment.typePractice}
-                      testQuestions={appointment.testQuestions}
-                      language={appointment.language}
-                      time={appointment.timezone}
-                      submitBool={handleSubmitBool}
-                    />
-                  ))
-                ) : (
-                  <p>No appointments available</p>
-                )}
+                <div className='bg-white w-full rounded-2xl pb-5'>
+                  <h1 className='text-black text-[20px] font-[DMSerifText] text-center p-5'>UPCOMING PRACTICE INTERVIEWS</h1>
+                  <hr style={{ border: '1px black solid' }} />
+                  {Array.isArray(appointmentData) && appointmentData.length > 0 ? (
+                    appointmentData.map((appointment: any, index: any) => (
+                      <ScheduleComponent
+                        key={index}
+                        id={appointment.id}
+                        selectedDate={appointment.selectedDate}
+                        typePractice={appointment.typePractice}
+                        testQuestions={appointment.testQuestions}
+                        language={appointment.language}
+                        time={appointment.timezone}
+                        submitBool={handleSubmitBool}
+                      />
+                    ))
+                  ) : (
+                    <p>No appointments available</p>
+                  )}
+                  <hr style={{ border: '1px black solid' }} />
+                </div>
               </div>
             </div>
           </div>
