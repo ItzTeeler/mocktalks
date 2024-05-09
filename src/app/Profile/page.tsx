@@ -69,6 +69,7 @@ const Page = () => {
       findPairs(allOfTheAppointments);
     }
   }, [allOfTheAppointments]);
+  
   const handleSubmitBool = () => {
     setSubmitBool(!submitBool)
   }
@@ -144,7 +145,7 @@ const Page = () => {
         isNotCreateProfile && userProfileInfo ?
           <div>
             <div className='hidden min-[1440px]:block'>
-              <div className='px-20 py-14'>
+              <div className='px-10 py-14'>
                 {/* Top Section */}
                 <div className='bg-white w-full h-auto rounded-2xl p-[15px]'>
                   <div className='grid grid-flow-col'>
@@ -189,11 +190,11 @@ const Page = () => {
                   <div className='bg-[#D9D9D9]'>
                     <hr style={{ border: '1px black solid' }} />
                     <div className='grid grid-flow-col p-3'>
-                      <p className='text-4xl text-black font-[DMSerifText] w-80 min-[1440px]:text-2xl min-[1440px]:w-40 2xl:text-4xl 2xl:w-80'>When</p>
-                      <p className='text-4xl text-black font-[DMSerifText] w-48 min-[1440px]:text-2xl min-[1440px]:w-40 2xl:text-4xl 2xl:w-48'>Type</p>
-                      <p className='text-4xl text-black font-[DMSerifText] w-96 min-[1440px]:text-2xl min-[1440px]:w-40 2xl:text-4xl 2xl:w-96'>Test Questions</p>
-                      <p className='text-4xl text-black font-[DMSerifText] w-60 min-[1440px]:text-2xl min-[1440px]:w-40 2xl:text-4xl 2xl:w-60'>Language</p>
-                      <p className='text-4xl text-black font-[DMSerifText] w-[480px] min-[1440px]:w-[320px] min-[1440px]:text-2xl 2xl:text-4xl 2xl:w-[480px]'>Action</p>
+                      <p className='text-4xl text-black font-[DMSerifText] '>When</p>
+                      <p className='text-4xl text-black font-[DMSerifText] '>Type</p>
+                      <p className='text-4xl text-black font-[DMSerifText]'>Test Questions</p>
+                      <p className='text-4xl text-black font-[DMSerifText] '>Language</p>
+                      <p className='text-4xl text-black font-[DMSerifText] '>Action</p>
                     </div>
                     <hr style={{ border: '1px black solid' }} />
                   </div>
@@ -241,7 +242,7 @@ const Page = () => {
 
               <div className='flex justify-center m-3'>
                 <div className='grid grid-flow-row space-y-12 w-full'>
-                  <div className='flex flex-col sm:flex-row'>
+                  <div className='flex flex-col gap-y-5 sm:flex-row justify-evenly'>
                     <div>
                       <h1 className='text-white text-xl font-[DMSerifText] font-normal'>PRACTICE MAKES PERFECT</h1>
                       <p className='text-white max-[300px]:text-sm text-lg font-[Source-Sans-Pro] font-extralight'>Empower Your Success, One Mock Interview at a Time with MockTalks!</p>
