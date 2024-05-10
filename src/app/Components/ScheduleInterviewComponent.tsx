@@ -7,8 +7,9 @@ import LeftButton from "@/Assets/LeftButton.png";
 import RightButton from "@/Assets/RightButton.png";
 import { createAppointment } from "@/utils/Dataservices";
 import { IAppointments } from "@/Interfaces/Interfaces";
+import AccountCreateComponent from "./AccountCreateComponent";
 
-export function ScheduleInterviewComponent(props: {submitBool: () => void, userId: number}) {
+export function ScheduleInterviewComponent(props: { submitBool: () => void, userId: number }) {
   const [openModal, setOpenModal] = useState<boolean>(false);
   const [openModal2, setOpenModal2] = useState<boolean>(false);
   const [openModal3, setOpenModal3] = useState<boolean>(false);
@@ -22,6 +23,9 @@ export function ScheduleInterviewComponent(props: {submitBool: () => void, userI
   const [selectedDate, setSelectedDate] = useState("");
   const [selectedTime, setSelectedTime] = useState("");
 
+  const [alertBool, setAlertBool] = useState<string>("hidden");
+  const [alertText, setAlertText] = useState<string>("");
+
   const [interviewObject, setInterviewObject] = useState<IAppointments>();
   const modalRef = useRef<HTMLDivElement>(null);
   useEffect(() => {
@@ -29,7 +33,7 @@ export function ScheduleInterviewComponent(props: {submitBool: () => void, userI
       modalRef.current.focus();
     }
   }, [modalRef, openModal]);
-  
+
   const handleSubmit = async () => {
     const newAppointment: IAppointments = {
       id: 0,
@@ -124,6 +128,13 @@ export function ScheduleInterviewComponent(props: {submitBool: () => void, userI
     );
   };
 
+  const ifClicked = () => {
+    setAlertText("Expert is currently unavailable")
+    setAlertBool("block");
+    setTimeout(() => {
+      setAlertBool("hidden");
+    }, 3000);
+  }
 
   const getSuffix = (date: number) => {
     if (date >= 11 && date <= 13) {
@@ -162,7 +173,7 @@ export function ScheduleInterviewComponent(props: {submitBool: () => void, userI
   };
 
   return (
-    <>
+    <div>
       <div className="block min-[1440px]:hidden">
         <Button className='bg-[#2B170C] focus:bg-[#2b170c] w-full' onClick={() => setOpenModal(true)}><span className='text-white text-xl font-[Source-Sans-Pro]'>START A PRACTICE SESSION</span></Button>
       </div>
@@ -176,7 +187,7 @@ export function ScheduleInterviewComponent(props: {submitBool: () => void, userI
           </div>
           <div className="grid grid-cols-2 gap-x-3">
             <div className="flex flex-col gap-5">
-           
+
               <button onClick={() => setPracInterview("Data Structure and Algorithms")} className=" py-[30px] border rounded-[10px] text-[20px] font-[Source-Sans-Pro] border-black hover:bg-[#757575] focus:bg-[#757575]">
                 Data Structure and Algorithms
               </button>
@@ -220,8 +231,8 @@ export function ScheduleInterviewComponent(props: {submitBool: () => void, userI
         </Modal.Footer>
       </Modal>
 
-
       <Modal initialFocus={-1} autoFocus={false} ref={modalRef} size={"3xl"} show={openModal2} onClose={() => setOpenModal2(false)}>
+        <AccountCreateComponent show={alertBool} text={alertText} />
         <Modal.Body className="p-[20px]">
           <div className="text-center text-[50px] font-[DMSerifText]">
             <p>Choose type of practice</p>
@@ -237,7 +248,7 @@ export function ScheduleInterviewComponent(props: {submitBool: () => void, userI
                   turns asking each other questions
                 </p>
               </button>
-              <button onClick={() => { setTypeOfInterview("Expert mock interview") }} className=" py-[35px] border rounded-[10px] text-left border-black p-10 focus:bg-[#757575]">
+              <button onClick={() => { setTypeOfInterview("Practice with Peers"); ifClicked() }} className=" py-[35px] border rounded-[10px] text-left border-black p-10 focus:bg-[#757575]">
                 <p className=" text-[20px] font-[DMSerifText]">
                   Expert mock interview
                 </p>
@@ -272,9 +283,9 @@ export function ScheduleInterviewComponent(props: {submitBool: () => void, userI
       </Modal>
 
       <Modal
-      initialFocus={-1}
-      autoFocus={false}
-      ref={modalRef}
+        initialFocus={-1}
+        autoFocus={false}
+        ref={modalRef}
         size={"3xl"}
         show={openModal3}
         onClose={() => setOpenModal3(false)}
@@ -344,9 +355,9 @@ export function ScheduleInterviewComponent(props: {submitBool: () => void, userI
       </Modal>
 
       <Modal
-      initialFocus={-1}
-      autoFocus={false}
-      ref={modalRef}
+        initialFocus={-1}
+        autoFocus={false}
+        ref={modalRef}
         size={"3xl"}
         show={openModal4}
         onClose={() => setOpenModal4(false)}
@@ -383,8 +394,8 @@ export function ScheduleInterviewComponent(props: {submitBool: () => void, userI
       </Modal>
 
       <Modal
-      autoFocus={false}
-      ref={modalRef}
+        autoFocus={false}
+        ref={modalRef}
         size={"3xl"}
         show={openModal5}
         onClose={() => setOpenModal5(false)}
@@ -422,6 +433,6 @@ export function ScheduleInterviewComponent(props: {submitBool: () => void, userI
           </button>
         </Modal.Footer>
       </Modal>
-    </>
+    </div>
   );
 }

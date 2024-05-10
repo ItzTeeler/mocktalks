@@ -2,7 +2,7 @@
 
 import { IAppointments, IMockInterviewProps, ScheduleComponentProps } from '@/Interfaces/Interfaces';
 import { Button } from 'flowbite-react';
-import React from 'react'
+import React, { useEffect } from 'react'
 import ReScheduleComponent from './ReScheduleComponent';
 import { CancelAppointmentModal } from './CancelAppointmentModal';
 
@@ -34,7 +34,7 @@ const ScheduleComponent = (props: ScheduleComponentProps & { submitBool: () => v
                             <CancelAppointmentModal id={props.id} submitBool={props.submitBool}/>
                             <ReScheduleComponent id={props.id} submitBool={props.submitBool} />              
                         </div>
-                        <hr />
+                       
                     </div>
                 </div>
             </div>
