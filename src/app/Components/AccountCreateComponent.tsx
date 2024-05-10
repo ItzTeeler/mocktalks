@@ -4,7 +4,7 @@ const AccountCreateComponent = (props: {show: string; text: string;}) => {
 
     return (
         <div className={`${props.show}`}>
-            <div className='grid grid-flow-row justify-center pt-10 pl-[8px] pr-[8px] pb-2 absolute w-full z-10'>
+            <div className='absolute flex justify-center min-w-full mt-5 left-0 top-0'>
                 <div className='bg-white border border-black rounded-[10px] px-[50px] py-[20px]'>
                     <p>{props.text}</p>
                 </div>
