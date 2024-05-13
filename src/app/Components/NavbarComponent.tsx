@@ -40,7 +40,7 @@ export default function NavbarComponent() {
             <Image src={chatDots} alt="Centered Chat Dots" />
           </Navbar.Link>
           <Navbar.Link href="/">
-            <span className="self-center whitespace-nowrap text-[36px] dark:text-white font-[DMSerifText]">Logout</span>
+            <span className="self-center whitespace-nowrap text-[36px] dark:text-white text-black font-[DMSerifText]">Logout</span>
           </Navbar.Link>
         </Navbar.Collapse>
       </Navbar>
