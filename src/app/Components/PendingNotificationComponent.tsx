@@ -4,22 +4,22 @@ import React, { useState } from "react"
 import { Button } from "flowbite-react"
 
 export function PendingNotificationComponent() {
-    const [visible, setVisible] = useState<string>('block');
+    const [visible, setVisible] = useState<boolean>(true);
     const [name, setName] = useState<string>('John Fartgroom');
     const [experience, setExperience] = useState<string>('Beginner');
     
     const handleAcceptButton = () => {
-        console.log('Notification Accepted!');
-        setVisible('hidden');
+        setVisible(false);
     }
     const handleCancelButton = () => {
-        console.log('Notification Declined!');
-        setVisible('hidden');
+        setVisible(false);
     }
 
     return (
         <>
-            <div className={`sm:absolute sm:right-12 ${visible}`}>
+        {
+            visible == true &&
+            <div className={`sm:absolute sm:right-12`}>
                 <div className="w-full sm:w-[360px] h-[84px] bg-white border-black border-2 px-5 py-2 shadow-xl">
                     <div className="grid grid-cols-2">
                         <div className="w-[192px]">
@@ -37,6 +37,7 @@ export function PendingNotificationComponent() {
                     </div>
                 </div>
             </div>
+        }
         </>
     );
 }

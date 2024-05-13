@@ -21,6 +21,10 @@ export default function NavbarComponent() {
     }
   };
 
+  const handleVisibleToggle = () => {
+    console.log('Test');
+  }
+
   return (
     <>
       <Navbar fluid>
@@ -29,8 +33,8 @@ export default function NavbarComponent() {
           <span className="self-center whitespace-nowrap sm:text-4xl dark:text-white font-[DMSerifText]">MockTalks</span>
         </Navbar.Brand>
         <Navbar.Collapse theme={customTheme}>
-          <Navbar.Link href="#">
-            <Image src={bellIcon} alt="Bell Icon" />
+          <Navbar.Link style={{cursor: 'pointer'}}>
+            <Image src={bellIcon} alt="Bell Icon" onClick={handleVisibleToggle}/>
           </Navbar.Link>
           <Navbar.Link href="/MessagingPage">
             <Image src={chatDots} alt="Centered Chat Dots" />
