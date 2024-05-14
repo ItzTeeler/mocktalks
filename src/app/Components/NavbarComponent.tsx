@@ -10,8 +10,11 @@ import icon from '@/Assets/MockTalkIcon.png'
 import bellIcon from '@/Assets/BellIcon.png'
 import chatDots from '@/Assets/ChatCenteredDots.png'
 import { PendingNotificationComponent } from "./PendingNotificationComponent";
+import { useState } from "react";
 
 export default function NavbarComponent() {
+  const [notifyVisible, setNotifyVisible] = useState<boolean>(false);
+
   const customTheme: FlowbiteNavbarCollapseTheme = {
     base: 'w-full md:block md:w-auto',
     list: 'mt-4 flex flex-col md:mt-0 md:flex-row md:space-x-8 md:text-sm md:font-medium',
@@ -22,7 +25,8 @@ export default function NavbarComponent() {
   };
 
   const handleVisibleToggle = () => {
-    console.log('Test');
+    setNotifyVisible(!notifyVisible);
+    console.log(notifyVisible);
   }
 
   return (
@@ -44,7 +48,7 @@ export default function NavbarComponent() {
           </Navbar.Link>
         </Navbar.Collapse>
       </Navbar>
-      <PendingNotificationComponent/>
+      <PendingNotificationComponent open={notifyVisible} close={setNotifyVisible}/>
     </>
   );
 }
