@@ -5,17 +5,9 @@ import { IProfileData } from '@/Interfaces/Interfaces';
 import { getProfileItemByUserId } from '@/utils/Dataservices';
 
 const TestingVideo = () => {
-    const [userProfileInfo, setUserProfileInfo] = useState<IProfileData>();
-    useEffect(() => {
-        const innerCall = async () => {
-            const userId = sessionStorage.getItem('userId');
-            setUserProfileInfo(await getProfileItemByUserId(Number(userId)));
-        }
-        innerCall();
-    }, [userProfileInfo]);
     return (
         <div>
-            <App name={String(userProfileInfo?.fullName)} />
+            <App name={String(sessionStorage.getItem('userName'))} />
         </div>
     )
 }
