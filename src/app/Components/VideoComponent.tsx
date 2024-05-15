@@ -44,13 +44,8 @@ const App = (props: {name: string}) => {
   useEffect(() => {
     call.join({ create: true });
 
-    // Clean up logic when component unmounts
-    return () => {
-      // Leave the call or perform other cleanup actions here
-      // For example:
-      // call.leave();
-    };
-  }, []); // Empty dependency array to run effect only once
+    
+  }, []);
 
   return (
     <StreamVideo client={client}>
