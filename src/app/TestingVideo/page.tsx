@@ -5,9 +5,14 @@ import { IProfileData } from '@/Interfaces/Interfaces';
 import { getProfileItemByUserId } from '@/utils/Dataservices';
 
 const TestingVideo = () => {
+    const [user, setUser] = useState<string>();
+    const userId = sessionStorage.getItem('userName');
+if (userId) {
+    setUser(userId)
+}
     return (
         <div>
-            <App name={String(sessionStorage.getItem('userName'))} />
+            <App name={String(user)} />
         </div>
     )
 }
