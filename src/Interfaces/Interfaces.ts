@@ -99,3 +99,12 @@ export interface IDropDownState {
 export interface IDropZoneImage {
     setProfileImg: React.Dispatch<React.SetStateAction<string>>;
 }
+
+export interface IMessages {
+    usersname: string; 
+    msg: string;
+}
+
+// export interface IPropMessages {
+//     messagePass: IMessages[]
+// }

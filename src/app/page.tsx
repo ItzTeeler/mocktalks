@@ -3,9 +3,11 @@ import Image from "next/image";
 import { useEffect, useState } from "react";
 import backArrow from '../Assets/BackArrow.png'
 import { changePassword, createAccount, getUserData, loggedInData, login } from "@/utils/Dataservices";
-import { IToken } from "@/Interfaces/Interfaces";
+import { IMessages, IToken } from "@/Interfaces/Interfaces";
 import { useRouter } from "next/navigation";
 import AccountCreateComponent from "./Components/AccountCreateComponent";
+import { HubConnection, HubConnectionBuilder, LogLevel } from "@microsoft/signalr";
+// import MessageContainer from "./Components/MessageContainer";
 
 
 export default function LoginPage() {
@@ -93,6 +95,68 @@ export default function LoginPage() {
     }
   }, [registerBool]);
 
+
+
+  const [conn, setConnection] = useState<HubConnection>();
+  const [messages, setMessages] = useState<IMessages[]>([]);
+  const [message, setMessage] = useState<string>("")
+  const [usersname, setUsersname] = useState<string>();
+  const [chatroom, setChatroom] = useState<string>();
+
+  const joinChatRoom = async (usersname: string, chatroom: string) => {
+    try {
+      const conn: HubConnection = new HubConnectionBuilder()
+        .withUrl("http://localhost:5150/chat")
+        .configureLogging(LogLevel.Information)
+        .build();
+      // const conn = new HubConnectionBuilder()
+      //   .withUrl("https://mocktalksapihosting.azurewebsites.net/chat")
+      //   .configureLogging(LogLevel.Information)
+      //   .build();
+
+      conn.on("JoinSpecificChatRoom", (usersname: string, msg: string) => {
+        sendMessage(msg);
+      })
+
+      conn.on("RecieveSpecificMessage", (usersname: string, msg: string) => {
+        setMessages(messages => [...messages, { usersname, msg }]);
+      });
+
+      await conn.start();
+      await conn.invoke("JoinSpecificChatRoom", { usersname, chatroom })
+
+      setConnection(conn);
+    } catch (e) {
+      console.log(e);
+    }
+  }
+
+  const sendMessage = async (message: string) => {
+    try {
+      conn && await conn.invoke("SendMessage", message);
+    } catch (e) {
+      console.log(e)
+    }
+  }
+
+  const submitFunc = () => {
+    if (usersname !== undefined && chatroom !== undefined) {
+      joinChatRoom(usersname, chatroom);
+    }
+  }
+
+  const submitMessage = () => {
+    sendMessage(message);
+    setMessage("");
+  }
+
+
+
+
+
+
+
+
   return (
     <div className="loginBgImage">
       <AccountCreateComponent show={alertBool} text={alertText} />
@@ -120,6 +184,48 @@ export default function LoginPage() {
           </div>
         </div>
       </div>
+
+      <div>
+        <p>Welcome to chat</p>
+
+        {
+          !conn ?
+            <div>
+              <input className='border-black border-2' type='text' onChange={e => { setUsersname(e.target.value) }} />
+              <input className='border-black border-2' type='text' onChange={e => { setChatroom(e.target.value) }} />
+              <button className="text-red-500" onClick={() => submitFunc()}>submit</button>
+            </div>
+            :
+            <div className='grid'>
+              <p>Chatroom</p>
+
+              <div>
+                {
+                  messages && messages.map(
+                    (msg: { msg: string; usersname: string }, index: number) => {
+                      return (
+                        <div key={index}>
+                          <p>{msg.msg} - {msg.usersname}</p>
+                        </div>
+                      )
+                    }
+                  )
+                }
+              </div>
+
+              {/* <MessageContainer messagePass={messages} /> */}
+
+              <div>
+                <input className='border-black border-2' type="text" onChange={e => setMessage(e.target.value)} value={message} placeholder='type a message' />
+                <button className=" text-red-500  " onClick={() => submitMessage()} disabled={!message}>submit</button>
+              </div>
+            </div>
+        }
+      </div>
+
+
+
+
     </div>
   );
 }
