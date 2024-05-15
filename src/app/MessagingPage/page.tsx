@@ -41,7 +41,7 @@ const MessagingPage = () => {
     };
 
     const handleVideoClick = () => {
-        router.push('/VideoChat')
+        router.push('/TestingVideo')
     }
     return (
         <div className='bg-[#696969] h-full'>
