@@ -1,20 +1,17 @@
-'use client'
-import React, { useEffect, useState } from 'react'
+import React, { useEffect, useState } from 'react';
 import App from '../Components/VideoComponent';
-import { IProfileData } from '@/Interfaces/Interfaces';
-import { getProfileItemByUserId } from '@/utils/Dataservices';
 
 const TestingVideo = () => {
-    const [user, setUser] = useState<string>();
-    const userId = sessionStorage.getItem('userName');
-if (userId) {
-    setUser(userId)
-}
+    const userId = typeof window !== 'undefined' ? sessionStorage.getItem('userName') : null;
+    const [user, setUser] = useState<string | null>(userId);
+    if (userId && !user) {
+        setUser(userId);
+    }
     return (
         <div>
-            <App name={String(user)} />
+            <App name={user || ''} />
         </div>
-    )
-}
+    );
+};
 
 export default TestingVideo;
