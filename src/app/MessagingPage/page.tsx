@@ -160,7 +160,7 @@ const MessagingPage = () => {
                                     </div>
 
                                     <div>
-                                        <MessagingTextInputComponent message={message} setMessage={setMessage} sendMessage={sendMessage} userId={userProfileInfo.id} />
+                                        <MessagingTextInputComponent message={message} setMessage={setMessage} sendMessage={sendMessage} userId={userProfileInfo.userId} />
                                     </div>
                                 </div>
                             </div>
