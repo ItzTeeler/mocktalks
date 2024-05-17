@@ -85,7 +85,7 @@ export interface ScheduleComponentProps {
     language: string;
     time: string;
     submitBool: () => void;
-  }
+}
 
 export interface IAppointmentData {
     appointments: IAppointments[];
@@ -100,11 +100,27 @@ export interface IDropZoneImage {
     setProfileImg: React.Dispatch<React.SetStateAction<string>>;
 }
 
-export interface IMessages {
-    usersname: string; 
-    msg: string;
+// export interface IMessages {
+//     usersname: string; 
+//     msg: string;
+// }
+
+export interface IPropMessage {
+    message: string,
+    setMessage: React.Dispatch<React.SetStateAction<string>>,
+    sendMessage: (messageContainer: string) => Promise<void>;
+    userId: number
 }
 
-// export interface IPropMessages {
-//     messagePass: IMessages[]
-// }
+export interface IPropMessageSplitter {
+    dataPass: IMessages
+}
+
+export interface IMessages {
+    id: number,
+    senderID: number,
+    receiverID: number,
+    text: string,
+    dateSent: string,
+    isDeleted: boolean
+}

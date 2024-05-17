@@ -75,13 +75,20 @@ export default function LoginPage() {
       }
     } else {
       // Logic for Create Account
-      createAccount(userData);
-      setAlertText("Account Created")
-      setAlertBool("block");
-      setTimeout(() => {
-        setAlertBool("hidden");
-      }, 4000);
-
+      try {
+        await createAccount(userData);
+        setAlertText("Account Created")
+        setAlertBool("block");
+        setTimeout(() => {
+          setAlertBool("hidden");
+        }, 4000);
+      } catch {
+        setAlertText("Account Creation Failed")
+        setAlertBool("block");
+        setTimeout(() => {
+          setAlertBool("hidden");
+        }, 4000);
+      }
     }
   };
 

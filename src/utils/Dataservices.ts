@@ -1,4 +1,4 @@
-import { IAppointments, IProfileData, IToken, IUserData, IUserInfo } from "@/Interfaces/Interfaces";
+import { IAppointments, IMessages, IProfileData, IToken, IUserData, IUserInfo } from "@/Interfaces/Interfaces";
 
 const url = "https://mocktalksapihosting.azurewebsites.net";
 let userData: IUserData;
@@ -147,7 +147,7 @@ export const getAppointmentsById = async (id: number) => {
     return data
 }
 
-export const updateAppointments = async (appointment: IAppointments) =>{
+export const updateAppointments = async (appointment: IAppointments) => {
     const res = await fetch(url + '/MT_Schedule/UpdateScheduleTime', {
         method: "PUT",
         headers: {
@@ -187,6 +187,37 @@ export const deleteAppointments = async (appointment: IAppointments) => {
 
 export const getAllAppointments = async () => {
     const res = await fetch(url + '/MT_Schedule/GetAllMeetings');
+    const data = await res.json();
+    return data;
+}
+
+export const postMessage = async (messagePass: IMessages) => {
+    const res = await fetch(url + '/MT_Messaging/AddMessage', {
+        method: "POST",
+        headers: {
+            'Content-Type': "application/json"
+        },
+        body: JSON.stringify(messagePass)
+    });
+
+    if (!res.ok) {
+        const message = "An error has Occurred " + res.status;
+        throw new Error(message);
+    }
+
+    const data = await res.json();
+
+    return data;
+}
+
+export const GetAllMessages = async () => {
+    const res = await fetch(url + '/MT_Messaging/GetAllMessages');
+
+    if (!res.ok) {
+        const message = "An error has Occurred " + res.status;
+        throw new Error(message);
+    }
+
     const data = await res.json();
     return data;
 }

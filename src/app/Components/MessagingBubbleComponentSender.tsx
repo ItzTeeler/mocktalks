@@ -1,18 +1,36 @@
 'use client'
-import React from 'react'
-import ProfilePic from '@/Assets/MessagingPeopleProfile.png'
-import Image from 'next/image'
-const MessagingBubbleComponentSender = () => {
+import React, { useEffect, useState } from 'react'
+import { IProfileData, IPropMessageSplitter } from '@/Interfaces/Interfaces'
+import { getProfileItemByUserId } from '@/utils/Dataservices'
+
+const MessagingBubbleComponentSender = (props: IPropMessageSplitter) => {
+  const [userData, setUserData] = useState<IProfileData>()
+
+  useEffect(() => {
+    const outerCall = () => {
+      const innerCall = async () => {
+        const messageUserData: IProfileData = await getProfileItemByUserId(Number(props.dataPass.senderID))
+        setUserData(messageUserData)
+      }
+      innerCall()
+    }
+    outerCall();
+  }, [])
+
   return (
-    <div className='bg-[#1973E7] m-5 rounded-[15px] flex-end max-w-[100%] lg:max-w-[45%] p-[15px]'>
-      <div className='flex flex-row items-center gap-2'>
-        <div className=''>
-          <Image src={ProfilePic} alt='ProfilePic' className='min-w-[80px] w-[80px] h-[80px] min-h-[80px]' />
+    <div className='bg-[#1973E7] m-5 rounded-[15px] max-w-[100%] p-[15px]'>
+      {
+        userData &&
+        <div className='flex flex-row items-center gap-2'>
+          <div className=''>
+            <img src={userData.profileImg} alt='ProfilePic' className='rounded-full min-w-[80px] w-[80px] h-[80px] min-h-[80px]' />
+          </div>
+          <div className=''>
+            <p className='text-[18px] font-[Source-Sans-Pro] text-[#ffffff]'>{userData.fullName}</p>
+            <p className='text-[18px] font-[Source-Sans-Pro] text-[#ffffff]'>{props.dataPass.text}</p>
+          </div>
         </div>
-        <div className=''>
-          <p className='text-[18px] font-[Source-Sans-Pro] text-[#ffffff] '>Hey did you want to do some practice before the mock interview?</p>
-        </div>
-      </div>
+      }
     </div>
   )
 }
