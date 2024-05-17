@@ -41,6 +41,9 @@ const MessagingPage = () => {
     };
 
     const handleVideoClick = () => {
+        if (sessionStorage.getItem('reloaded')) {
+            sessionStorage.setItem('reloaded', 'false');
+          }
         router.push('/TestingVideo')
     }
     return (
