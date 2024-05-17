@@ -18,6 +18,8 @@ export const createAccount = async (createUser: IUserInfo) => {
     }
 
     const data = await res.json();
+
+    return data;
 }
 
 export const login = async (loginUser: IUserInfo) => {
@@ -28,6 +30,7 @@ export const login = async (loginUser: IUserInfo) => {
         },
         body: JSON.stringify(loginUser)
     });
+
     if (!res.ok) {
         const message = "An error has Occurred " + res.status;
         throw new Error(message);

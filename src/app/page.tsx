@@ -53,20 +53,28 @@ export default function LoginPage() {
         }
       } else {
         // Normal login
-        let token: IToken = await login(userData);
-        if (token.token != null) {
-          sessionStorage.setItem("Token", token.token);
-          await getUserData(username);
-          let userId = loggedInData()
-          sessionStorage.setItem("userId", String(userId?.id))
-          setAlertText("Logging In")
-          setAlertBool("block");
-          setTimeout(() => {
-            setAlertBool("hidden");
-          }, 2000);
-          router.push('/Profile');
-        } else {
-          setAlertText("Login Failed")
+        try {
+          let token: IToken = await login(userData);
+          if (token.token != null) {
+            sessionStorage.setItem("Token", token.token);
+            await getUserData(username);
+            let userId = loggedInData()
+            sessionStorage.setItem("userId", String(userId?.id))
+            setAlertText("Logging In")
+            setAlertBool("block");
+            setTimeout(() => {
+              setAlertBool("hidden");
+            }, 2000);
+            router.push('/Profile');
+          } else {
+            setAlertText("Login Failed")
+            setAlertBool("block");
+            setTimeout(() => {
+              setAlertBool("hidden");
+            }, 4000);
+          }
+        } catch (e) {
+          setAlertText("Login Failed - User does not exist")
           setAlertBool("block");
           setTimeout(() => {
             setAlertBool("hidden");
@@ -76,12 +84,21 @@ export default function LoginPage() {
     } else {
       // Logic for Create Account
       try {
-        await createAccount(userData);
-        setAlertText("Account Created")
-        setAlertBool("block");
-        setTimeout(() => {
-          setAlertBool("hidden");
-        }, 4000);
+        const verifyBool = await createAccount(userData);
+        if (verifyBool) {
+          setAlertText("Account Created")
+          setAlertBool("block");
+          setTimeout(() => {
+            setAlertBool("hidden");
+          }, 4000);
+        } else {
+          setAlertText("Account Creation Failed - Username Taken")
+          setAlertBool("block");
+          setTimeout(() => {
+            setAlertBool("hidden");
+          }, 4000);
+        }
+
       } catch {
         setAlertText("Account Creation Failed")
         setAlertBool("block");
