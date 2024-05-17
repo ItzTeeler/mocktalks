@@ -118,6 +118,12 @@ export const changePassword = async (username: string, password: string) => {
 export const getProfileItemByUserId = async (id: number) => {
     const res = await fetch(url + "/MT_Profile/GetProfileItemByUserId/" + id);
     const data = await res.json();
+    return data;
+}
+
+export const getHardProfileItemByUserId = async (id: number) => {
+    const res = await fetch(url + "/MT_Profile/GetProfileItemByUserId/" + id);
+    const data = await res.json();
     sessionStorage.setItem("userName", String(data.fullName));
     return data;
 }
