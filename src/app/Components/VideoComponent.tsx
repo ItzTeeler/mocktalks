@@ -12,6 +12,7 @@ import {
 } from '@stream-io/video-react-sdk';
 import '@stream-io/video-react-sdk/dist/css/styles.css';
 import NavbarComponent from '../Components/NavbarComponent';
+import { useRouter } from 'next/navigation';
 
 const apiKey = 'mmhfdzb5evj2';
 const token = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyX2lkIjoiUGxvX0tvb24iLCJpc3MiOiJodHRwczovL3Byb250by5nZXRzdHJlYW0uaW8iLCJzdWIiOiJ1c2VyL1Bsb19Lb29uIiwiaWF0IjoxNzE1ODA2MzE0LCJleHAiOjE3MTY0MTExMTl9.PdirV18FhzoiMQV3eDig3_Nc7Yj-L11KV1SlCl8HVnc';
@@ -21,7 +22,12 @@ const callId = 'oUlHwaPJthPb';
 const VideoCallComponent = () => {
   const { useCallCallingState } = useCallStateHooks();
   const callingState = useCallCallingState();
+ 
+  const router = useRouter();
 
+  const handleLeaveCall = () => {
+    router.push('/MessagingPage'); 
+  };
   if (callingState !== CallingState.JOINED) {
     return <div>Loading...</div>;
   }
@@ -31,7 +37,7 @@ const VideoCallComponent = () => {
       <NavbarComponent />
       <StreamTheme>
         <SpeakerLayout participantsBarPosition='bottom' />
-        <CallControls />
+        <CallControls onLeave={handleLeaveCall}/>
       </StreamTheme>
     </div>
   );
