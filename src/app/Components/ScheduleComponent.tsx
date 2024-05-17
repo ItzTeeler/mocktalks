@@ -2,7 +2,7 @@
 
 import { IAppointments, IMockInterviewProps, ScheduleComponentProps } from '@/Interfaces/Interfaces';
 import { Button } from 'flowbite-react';
-import React from 'react'
+import React, { useEffect } from 'react'
 import ReScheduleComponent from './ReScheduleComponent';
 import { CancelAppointmentModal } from './CancelAppointmentModal';
 

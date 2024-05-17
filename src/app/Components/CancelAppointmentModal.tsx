@@ -3,7 +3,7 @@
 import React, { useEffect, useState } from "react"
 import { Modal, Button } from "flowbite-react"
 import { IAppointments, ICancelAppointmentProps } from "@/Interfaces/Interfaces"
-import { deleteAppointments, getAppointments, getAppointmentsById } from "@/utils/Dataservices";
+import { deleteAppointments, getAppointments, getAppointmentsById, updateAppointments } from "@/utils/Dataservices";
 
 
 
@@ -30,7 +30,9 @@ export function CancelAppointmentModal(props: { id: Number, submitBool: () => vo
     }
 
     const handleCancel = async () => {
-        let deleteAppointment = await getAppointmentsById(Number(props.id));
+        let deleteAppointment: IAppointments = await getAppointmentsById(Number(props.id));
+        deleteAppointment.isPartnered = false;
+        deleteAppointment.partnerId = 0;
         await deleteAppointments(deleteAppointment);
         props.submitBool();
         handleClose();

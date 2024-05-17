@@ -21,7 +21,12 @@ const MessagingPage = () => {
     const [hideBoolean, setHideBoolean] = useState<boolean>(true)
 
     const router = useRouter();
-
+    useEffect(() => {
+        if (sessionStorage.getItem('reloaded') !== 'true') {
+          sessionStorage.setItem('reloaded', 'true');
+          window.location.reload();
+        }
+      }, []);
     const handleOpen = () => {
         if (hideBoolean) {
             setHiddenOrBlock("block");
@@ -44,7 +49,10 @@ const MessagingPage = () => {
     };
 
     const handleVideoClick = () => {
-        router.push('/VideoChat')
+        if (sessionStorage.getItem('reloaded')) {
+            sessionStorage.setItem('reloaded', 'false');
+          }
+        router.push('/TestingVideo')
     }
 
     const [conn, setConnection] = useState<HubConnection>();
