@@ -14,9 +14,9 @@ import '@stream-io/video-react-sdk/dist/css/styles.css';
 import NavbarComponent from '../Components/NavbarComponent';
 
 const apiKey = 'mmhfdzb5evj2';
-const token = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyX2lkIjoiRGFydGhfTmloaWx1cyIsImlzcyI6Imh0dHBzOi8vcHJvbnRvLmdldHN0cmVhbS5pbyIsInN1YiI6InVzZXIvRGFydGhfTmloaWx1cyIsImlhdCI6MTcxNTcyNDcyMSwiZXhwIjoxNzE2MzI5NTI2fQ.06W0ybNhjH1oTLobNeMXKhKbJ60WUNYG4VyexRcJK9E';
-const userId = 'Darth_Nihilus';
-const callId = 'ChJ21rgaDUfE';
+const token = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyX2lkIjoiUGxvX0tvb24iLCJpc3MiOiJodHRwczovL3Byb250by5nZXRzdHJlYW0uaW8iLCJzdWIiOiJ1c2VyL1Bsb19Lb29uIiwiaWF0IjoxNzE1ODA2MzE0LCJleHAiOjE3MTY0MTExMTl9.PdirV18FhzoiMQV3eDig3_Nc7Yj-L11KV1SlCl8HVnc';
+const userId = 'Plo_Koon';
+const callId = 'oUlHwaPJthPb';
 
 const VideoCallComponent = () => {
   const { useCallCallingState } = useCallStateHooks();
