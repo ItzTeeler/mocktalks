@@ -1,6 +1,6 @@
 'use client'
 
-import React, { useState } from 'react'
+import React, { useEffect, useState } from 'react'
 import NavbarComponent from '../Components/NavbarComponent'
 import MessagingSearchInputComponent from '../Components/MessagingSearchInputComponent'
 import MessagingPeopleCardComponent from '../Components/MessagingPeopleCardComponent'
@@ -18,7 +18,12 @@ const MessagingPage = () => {
     const [hideBoolean, setHideBoolean] = useState<boolean>(true)
 
     const router = useRouter();
-
+    useEffect(() => {
+        if (sessionStorage.getItem('reloaded') !== 'true') {
+          sessionStorage.setItem('reloaded', 'true');
+          window.location.reload();
+        }
+      }, []);
     const handleOpen = () => {
         if (hideBoolean) {
             setHiddenOrBlock("block");
