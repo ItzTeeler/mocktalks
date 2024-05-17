@@ -19,7 +19,12 @@ export default function LoginPage() {
   const [password, setPassword] = useState<string>("");
 
   let router = useRouter();
-
+  useEffect(() => {
+    if (sessionStorage.getItem('reloaded') !== 'true') {
+      sessionStorage.setItem('reloaded', 'true');
+      window.location.reload();
+    }
+  }, []);
   const handleRegister = () => {
     setRegisterBool(!registerBool);
     setForgotBool(false)
