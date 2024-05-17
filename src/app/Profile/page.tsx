@@ -27,6 +27,13 @@ const Page = () => {
   const [allOfTheAppointments, setAllOfTheAppointments] = useState<any>();
 
   useEffect(() => {
+    if (sessionStorage.getItem('reloaded') !== 'true') {
+      sessionStorage.setItem('reloaded', 'true');
+      window.location.reload();
+    }
+  }, []);
+
+  useEffect(() => {
     const outerCall = () => {
       const innerCall = async () => {
         const userId = sessionStorage.getItem('userId');
