@@ -33,13 +33,6 @@ export function CancelAppointmentModal(props: { id: Number, submitBool: () => vo
         let deleteAppointment: IAppointments = await getAppointmentsById(Number(props.id));
         deleteAppointment.isPartnered = false;
         deleteAppointment.partnerId = 0;
-
-        let partnerAppointment = await getAppointments(deleteAppointment.partnerId); {/* Get Appointments From Partner */}
-        let filteredData: IAppointments = partnerAppointment.filter((meeting: IAppointments) => meeting.id === deleteAppointment.id); {/* Find Partner's Appointment based on ID */}
-        filteredData.isPartnered = false;
-        filteredData.partnerId = 0;
-
-        await updateAppointments(filteredData); {/* Update Partner Appointment */}
         await deleteAppointments(deleteAppointment);
         props.submitBool();
         handleClose();
