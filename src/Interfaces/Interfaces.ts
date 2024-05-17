@@ -109,7 +109,7 @@ export interface IPropMessage {
     message: string,
     setMessage: React.Dispatch<React.SetStateAction<string>>,
     sendMessage: (messageContainer: string) => Promise<void>;
-    userId: number
+    usersId: number
 }
 
 export interface IPropMessageSplitter {

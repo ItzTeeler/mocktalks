@@ -72,7 +72,7 @@ const MessagingPage = () => {
             //     .build();
 
             conn.on("RecieveSpecificMessage", (usersname: string, messageFromSR: string) => {
-                console.log(messageFromSR);
+                // console.log(messageFromSR);
                 let message: IMessages = JSON.parse(messageFromSR);
 
                 setMessages(messages => [...messages, message]);
@@ -100,8 +100,10 @@ const MessagingPage = () => {
     useEffect(() => {
         const outerCall = () => {
             const innerCall = async () => {
-                const userId = sessionStorage.getItem('userId');
-                const grabName: IProfileData = await getProfileItemByUserId(Number(userId))
+                const userIdFromStorage = sessionStorage.getItem('userId');
+                const grabName: IProfileData = await getProfileItemByUserId(Number(userIdFromStorage))
+
+                // console.log(grabName)
                 setUserProfileInfo(grabName);
                 joinChatRoom(grabName.fullName, "GeneralChat")
                 // console.log(await GetAllMessages());
@@ -143,7 +145,7 @@ const MessagingPage = () => {
                                                     return (
                                                         <div className='grid grid-cols-1' key={index}>
                                                             {
-                                                                (msg.senderID === userProfileInfo.id) ?
+                                                                (msg.senderID === userProfileInfo.userId) ?
                                                                     <div className='flex col-span-1 justify-end'>
                                                                         <MessagingBubbleComponentSender dataPass={msg} />
                                                                     </div>
@@ -160,7 +162,7 @@ const MessagingPage = () => {
                                     </div>
 
                                     <div>
-                                        <MessagingTextInputComponent message={message} setMessage={setMessage} sendMessage={sendMessage} userId={userProfileInfo.userId} />
+                                        <MessagingTextInputComponent message={message} setMessage={setMessage} sendMessage={sendMessage} usersId={userProfileInfo.userId} />
                                     </div>
                                 </div>
                             </div>

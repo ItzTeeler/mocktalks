@@ -15,12 +15,13 @@ const MessagingTextInputComponent = (props: IPropMessage) => {
         }else{
             const messageHolder: IMessages = {
                 id: 0,
-                senderID: props.userId,
+                senderID: Number(sessionStorage.getItem('userId')),
                 receiverID: 0,
                 text: props.message,
                 dateSent: "N/A",
                 isDeleted: false
             }
+            // console.log(messageHolder)
             props.sendMessage(JSON.stringify(messageHolder));
             postMessage(messageHolder);
             props.setMessage("");
