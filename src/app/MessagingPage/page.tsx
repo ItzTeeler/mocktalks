@@ -54,14 +54,14 @@ const MessagingPage = () => {
 
     const joinChatRoom = async (usersname: string, chatroom: string) => {
         try {
-            // const conn = new HubConnectionBuilder()
-            //     .withUrl("https://mocktalksapihosting.azurewebsites.net/chat")
-            //     .configureLogging(LogLevel.Information)
-            //     .build();
             const conn = new HubConnectionBuilder()
-                .withUrl("http://localhost:5150/chat")
+                .withUrl("https://mocktalksapihosting.azurewebsites.net/chat")
                 .configureLogging(LogLevel.Information)
                 .build();
+            // const conn = new HubConnectionBuilder()
+            //     .withUrl("http://localhost:5150/chat")
+            //     .configureLogging(LogLevel.Information)
+            //     .build();
 
             conn.on("RecieveSpecificMessage", (usersname: string, messageFromSR: string) => {
                 console.log(messageFromSR);
@@ -122,25 +122,25 @@ const MessagingPage = () => {
                                 <div className='bg-[#D9D9D9] text-[58px] font-[DMSerifText] w-full rounded-none lg:rounded-tr-[15px] px-[50px] py-[32px] flex justify-between items-center z-10'>
                                     <div className='flex flex-row items-center'>
                                         <Image src={MessageLeave} alt='X' className='block lg:hidden min-h-[32px] min-w-[32px] mr-[10px]' onClick={handleOpen} />
-                                        <p className='text-[20px] lg:text-[58px]'>{userProfileInfo.fullName}</p>
+                                        <p className='text-[20px] lg:text-[58px]'>General Chat</p>
                                     </div>
                                     <Image src={VideoIcon} alt='Video Icon' className='cursor-pointer' onClick={handleVideoClick} />
                                 </div>
 
                                 <div className='w-full h-full flex flex-col justify-between'>
-                                    <div>
+                                    <div className=''>
                                         {
                                             messages && messages.map(
                                                 (msg, index) => {
                                                     return (
-                                                        <div key={index}>
+                                                        <div className='grid grid-cols-1' key={index}>
                                                             {
                                                                 (msg.senderID === userProfileInfo.id) ?
-                                                                    <div className='grid justify-end'>
+                                                                    <div className='flex col-span-1 justify-end'>
                                                                         <MessagingBubbleComponentSender dataPass={msg} />
                                                                     </div>
                                                                     :
-                                                                    <div className='grid justify-start'>
+                                                                    <div className='flex col-span-1 justify-start'>
                                                                         <MessagingBubblesComponent dataPass={msg} />
                                                                     </div>
                                                             }

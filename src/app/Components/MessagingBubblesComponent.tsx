@@ -18,18 +18,21 @@ const MessagingBubblesComponent = (props: IPropMessageSplitter) => {
   }, [])
 
   return (
-    <div className='bg-[#696969] m-5 rounded-[15px] max-w-[100%] p-[15px]'>
+    <div className='bg-[#696969] m-5 rounded-[15px] max-w-[50%] p-[15px]'>
       {
-        userData &&
+        userData ?
         <div className='flex flex-row items-center gap-2'>
           <div className=''>
             <img src={userData.profileImg} alt='ProfilePic' className='rounded-full min-w-[80px] w-[80px] h-[80px] min-h-[80px]' />
           </div>
           <div className=''>
-            <p className='text-[18px] font-[Source-Sans-Pro] text-[#ffffff]'>{userData.fullName}</p>
-            <p className='text-[18px] font-[Source-Sans-Pro] text-[#ffffff]'>{props.dataPass.text}</p>
+            <p className='text-[12px] font-[Source-Sans-Pro] overflowW text-[#ffffff]'>{userData.fullName}</p>
+            <p className='text-[18px] font-[Source-Sans-Pro] overflowW text-[#ffffff]'>{props.dataPass.text}</p>
           </div>
         </div>
+        :
+        <p className='text-[18px] text-white font-[Source-Sans-Pro]'>Loading...</p>
+
       }
     </div>
   )

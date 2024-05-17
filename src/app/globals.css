@@ -26,3 +26,7 @@
 body {
   background-color: #696969;
 }
+
+.overflowW {
+  word-break: break-all
+}
