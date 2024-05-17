@@ -145,7 +145,7 @@ const MessagingPage = () => {
                                                     return (
                                                         <div className='grid grid-cols-1' key={index}>
                                                             {
-                                                                (msg.senderID === userProfileInfo.userId) ?
+                                                                (msg.senderID === Number(sessionStorage.getItem('userId'))) ?
                                                                     <div className='flex col-span-1 justify-end'>
                                                                         <MessagingBubbleComponentSender dataPass={msg} />
                                                                     </div>
