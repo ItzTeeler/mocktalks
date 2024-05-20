@@ -32,7 +32,7 @@ const VideoChatPage = () => {
             <Image src={XIcon} alt='X' className='min-h-[29px] min-w-[29px]' onClick={handleChat} />
           </div>
           <div>
-            <MessagingTextInputComponent />
+            {/* <MessagingTextInputComponent /> */}
           </div>
         </div>
         <NavbarComponent />

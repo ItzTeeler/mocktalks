@@ -45,3 +45,12 @@ html {
   min-width: 0;
   max-width: 100%;
 }
+
+li {
+  list-style-type: none;
+}
+
+
+.overflowW {
+  word-break: break-all
+}

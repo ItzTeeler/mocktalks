@@ -12,7 +12,7 @@ import ScheduleComponent from '../Components/ScheduleComponent'
 import { AddAppointmentModal } from '../Components/AddAppointmentModal'
 import { ScheduleInterviewComponent } from '../Components/ScheduleInterviewComponent'
 import { PendingNotificationComponent } from '../Components/PendingNotificationComponent'
-import { getAllAppointments, getAppointments, getProfileItemByUserId, loggedInData, updateAppointments } from '@/utils/Dataservices'
+import { getAllAppointments, getAppointments, getHardProfileItemByUserId, loggedInData, updateAppointments } from '@/utils/Dataservices'
 import { IAppointments, IProfileData, IUserData } from '@/Interfaces/Interfaces'
 import { EditProfileModal } from '../Components/EditProfileModal'
 
@@ -39,7 +39,7 @@ const Page = () => {
         const userId = sessionStorage.getItem('userId');
         setUserGlobalInfo(userId);
         try {
-          setUserProfileInfo(await getProfileItemByUserId(Number(userId)));
+          setUserProfileInfo(await getHardProfileItemByUserId(Number(userId)));
         } catch {
           setOpenModal(true);
           setIsNotCreateProfile(false);

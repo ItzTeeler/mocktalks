@@ -33,20 +33,20 @@ export default function NavbarComponent() {
     <>
       <Navbar fluid>
         <Navbar.Brand as={Link} href="/Profile">
-          <Image src={icon} className="mr-1 sm:mr-3 h-3 w-auto sm:h-9" alt="Flowbite React Logo" />
-          <span className="self-center whitespace-nowrap sm:text-4xl dark:text-white font-[DMSerifText]">MockTalks</span>
+          <Image src={icon} className="mr-1 sm:mr-3 h-5 w-auto sm:h-9" alt="Flowbite React Logo" />
+          <span className="self-center whitespace-nowrap text-2xl sm:text-4xl dark:text-white font-[DMSerifText]">MockTalks</span>
         </Navbar.Brand>
         <Navbar.Collapse theme={customTheme}>
           <Navbar.Link style={{cursor: 'pointer'}}>
             <Image src={bellIcon} alt="Bell Icon" onClick={handleVisibleToggle}/>
           </Navbar.Link>
           <Navbar.Link href="/MessagingPage">
-            <Image src={chatDots} alt="Centered Chat Dots" />
+            <Image src={chatDots} alt="Centered Chat Dots" className="w-6 h-6 sm:w-8 sm:h-8" />
           </Navbar.Link>
           <Navbar.Link href="/">
-            <span className="self-center whitespace-nowrap text-[36px] dark:text-white text-black font-[DMSerifText]">Logout</span>
+            <span className="self-center whitespace-nowrap text-2xl sm:text-4xl dark:text-white text-black font-[DMSerifText]">Logout</span>
           </Navbar.Link>
-        </Navbar.Collapse>
+        </div>
       </Navbar>
       <PendingNotificationComponent open={notifyVisible} close={setNotifyVisible}/>
     </>

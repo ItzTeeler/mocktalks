@@ -3,7 +3,7 @@
 import React, { useEffect, useState } from "react"
 import { Modal, Button } from "flowbite-react"
 import { IAppointments, ICancelAppointmentProps } from "@/Interfaces/Interfaces"
-import { deleteAppointments, getAppointments, getAppointmentsById } from "@/utils/Dataservices";
+import { deleteAppointments, getAppointments, getAppointmentsById, updateAppointments } from "@/utils/Dataservices";
 
 
 

@@ -34,7 +34,6 @@ const ScheduleComponent = (props: ScheduleComponentProps & { submitBool: () => v
                             <CancelAppointmentModal id={props.id} submitBool={props.submitBool}/>
                             <ReScheduleComponent id={props.id} submitBool={props.submitBool} />              
                         </div>
-                       
                     </div>
                 </div>
             </div>
