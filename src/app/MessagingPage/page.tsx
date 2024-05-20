@@ -55,6 +55,8 @@ const MessagingPage = () => {
         router.push('/TestingVideo')
     }
 
+    /* ===================== */
+
     const [conn, setConnection] = useState<HubConnection>();
     const [messages, setMessages] = useState<IMessages[]>([]);
     const [message, setMessage] = useState<string>("")
@@ -114,6 +116,14 @@ const MessagingPage = () => {
         outerCall();
     }, [])
 
+    // check user to see if they have any paired meetings.
+    // if so, join a chatroom that uses the user ids of each person (2-4) (1-2)
+    // calls any saved messages by checking the senderId and recieverId to the chat name (is receiverId === 2 || 4, is senderId === 2 || 4)
+    // loads up saved messages
+
+    // search box
+    // when user inputs a name, calls on all users
+    // when user selects name, creates chatroom
 
     return (
         <div className='bg-[#696969] h-full'>
