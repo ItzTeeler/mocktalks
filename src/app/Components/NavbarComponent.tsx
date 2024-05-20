@@ -36,9 +36,9 @@ export default function NavbarComponent() {
           <Image src={icon} className="mr-1 sm:mr-3 h-5 w-auto sm:h-9" alt="Flowbite React Logo" />
           <span className="self-center whitespace-nowrap text-2xl sm:text-4xl dark:text-white font-[DMSerifText]">MockTalks</span>
         </Navbar.Brand>
-        <Navbar.Collapse theme={customTheme}>
-          <Navbar.Link style={{cursor: 'pointer'}}>
-            <Image src={bellIcon} alt="Bell Icon" onClick={handleVisibleToggle}/>
+        <div className="flex items-center space-x-0 sm:space-x-4">
+          <Navbar.Link style={{ cursor: 'pointer' }} className="hidden min-[1440px]:block">
+            <Image src={bellIcon} alt="Bell Icon" onClick={handleVisibleToggle} />
           </Navbar.Link>
           <Navbar.Link href="/MessagingPage">
             <Image src={chatDots} alt="Centered Chat Dots" className="w-6 h-6 sm:w-8 sm:h-8" />
@@ -48,7 +48,7 @@ export default function NavbarComponent() {
           </Navbar.Link>
         </div>
       </Navbar>
-      <PendingNotificationComponent open={notifyVisible} close={setNotifyVisible}/>
+      <PendingNotificationComponent open={notifyVisible} close={setNotifyVisible} />
     </>
   );
 }
