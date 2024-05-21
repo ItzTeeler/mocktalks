@@ -15,8 +15,8 @@ const MessagingTextInputComponent = (props: IPropMessage) => {
         }else{
             const messageHolder: IMessages = {
                 id: 0,
-                senderID: Number(sessionStorage.getItem('userId')),
-                receiverID: 0,
+                senderID: props.usersId,
+                receiverID: Number(props.globalPartnerId),
                 text: props.message,
                 dateSent: "N/A",
                 isDeleted: false

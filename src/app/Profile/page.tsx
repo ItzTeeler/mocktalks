@@ -57,16 +57,16 @@ const Page = () => {
   useEffect(() => {
     const getData = async () => {
       const userId = sessionStorage.getItem('userId');
-      console.log(userId)
+      // console.log(userId)
       setUserIdInfo(userId);
       const dataAppoint = await getAppointments(Number(userId));
       const filteredData = dataAppoint.filter((meeting: IAppointments) => meeting.isDeleted === false);
       setAppointmentData(filteredData);
-      console.log(filteredData);
+      // console.log(filteredData);
 
       const allAppointments = await getAllAppointments();
       setAllOfTheAppointments(allAppointments);
-      console.log(allAppointments);
+      // console.log(allAppointments);
     };
     getData();
   }, [submitBool]);
@@ -104,8 +104,8 @@ const Page = () => {
         ) {
           const update = {
             id: appointment1.id,
-            userId: Number(appointment1.userID),
-            partnerId: appointment2.userID,
+            userID: Number(appointment1.userID),
+            partnerID: appointment2.userID,
             interviewPractice: appointment1.interviewPractice,
             typePractice: appointment1.typePractice,
             typeExperience: appointment1.typeExperience,
@@ -120,8 +120,8 @@ const Page = () => {
 
           const update2 = {
             id: appointment2.id,
-            userId: Number(appointment2.userID),
-            partnerId: appointment1.userID,
+            userID: Number(appointment2.userID),
+            partnerID: appointment1.userID,
             interviewPractice: appointment2.interviewPractice,
             typePractice: appointment2.typePractice,
             typeExperience: appointment2.typeExperience,
@@ -264,7 +264,7 @@ const Page = () => {
                   <h1 className='text-black text-[20px] font-[DMSerifText] text-center p-5'>UPCOMING PRACTICE INTERVIEWS</h1>
                   <hr style={{ border: '1px black solid' }} />
                   {Array.isArray(appointmentData) && appointmentData.length > 0 ? (
-                    appointmentData.map((appointment: any, index: any) => (
+                    appointmentData.map((appointment: any, index: number) => (
                       <ScheduleComponent
                         key={index}
                         id={appointment.id}

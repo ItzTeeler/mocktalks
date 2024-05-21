@@ -1,3 +1,5 @@
+import { MouseEventHandler } from "react"
+
 export interface IToken {
     token: string
 }
@@ -42,7 +44,7 @@ export interface IAddAppointmentProps {
 
 export interface IProfileData {
     id: number,
-    userId: number,
+    userID: number,
     fullName: string,
     occupation: string,
     experienceLevel: string,
@@ -63,8 +65,8 @@ export interface IPracticeData {
 
 export interface IAppointments {
     id: number,
-    userId: number,
-    partnerId: number,
+    userID: number,
+    partnerID: number,
     interviewPractice: string,
     typePractice: string,
     typeExperience: string,
@@ -109,7 +111,8 @@ export interface IPropMessage {
     message: string,
     setMessage: React.Dispatch<React.SetStateAction<string>>,
     sendMessage: (messageContainer: string) => Promise<void>;
-    usersId: number
+    usersId: number,
+    globalPartnerId: string
 }
 
 export interface IPropMessageSplitter {
@@ -123,4 +126,12 @@ export interface IMessages {
     text: string,
     dateSent: string,
     isDeleted: boolean
+}
+
+export interface IPeopleCard {
+    room: string,
+    clickCheck: () => void,
+    joinUp: (name: string, room: string) => void,
+    namePass: string
+    setGlobalPartnerId: React.Dispatch<React.SetStateAction<string>>
 }

@@ -12,8 +12,8 @@ import MessagingBubbleComponentSender from '../Components/MessagingBubbleCompone
 import MessageLeave from '@/Assets/MessagesBackArrow.png'
 import { useRouter } from 'next/navigation'
 import { HubConnection, HubConnectionBuilder, LogLevel } from '@microsoft/signalr'
-import { IMessages, IProfileData } from '@/Interfaces/Interfaces'
-import { GetAllMessages, getProfileItemByUserId } from '@/utils/Dataservices'
+import { IAppointments, IMessages, IProfileData } from '@/Interfaces/Interfaces'
+import { GetAllMessages, GetMessagesByUserIds, getAppointments, getProfileItemByUserId } from '@/utils/Dataservices'
 
 const MessagingPage = () => {
     const [hiddenOrBlock, setHiddenOrBlock] = useState<string>("hidden");
@@ -23,10 +23,11 @@ const MessagingPage = () => {
     const router = useRouter();
     useEffect(() => {
         if (sessionStorage.getItem('reloaded') !== 'true') {
-          sessionStorage.setItem('reloaded', 'true');
-          window.location.reload();
+            sessionStorage.setItem('reloaded', 'true');
+            window.location.reload();
         }
-      }, []);
+    }, []);
+
     const handleOpen = () => {
         if (hideBoolean) {
             setHiddenOrBlock("block");
@@ -37,9 +38,7 @@ const MessagingPage = () => {
             setHiddenOrBlock("hidden");
             setMessageBlock("block")
             setHideBoolean(!hideBoolean);
-
         }
-
     }
 
     const handleMessagingPeopleCardClick = () => {
@@ -48,10 +47,19 @@ const MessagingPage = () => {
         }
     };
 
+    const joinOneOnOne = async (name: string, roomName: string) => {
+        joinChatRoom(name, roomName);
+
+        const numberSplit: string[] = roomName.split("-")
+
+        console.log(numberSplit)
+        setMessages(await GetMessagesByUserIds(numberSplit[0], numberSplit[1]));
+    };
+
     const handleVideoClick = () => {
         if (sessionStorage.getItem('reloaded')) {
             sessionStorage.setItem('reloaded', 'false');
-          }
+        }
         router.push('/TestingVideo')
     }
 
@@ -60,6 +68,7 @@ const MessagingPage = () => {
     const [conn, setConnection] = useState<HubConnection>();
     const [messages, setMessages] = useState<IMessages[]>([]);
     const [message, setMessage] = useState<string>("")
+    const [globalPartnerId, setGlobalPartnerId] = useState<string>("")
     const [userProfileInfo, setUserProfileInfo] = useState<IProfileData>();
 
     const joinChatRoom = async (usersname: string, chatroom: string) => {
@@ -68,13 +77,8 @@ const MessagingPage = () => {
                 .withUrl("https://mocktalksapihosting.azurewebsites.net/chat")
                 .configureLogging(LogLevel.Information)
                 .build();
-            // const conn = new HubConnectionBuilder()
-            //     .withUrl("http://localhost:5150/chat")
-            //     .configureLogging(LogLevel.Information)
-            //     .build();
 
             conn.on("RecieveSpecificMessage", (usersname: string, messageFromSR: string) => {
-                // console.log(messageFromSR);
                 let message: IMessages = JSON.parse(messageFromSR);
 
                 setMessages(messages => [...messages, message]);
@@ -105,16 +109,15 @@ const MessagingPage = () => {
                 const userIdFromStorage = sessionStorage.getItem('userId');
                 const grabName: IProfileData = await getProfileItemByUserId(Number(userIdFromStorage))
 
-                // console.log(grabName)
                 setUserProfileInfo(grabName);
-                joinChatRoom(grabName.fullName, "GeneralChat")
-                // console.log(await GetAllMessages());
-                setMessages(await GetAllMessages());
+                checkUserPair();
             }
             innerCall()
         }
         outerCall();
     }, [])
+
+    /* ===================== */
 
     // check user to see if they have any paired meetings.
     // if so, join a chatroom that uses the user ids of each person (2-4) (1-2)
@@ -125,19 +128,55 @@ const MessagingPage = () => {
     // when user inputs a name, calls on all users
     // when user selects name, creates chatroom
 
+    /* ===================== */
+
+    const [allRooms, setAllRooms] = useState<string[]>();
+
+    const checkUserPair = async () => {
+        const dataAppoint = await getAppointments(Number(sessionStorage.getItem('userId')));
+        const filteredPartnerData = dataAppoint.filter((meeting: IAppointments) => meeting.isDeleted === false && meeting.isPartnered === true);
+        console.log(filteredPartnerData)
+
+        let rooms: string[] = [];
+
+        filteredPartnerData.map((appointment: IAppointments) => {
+            let num1 = appointment.userID;
+            let num2 = appointment.partnerID;
+            let chatroomName: string;
+
+            if (num1 > num2) {
+                chatroomName = `${num1}-${num2}`;
+            } else {
+                chatroomName = `${num2}-${num1}`;
+            }
+            rooms.push(chatroomName)
+        })
+
+        setAllRooms(rooms);
+        console.log(rooms);
+    }
+
     return (
         <div className='bg-[#696969] h-full'>
             <NavbarComponent />
             <div className='grid grid-cols-6 p-0 lg:p-[10px]'>
                 <div className={`${messageBlock} col-span-6 lg:col-span-2 bg-[#ffffff] w-full border-r-0 lg:border-r-[3px] h-screen border-black lg:rounded-tl-[15px] rounded-0 lg:rounded-bl-[15px] overflow-y-auto`}>
                     <MessagingSearchInputComponent />
-                    <div className='flex flex-col flex-grow overflow-auto'>
-                        <MessagingPeopleCardComponent click={handleMessagingPeopleCardClick} />
-                    </div>
+                    {
+                        (allRooms && userProfileInfo) && allRooms.map(
+                            (room, index) => {
+                                return (
+                                    <div key={index} className='flex flex-col flex-grow overflow-auto'>
+                                        <MessagingPeopleCardComponent setGlobalPartnerId={setGlobalPartnerId} room={room} clickCheck={handleMessagingPeopleCardClick} joinUp={joinOneOnOne} namePass={userProfileInfo.fullName} />
+                                    </div>
+                                )
+                            }
+                        )
+                    }
                 </div>
                 <div className={`${hiddenOrBlock} lg:block col-span-6 lg:col-span-4 bg-[#ffffff] w-full h-screen rounded-none lg:rounded-tr-[15px] lg:rounded-br-[15px] flex flex-col justify-between overflow-auto`}>
                     {
-                        conn && userProfileInfo ?
+                        conn && userProfileInfo && globalPartnerId ?
                             <div>
                                 <div className='bg-[#D9D9D9] text-[58px] font-[DMSerifText] w-full rounded-none lg:rounded-tr-[15px] px-[50px] py-[32px] flex justify-between items-center z-10'>
                                     <div className='flex flex-row items-center'>
@@ -155,7 +194,7 @@ const MessagingPage = () => {
                                                     return (
                                                         <div className='grid grid-cols-1' key={index}>
                                                             {
-                                                                (msg.senderID === Number(sessionStorage.getItem('userId'))) ?
+                                                                (msg.senderID === userProfileInfo.userID) ?
                                                                     <div className='flex col-span-1 justify-end'>
                                                                         <MessagingBubbleComponentSender dataPass={msg} />
                                                                     </div>
@@ -172,12 +211,12 @@ const MessagingPage = () => {
                                     </div>
 
                                     <div>
-                                        <MessagingTextInputComponent message={message} setMessage={setMessage} sendMessage={sendMessage} usersId={userProfileInfo.userId} />
+                                        <MessagingTextInputComponent globalPartnerId={globalPartnerId} message={message} setMessage={setMessage} sendMessage={sendMessage} usersId={userProfileInfo.userID} />
                                     </div>
                                 </div>
                             </div>
                             :
-                            <p className='text-center text-6xl text-black mt-32 font-[DMSerifText]'>Loading...</p>
+                            <p className='text-center text-6xl text-black mt-32 font-[DMSerifText]'>Empty...</p>
                     }
                 </div>
             </div>
