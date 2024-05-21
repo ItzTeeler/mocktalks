@@ -6,7 +6,6 @@ import { IAppointments, ICancelAppointmentProps } from "@/Interfaces/Interfaces"
 import { deleteAppointments, getAppointments, getAppointmentsById, updateAppointments } from "@/utils/Dataservices";
 
 
-
 export function CancelAppointmentModal(props: { id: Number, submitBool: () => void }) {
     const [openModal, setOpenModal] = useState(false);
     const [appointments, setAppointments] = useState<IAppointments>();
@@ -31,18 +30,30 @@ export function CancelAppointmentModal(props: { id: Number, submitBool: () => vo
 
     const handleCancel = async () => {
         let deleteAppointment: IAppointments = await getAppointmentsById(Number(props.id));
-        
-        if (deleteAppointment.partnerId != 0)
+
+        if (deleteAppointment.partnerID != 0) {/* If partner */}
         {
+            let otherAppointment: IAppointments[] = await getAppointments(deleteAppointment.partnerID);
 
+            if (otherAppointment.length != 0) {
+                let filteredData: IAppointments[] = otherAppointment.filter((meeting: IAppointments) => 
+                    meeting.selectedDate === deleteAppointment.selectedDate &&
+                    meeting.timezone === deleteAppointment.timezone &&
+                    meeting.interviewPractice === deleteAppointment.interviewPractice &&
+                    meeting.typePractice === deleteAppointment.typePractice &&
+                    meeting.isPartnered === true &&
+                    meeting.isDeleted === false &&
+                    meeting.userID !== deleteAppointment.userID
+                );
+
+                filteredData[0].partnerID = 0;
+                filteredData[0].isPartnered = false;
+
+                await updateAppointments(filteredData[0]);
+            }          
         }
-        let otherAppointment = await getAppointments(17);
-        console.log(otherAppointment);
 
-        
-
-
-        //await deleteAppointments(deleteAppointment);
+        await deleteAppointments(deleteAppointment);
         props.submitBool();
         handleClose();
     }
