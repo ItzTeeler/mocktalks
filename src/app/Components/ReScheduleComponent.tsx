@@ -4,7 +4,7 @@ import React, { useEffect, useState } from 'react'
 import LeftButton from "@/Assets/LeftButton.png";
 import RightButton from "@/Assets/RightButton.png";
 import Image from 'next/image';
-import { getAppointments, getAppointmentsById, updateAppointments } from '@/utils/Dataservices'; // Import the updateAppointment function
+import { getAppointments, getAppointmentsById, updateAppointments } from '@/utils/Dataservices';
 import { IAppointments } from '@/Interfaces/Interfaces';
 
 const ReScheduleComponent = (props: { id: Number, submitBool: () => void }) => {
@@ -31,8 +31,8 @@ const ReScheduleComponent = (props: { id: Number, submitBool: () => void }) => {
     const handleSave = async () => {
         let updateAppointment = {
             id: appById.id,
-            userId: Number(userIdSession),
-            partnerId: appById.partnerId,
+            userID: Number(userIdSession),
+            partnerID: appById.partnerId,
             interviewPractice: appById.interviewPractice,
             typePractice: appById.typePractice,
             typeExperience: appById.typeExperience,

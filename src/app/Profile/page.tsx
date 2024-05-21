@@ -104,8 +104,8 @@ const Page = () => {
         ) {
           const update = {
             id: appointment1.id,
-            userId: Number(appointment1.userID),
-            partnerId: appointment2.userID,
+            userID: Number(appointment1.userID),
+            partnerID: appointment2.userID,
             interviewPractice: appointment1.interviewPractice,
             typePractice: appointment1.typePractice,
             typeExperience: appointment1.typeExperience,
@@ -120,8 +120,8 @@ const Page = () => {
 
           const update2 = {
             id: appointment2.id,
-            userId: Number(appointment2.userID),
-            partnerId: appointment1.userID,
+            userID: Number(appointment2.userID),
+            partnerID: appointment1.userID,
             interviewPractice: appointment2.interviewPractice,
             typePractice: appointment2.typePractice,
             typeExperience: appointment2.typeExperience,
