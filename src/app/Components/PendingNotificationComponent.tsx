@@ -53,7 +53,7 @@ export function PendingNotificationComponent(props: { open: boolean, close: Reac
             {props.open && partneredAppointment && (
                 <div className={`sm:absolute sm:right-12`}>
                     <div className="w-full sm:w-[360px] h-[84px] bg-white border-black border-2 px-5 py-2 shadow-xl">
-                        <p>You've been paired with {fullname} on {partneredAppointment.selectedDate} {partneredAppointment.timezone} </p>
+                        <p>You&apos;ve been paired with {fullname} on {partneredAppointment.selectedDate} {partneredAppointment.timezone} </p>
                     </div>
                 </div>
             )}
