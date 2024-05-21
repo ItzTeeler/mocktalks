@@ -63,8 +63,8 @@ export interface IPracticeData {
 
 export interface IAppointments {
     id: number,
-    userId: number,
-    partnerId: number,
+    userID: number,
+    partnerID: number,
     interviewPractice: string,
     typePractice: string,
     typeExperience: string,
