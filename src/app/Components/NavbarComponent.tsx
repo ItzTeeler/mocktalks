@@ -37,8 +37,8 @@ export default function NavbarComponent() {
           <span className="self-center whitespace-nowrap text-2xl sm:text-4xl dark:text-white font-[DMSerifText]">MockTalks</span>
         </Navbar.Brand>
         <div className="flex items-center space-x-0 sm:space-x-4">
-          <Navbar.Link style={{cursor: 'pointer'}} className="hidden min-[1440px]:block">
-            <Image src={bellIcon} alt="Bell Icon" onClick={handleVisibleToggle}/>
+          <Navbar.Link style={{ cursor: 'pointer' }} className="hidden min-[1440px]:block">
+            <Image src={bellIcon} alt="Bell Icon" onClick={handleVisibleToggle} />
           </Navbar.Link>
           <Navbar.Link href="/MessagingPage">
             <Image src={chatDots} alt="Centered Chat Dots" className="w-6 h-6 sm:w-8 sm:h-8" />
@@ -48,7 +48,7 @@ export default function NavbarComponent() {
           </Navbar.Link>
         </div>
       </Navbar>
-      <PendingNotificationComponent open={notifyVisible} close={setNotifyVisible}/>
+      <PendingNotificationComponent open={notifyVisible} close={setNotifyVisible} />
     </>
   );
 }
