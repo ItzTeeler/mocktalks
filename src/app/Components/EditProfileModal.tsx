@@ -54,6 +54,7 @@ export function EditProfileModal(props: IEditProfileProps) {
       props.close(false);
       props.setIsNotCreate(true);
     }
+    sessionStorage.setItem("userId", String(profileData.fullName));
   }
 
   const submitUpdateProfile = () => {
@@ -90,6 +91,7 @@ export function EditProfileModal(props: IEditProfileProps) {
       updateProfileItem(profileData);
       props.close(false);
     }
+    sessionStorage.setItem("userId", String(profileData.fullName));
   }
 
   useEffect(() => {
