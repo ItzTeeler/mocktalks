@@ -1,47 +1,69 @@
 'use client'
 
-import React, { useState } from "react"
+import React, { useEffect, useState } from "react"
 import { Button } from "flowbite-react"
 import { useRouter } from "next/navigation";
+import { getAppointments, getAppointmentsById, getHardProfileItemByUserId } from "@/utils/Dataservices";
 
-export function PendingNotificationComponent(props: {open: boolean, close: React.Dispatch<React.SetStateAction<boolean>>}) {
+export function PendingNotificationComponent(props: { open: boolean, close: React.Dispatch<React.SetStateAction<boolean>> }) {
     const [name, setName] = useState<string>('John Fartgroom');
     const [experience, setExperience] = useState<string>('Beginner');
+    const [partneredAppointment, setPartneredAppointment] = useState<any | null>(null);
+    const [fullname, setfullname] = useState<string>();
 
+
+    const [apps, setApps] = useState<any>();
     const router = useRouter();
 
     const handleClose = () => {
         props.close(false);
     }
-    
+
     const handleSubmit = () => {
         props.close(false);
         router.push(`/MessagingPage`);
     }
 
+    useEffect(() => {
+        const fetchAppointments = async () => {
+            const savedId = sessionStorage.getItem('userId');
+            if (savedId) {
+                try {
+                    const appData = await getAppointments(Number(savedId));
+                    console.log(appData)
+                    const partneredApp = appData.find((app: { isPartnered: any; }) => app.isPartnered);
+                    console.log(partneredApp);
+                    if (partneredApp) {
+                        setPartneredAppointment(partneredApp);
+                        const partner = await getHardProfileItemByUserId(partneredApp?.partnerID);
+                        setfullname(partner?.fullName);
+                    }
+                } catch (error) {
+                    console.error("Failed to fetch appointments", error);
+                }
+            }
+
+        };
+
+        fetchAppointments();
+    }, []);
+
     return (
         <>
-        {
-            props.open == true &&
-            <div className={`sm:absolute sm:right-12`}>
-                <div className="w-full sm:w-[360px] h-[84px] bg-white border-black border-2 px-5 py-2 shadow-xl">
-                    <div className="grid grid-cols-2">
-                        <div className="w-[192px]">
-                            <p className="text-[14px] font-[DMSerifText]">{name} has requested an appointment</p>
-                            <p className="text-[12px] font-[DMSerifText]">Interview experience: {experience}</p>
-                        </div>
-                        <div className="w-full flex justify-end">
-                            <div className="grid grid-rows-2">
-                                <Button className="bg-[#2B170C] text-white rounded-full w-[64px] h-[24px] text-[12px] font-[Source-Sans-Pro]" onClick={handleSubmit}>Accept</Button>
-                                <div className="flex items-end">
-                                    <Button className="bg-[#D9D9D9] text-black rounded-full w-[64px] h-[24px] text-[12px] font-[Source-Sans-Pro]" onClick={handleClose}>Cancel</Button>
-                                </div>
-                            </div>
-                        </div>
+            {props.open && partneredAppointment && (
+                <div className={`sm:absolute sm:right-12`}>
+                    <div className="w-full sm:w-[360px] h-[84px] bg-white border-black border-2 px-5 py-2 shadow-xl">
+                        <p>You've been paired with {fullname} on {partneredAppointment.selectedDate} {partneredAppointment.timezone} </p>
                     </div>
                 </div>
-            </div>
-        }
+            )}
+            {props.open && !partneredAppointment && (
+                <div className={`sm:absolute sm:right-12`}>
+                    <div className="w-full sm:w-[360px] h-[84px] bg-white border-black border-2 px-5 py-2 shadow-xl">
+                
+                    </div>
+                </div>
+            )}
         </>
     );
 }
