@@ -37,8 +37,8 @@ export function ScheduleInterviewComponent(props: { submitBool: () => void, user
   const handleSubmit = async () => {
     const newAppointment: IAppointments = {
       id: 0,
-      userId: props.userId,
-      partnerId: 0,
+      userID: props.userId,
+      partnerID: 0,
       interviewPractice: pracInterview,
       typePractice: typeOfInterview,
       typeExperience: typeOfExperience,

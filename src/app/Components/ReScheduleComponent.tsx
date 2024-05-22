@@ -31,8 +31,8 @@ const ReScheduleComponent = (props: { id: Number, submitBool: () => void }) => {
     const handleSave = async () => {
         let updateAppointment = {
             id: appById.id,
-            userId: Number(userIdSession),
-            partnerId: appById.partnerId,
+            userID: Number(userIdSession),
+            partnerID: appById.partnerId,
             interviewPractice: appById.interviewPractice,
             typePractice: appById.typePractice,
             typeExperience: appById.typeExperience,

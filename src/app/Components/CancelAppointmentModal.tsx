@@ -32,7 +32,7 @@ export function CancelAppointmentModal(props: { id: Number, submitBool: () => vo
     const handleCancel = async () => {
         let deleteAppointment: IAppointments = await getAppointmentsById(Number(props.id));
         deleteAppointment.isPartnered = false;
-        deleteAppointment.partnerId = 0;
+        deleteAppointment.partnerID = 0;
         await deleteAppointments(deleteAppointment);
         props.submitBool();
         handleClose();

@@ -5,6 +5,7 @@ import NavbarComponent from '../Components/NavbarComponent'
 import MessagingSearchInputComponent from '../Components/MessagingSearchInputComponent'
 import MessagingPeopleCardComponent from '../Components/MessagingPeopleCardComponent'
 import MessagingTextInputComponent from '../Components/MessagingTextInputComponent'
+import GlobalMessagingCardComponent from '../Components/GlobalMessagingCardComponent'
 import VideoIcon from '@/Assets/MessagingWebCam.png'
 import Image from 'next/image'
 import MessagingBubblesComponent from '../Components/MessagingBubblesComponent'
@@ -48,19 +49,26 @@ const MessagingPage = () => {
     };
 
     const joinOneOnOne = async (name: string, roomName: string) => {
+        setMessage("");
+        conn && await conn.stop();
         joinChatRoom(name, roomName);
-
-        const numberSplit: string[] = roomName.split("-")
-
-        console.log(numberSplit)
+        const numberSplit: string[] = roomName.split("-");
         setMessages(await GetMessagesByUserIds(numberSplit[0], numberSplit[1]));
+    };
+
+    const joinGlobal = async (name: string, roomName: string) => {
+        setMessage("");
+        conn && await conn.stop();
+        joinChatRoom(name, roomName);
+        const allMessages = await GetAllMessages();
+        setMessages(allMessages.filter((message: IMessages) => String(message.receiverID) === "9999"));
     };
 
     const handleVideoClick = () => {
         if (sessionStorage.getItem('reloaded')) {
             sessionStorage.setItem('reloaded', 'false');
         }
-        router.push('/TestingVideo')
+        router.push('/TestingVideo');
     }
 
     /* ===================== */
@@ -96,7 +104,7 @@ const MessagingPage = () => {
 
     const sendMessage = async (messageContainer: string) => {
         try {
-            console.log(messageContainer)
+            // console.log(messageContainer)
             conn && await conn.invoke("SendMessage", messageContainer);
         } catch (e) {
             console.log(e)
@@ -135,7 +143,7 @@ const MessagingPage = () => {
     const checkUserPair = async () => {
         const dataAppoint = await getAppointments(Number(sessionStorage.getItem('userId')));
         const filteredPartnerData = dataAppoint.filter((meeting: IAppointments) => meeting.isDeleted === false && meeting.isPartnered === true);
-        console.log(filteredPartnerData)
+        // console.log(filteredPartnerData)
 
         let rooms: string[] = [];
 
@@ -153,7 +161,7 @@ const MessagingPage = () => {
         })
 
         setAllRooms(rooms);
-        console.log(rooms);
+        // console.log(rooms);
     }
 
     return (
@@ -162,6 +170,16 @@ const MessagingPage = () => {
             <div className='grid grid-cols-6 p-0 lg:p-[10px]'>
                 <div className={`${messageBlock} col-span-6 lg:col-span-2 bg-[#ffffff] w-full border-r-0 lg:border-r-[3px] h-screen border-black lg:rounded-tl-[15px] rounded-0 lg:rounded-bl-[15px] overflow-y-auto`}>
                     <MessagingSearchInputComponent />
+                    {
+                        userProfileInfo ?
+                            <div className='flex flex-col flex-grow overflow-auto'>
+                                <GlobalMessagingCardComponent setGlobalPartnerId={setGlobalPartnerId} room={"generalChat"} clickCheck={handleMessagingPeopleCardClick} joinUp={joinGlobal} namePass={userProfileInfo.fullName} />
+                            </div>
+                            :
+                            <div className='flex flex-col flex-grow overflow-auto'>
+                                <p className='text-black text-center text-5xl py-4 font-[DMSerifText]'>Loading Rooms...</p>
+                            </div>
+                    }
                     {
                         (allRooms && userProfileInfo) && allRooms.map(
                             (room, index) => {
@@ -216,7 +234,7 @@ const MessagingPage = () => {
                                 </div>
                             </div>
                             :
-                            <p className='text-center text-6xl text-black mt-32 font-[DMSerifText]'>Empty...</p>
+                            <p className='text-center text-6xl text-black mt-32 font-[DMSerifText]'>Click On a Chat To Start</p>
                     }
                 </div>
             </div>
