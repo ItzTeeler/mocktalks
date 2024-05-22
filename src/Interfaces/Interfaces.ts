@@ -102,11 +102,6 @@ export interface IDropZoneImage {
     setProfileImg: React.Dispatch<React.SetStateAction<string>>;
 }
 
-// export interface IMessages {
-//     usersname: string; 
-//     msg: string;
-// }
-
 export interface IPropMessage {
     message: string,
     setMessage: React.Dispatch<React.SetStateAction<string>>,
@@ -126,6 +121,14 @@ export interface IMessages {
     text: string,
     dateSent: string,
     isDeleted: boolean
+}
+
+export interface IGChatCard {
+    room: string,
+    clickCheck: () => void,
+    joinUp: (name: string, room: string) => void,
+    namePass: string
+    setGlobalPartnerId: React.Dispatch<React.SetStateAction<string>>
 }
 
 export interface IPeopleCard {

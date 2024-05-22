@@ -52,8 +52,15 @@ const MessagingPage = () => {
         setMessage("");
         conn && await conn.stop();
         joinChatRoom(name, roomName);
+
         const numberSplit: string[] = roomName.split("-");
         setMessages(await GetMessagesByUserIds(numberSplit[0], numberSplit[1]));
+
+        if (numberSplit[0] === sessionStorage.getItem("userId")) {
+            setGlobalPartnerProfile(await getProfileItemByUserId(Number(numberSplit[1])));
+        } else {
+            setGlobalPartnerProfile(await getProfileItemByUserId(Number(numberSplit[0])));
+        }
     };
 
     const joinGlobal = async (name: string, roomName: string) => {
@@ -62,6 +69,19 @@ const MessagingPage = () => {
         joinChatRoom(name, roomName);
         const allMessages = await GetAllMessages();
         setMessages(allMessages.filter((message: IMessages) => String(message.receiverID) === "9999"));
+
+        const emptyProfile: IProfileData = {
+            id: 0,
+            userID: 0,
+            fullName: "Global Chat",
+            occupation: "",
+            experienceLevel: "",
+            jobInterviewLevel: "",
+            locationed: "",
+            profileImg: ""
+        }
+
+        setGlobalPartnerProfile(emptyProfile);
     };
 
     const handleVideoClick = () => {
@@ -77,6 +97,7 @@ const MessagingPage = () => {
     const [messages, setMessages] = useState<IMessages[]>([]);
     const [message, setMessage] = useState<string>("")
     const [globalPartnerId, setGlobalPartnerId] = useState<string>("")
+    const [globalPartnerProfile, setGlobalPartnerProfile] = useState<IProfileData>()
     const [userProfileInfo, setUserProfileInfo] = useState<IProfileData>();
 
     const joinChatRoom = async (usersname: string, chatroom: string) => {
@@ -104,7 +125,6 @@ const MessagingPage = () => {
 
     const sendMessage = async (messageContainer: string) => {
         try {
-            // console.log(messageContainer)
             conn && await conn.invoke("SendMessage", messageContainer);
         } catch (e) {
             console.log(e)
@@ -143,8 +163,6 @@ const MessagingPage = () => {
     const checkUserPair = async () => {
         const dataAppoint = await getAppointments(Number(sessionStorage.getItem('userId')));
         const filteredPartnerData = dataAppoint.filter((meeting: IAppointments) => meeting.isDeleted === false && meeting.isPartnered === true);
-        // console.log(filteredPartnerData)
-
         let rooms: string[] = [];
 
         filteredPartnerData.map((appointment: IAppointments) => {
@@ -161,7 +179,6 @@ const MessagingPage = () => {
         })
 
         setAllRooms(rooms);
-        // console.log(rooms);
     }
 
     return (
@@ -194,12 +211,12 @@ const MessagingPage = () => {
                 </div>
                 <div className={`${hiddenOrBlock} lg:block col-span-6 lg:col-span-4 bg-[#ffffff] w-full h-[90vh] rounded-none lg:rounded-tr-[15px] lg:rounded-br-[15px] flex flex-col justify-between`}>
                     {
-                        conn && userProfileInfo && globalPartnerId ?
-                            <div className='w-full h-[90vh] grid grid-rows-12'>
-                                <div className='row-span-1 lg:row-span-2 bg-[#D9D9D9] text-[58px] font-[DMSerifText] w-full rounded-none lg:rounded-tr-[15px] px-[50px] flex justify-between items-center z-10'>
+                        conn && userProfileInfo && globalPartnerId && globalPartnerProfile ?
+                            <div className='w-full h-[90vh] grid grid-rows-12 z-10'>
+                                <div className='row-span-1 lg:row-span-2 bg-[#D9D9D9] text-[58px] font-[DMSerifText] w-full rounded-none lg:rounded-tr-[15px] px-[50px] flex justify-between items-center'>
                                     <div className='flex flex-row items-center'>
                                         <Image src={MessageLeave} alt='close' className='block lg:hidden min-h-[32px] min-w-[32px] mr-[10px]' onClick={handleOpen} />
-                                        <p className='text-[20px] lg:text-[58px]'>General Chat</p>
+                                        <p className='text-[20px] lg:text-[58px]'>{globalPartnerProfile.fullName}</p>
                                     </div>
                                     <Image src={VideoIcon} alt='Video Icon h-[46px] w-[46px]' className='cursor-pointer' onClick={handleVideoClick} />
                                 </div>
