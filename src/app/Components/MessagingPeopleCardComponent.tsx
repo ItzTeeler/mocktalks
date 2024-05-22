@@ -18,7 +18,7 @@ const MessagingPeopleCardComponent = (props: IPeopleCard) => {
       <div className='bg-[#696969] m-5 rounded-[15px]' onClick={() => { props.clickCheck(); props.joinUp(props.namePass, props.room); savePartnerId(props.room) }}>
         <div className='flex flex-row items-center'>
           <div className='p-[16px]'>
-            {/* <Image src={ProfilePic} alt='ProfilePic' className='w-[109px] h-[109px]'/> */}
+            {/* <Image src={ProfilePic} alt='ProfilePic' className='rounded-full w-[109px] h-[109px]'/> */}
           </div>
           <div className='py-4'>
             <p className='text-[18px] mb-[12px] font-[DMSerifText] text-[#ffffff]'>{props.room}</p>

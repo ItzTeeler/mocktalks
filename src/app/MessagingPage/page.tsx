@@ -168,7 +168,7 @@ const MessagingPage = () => {
         <div className='bg-[#696969] h-full'>
             <NavbarComponent />
             <div className='grid grid-cols-6 p-0 lg:p-[10px]'>
-                <div className={`${messageBlock} col-span-6 lg:col-span-2 bg-[#ffffff] w-full border-r-0 lg:border-r-[3px] h-screen border-black lg:rounded-tl-[15px] rounded-0 lg:rounded-bl-[15px] overflow-y-auto`}>
+                <div className={`${messageBlock} col-span-6 lg:col-span-2 bg-[#ffffff] w-full border-r-0 lg:border-r-[3px] h-[90vh] border-black lg:rounded-tl-[15px] rounded-0 lg:rounded-bl-[15px] overflow-y-auto`}>
                     <MessagingSearchInputComponent />
                     {
                         userProfileInfo ?
@@ -192,20 +192,20 @@ const MessagingPage = () => {
                         )
                     }
                 </div>
-                <div className={`${hiddenOrBlock} lg:block col-span-6 lg:col-span-4 bg-[#ffffff] w-full h-screen rounded-none lg:rounded-tr-[15px] lg:rounded-br-[15px] flex flex-col justify-between overflow-auto`}>
+                <div className={`${hiddenOrBlock} lg:block col-span-6 lg:col-span-4 bg-[#ffffff] w-full h-[90vh] rounded-none lg:rounded-tr-[15px] lg:rounded-br-[15px] flex flex-col justify-between`}>
                     {
                         conn && userProfileInfo && globalPartnerId ?
-                            <div>
-                                <div className='bg-[#D9D9D9] text-[58px] font-[DMSerifText] w-full rounded-none lg:rounded-tr-[15px] px-[50px] py-[32px] flex justify-between items-center z-10'>
+                            <div className='w-full h-[90vh] grid grid-rows-12'>
+                                <div className='row-span-1 lg:row-span-2 bg-[#D9D9D9] text-[58px] font-[DMSerifText] w-full rounded-none lg:rounded-tr-[15px] px-[50px] flex justify-between items-center z-10'>
                                     <div className='flex flex-row items-center'>
-                                        <Image src={MessageLeave} alt='X' className='block lg:hidden min-h-[32px] min-w-[32px] mr-[10px]' onClick={handleOpen} />
+                                        <Image src={MessageLeave} alt='close' className='block lg:hidden min-h-[32px] min-w-[32px] mr-[10px]' onClick={handleOpen} />
                                         <p className='text-[20px] lg:text-[58px]'>General Chat</p>
                                     </div>
-                                    <Image src={VideoIcon} alt='Video Icon' className='cursor-pointer' onClick={handleVideoClick} />
+                                    <Image src={VideoIcon} alt='Video Icon h-[46px] w-[46px]' className='cursor-pointer' onClick={handleVideoClick} />
                                 </div>
 
-                                <div className='w-full h-full flex flex-col justify-between'>
-                                    <div className=''>
+                                <div className='row-span-9 w-full overflow-auto flex flex-col justify-between'>
+                                    <div>
                                         {
                                             messages && messages.map(
                                                 (msg, index) => {
@@ -228,13 +228,16 @@ const MessagingPage = () => {
                                         }
                                     </div>
 
-                                    <div>
-                                        <MessagingTextInputComponent globalPartnerId={globalPartnerId} message={message} setMessage={setMessage} sendMessage={sendMessage} usersId={userProfileInfo.userID} />
-                                    </div>
+                                </div>
+                                <div className='row-span-2 lg:row-span-1 inline-block self-end'>
+                                    <MessagingTextInputComponent globalPartnerId={globalPartnerId} message={message} setMessage={setMessage} sendMessage={sendMessage} usersId={userProfileInfo.userID} />
                                 </div>
                             </div>
                             :
-                            <p className='text-center text-6xl text-black mt-32 font-[DMSerifText]'>Click On a Chat To Start</p>
+                            <div>
+                                <p className='text-center text-6xl text-black mt-32 font-[DMSerifText] hidden lg:block'>Click On a Chat To Start</p>
+                                <p className='text-center text-6xl text-black mt-32 font-[DMSerifText] block lg:hidden'>Loading...</p>
+                            </div>
                     }
                 </div>
             </div>

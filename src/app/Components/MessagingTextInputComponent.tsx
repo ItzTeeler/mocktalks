@@ -31,7 +31,7 @@ const MessagingTextInputComponent = (props: IPropMessage) => {
 
     return (
         <div className='w-full relative'>
-            <div className='flex items-center inset-y-0 mx-5 pt-[30px] pb-[40px]'>
+            <div className='flex items-center inset-y-0 mx-5 pb-[25px]'>
                 <div className='absolute p-2'>
                     <Image src={FileAdd} alt="Search Icon" />
                 </div>
