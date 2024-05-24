@@ -260,7 +260,7 @@ const Page = () => {
                   <h1 className='text-black text-[20px] font-[DMSerifText] text-center p-5'>UPCOMING PRACTICE INTERVIEWS</h1>
                   <hr style={{ border: '1px black solid' }} />
                   {Array.isArray(appointmentData) && appointmentData.length > 0 ? (
-                    appointmentData.map((appointment: any, index: any) => (
+                    appointmentData.map((appointment: any, index: number) => (
                       <ScheduleComponent
                         key={index}
                         id={appointment.id}

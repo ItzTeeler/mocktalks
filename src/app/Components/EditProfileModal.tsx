@@ -22,7 +22,7 @@ export function EditProfileModal(props: IEditProfileProps) {
   const submitCreateProfile = () => {
     let profileData: IProfileData = {
       id: 0,
-      userId: Number(props.userInfoPass),
+      userID: Number(props.userInfoPass),
       fullName: fullName,
       occupation: education,
       experienceLevel: YoE,
@@ -60,7 +60,7 @@ export function EditProfileModal(props: IEditProfileProps) {
   const submitUpdateProfile = () => {
     let profileData: IProfileData = {
       id: userData!.id,
-      userId: Number(props.userInfoPass),
+      userID: Number(props.userInfoPass),
       fullName: fullName,
       occupation: education,
       experienceLevel: YoE,
@@ -99,17 +99,17 @@ export function EditProfileModal(props: IEditProfileProps) {
       const innerCall = async () => {
         try {
           setUserData(await getProfileItemByUserId(Number(props.userInfoPass)));
-          const localData = await getProfileItemByUserId(Number(props.userInfoPass));
-          setFullName(await localData.fullName)
-          setLocation(await localData.locationed)
-          setEducation(await localData.occupation)
-          setYoE(await localData.experienceLevel)
-          setJobInterviewLevel(await localData.jobInterviewLevel)
-          setProfileImg(await localData.profileImg)
+          const localData: IProfileData = await getProfileItemByUserId(Number(props.userInfoPass));
+          setFullName(localData.fullName)
+          setLocation(localData.locationed)
+          setEducation(localData.occupation)
+          setYoE(localData.experienceLevel)
+          setJobInterviewLevel(localData.jobInterviewLevel)
+          setProfileImg(localData.profileImg)
         } catch {
           let emptyProfileData: IProfileData = {
             id: 0,
-            userId: 0,
+            userID: 0,
             fullName: "",
             occupation: "",
             experienceLevel: "",

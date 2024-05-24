@@ -23,11 +23,11 @@ const MessagingBubbleComponentSender = (props: IPropMessageSplitter) => {
         userData ?
         <div className='flex flex-row items-center gap-2'>
           <div className=''>
-            <img src={userData.profileImg} alt='ProfilePic' className='rounded-full min-w-[80px] w-[80px] h-[80px] min-h-[80px]' />
+            <p className='text-[12px] font-[Source-Sans-Pro] text-right overflowW text-[#ffffff]'>{userData.fullName}</p>
+            <p className='text-[18px] font-[Source-Sans-Pro] text-right overflowW text-[#ffffff]'>{props.dataPass.text}</p>
           </div>
           <div className=''>
-            <p className='text-[12px] font-[Source-Sans-Pro] overflowW text-[#ffffff]'>{userData.fullName}</p>
-            <p className='text-[18px] font-[Source-Sans-Pro] overflowW text-[#ffffff]'>{props.dataPass.text}</p>
+            <img src={userData.profileImg} alt='ProfilePic' className='rounded-full min-w-[80px] w-[80px] h-[80px] min-h-[80px]' />
           </div>
         </div>
         :

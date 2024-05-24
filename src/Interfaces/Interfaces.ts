@@ -1,3 +1,5 @@
+import { MouseEventHandler } from "react"
+
 export interface IToken {
     token: string
 }
@@ -42,7 +44,7 @@ export interface IAddAppointmentProps {
 
 export interface IProfileData {
     id: number,
-    userId: number,
+    userID: number,
     fullName: string,
     occupation: string,
     experienceLevel: string,
@@ -100,16 +102,14 @@ export interface IDropZoneImage {
     setProfileImg: React.Dispatch<React.SetStateAction<string>>;
 }
 
-// export interface IMessages {
-//     usersname: string; 
-//     msg: string;
-// }
-
 export interface IPropMessage {
     message: string,
     setMessage: React.Dispatch<React.SetStateAction<string>>,
-    sendMessage: (messageContainer: string) => Promise<void>;
-    usersId: number
+    sendMessage: (messageContainer: string) => Promise<void>,
+    usersId: number,
+    globalPartnerId: string,
+    setAlertText: React.Dispatch<React.SetStateAction<string>>,
+    setAlertBool: React.Dispatch<React.SetStateAction<string>>,
 }
 
 export interface IPropMessageSplitter {
@@ -123,4 +123,30 @@ export interface IMessages {
     text: string,
     dateSent: string,
     isDeleted: boolean
+}
+
+export interface IGChatCard {
+    room: string,
+    clickCheck: () => void,
+    joinUp: (name: string, room: string) => void,
+    namePass: string
+    setGlobalPartnerId: React.Dispatch<React.SetStateAction<string>>
+}
+
+export interface IPeopleCard {
+    room: string,
+    clickCheck: () => void,
+    joinUp: (name: string, room: string) => void,
+    namePass: string
+    setGlobalPartnerId: React.Dispatch<React.SetStateAction<string>>
+}
+
+export interface ISearchCard {
+    allRooms: string[];
+    setAllRooms: React.Dispatch<React.SetStateAction<string[] | undefined>>,
+    room: string,
+    clickCheck: () => void,
+    joinUp: (name: string, room: string) => void,
+    namePass: string,
+    setGlobalPartnerId: React.Dispatch<React.SetStateAction<string>>
 }

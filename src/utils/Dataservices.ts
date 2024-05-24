@@ -231,3 +231,27 @@ export const GetAllMessages = async () => {
     const data = await res.json();
     return data;
 }
+
+export const GetMessagesByUserIds = async (idOne: string, idTwo: string) => {
+    const res = await fetch(url + `/MT_Messaging/GetMessagesByUserIds/${idOne}/${idTwo}`);
+
+    if (!res.ok) {
+        const message = "An error has Occurred " + res.status;
+        throw new Error(message);
+    }
+
+    const data = await res.json();
+    return data;
+}
+
+export const GetAllProfiles = async () => {
+    const res = await fetch(url + '/MT_Profile/GetAllProfileItems');
+
+    if (!res.ok) {
+        const message = "An error has Occurred " + res.status;
+        throw new Error(message);
+    }
+
+    const data = await res.json();
+    return data;
+}
