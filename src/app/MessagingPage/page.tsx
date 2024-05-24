@@ -153,27 +153,6 @@ const MessagingPage = () => {
         setAllRooms(rooms);
     }
 
-    const checkUserPair = async () => {
-        const dataAppoint = await getAppointments(Number(sessionStorage.getItem('userId')));
-        const filteredPartnerData = dataAppoint.filter((meeting: IAppointments) => meeting.isDeleted === false && meeting.isPartnered === true);
-        let rooms: string[] = [];
-
-        filteredPartnerData.map((appointment: IAppointments) => {
-            let num1 = appointment.userID;
-            let num2 = appointment.partnerID;
-            let chatroomName: string;
-
-            if (num1 > num2) {
-                chatroomName = `${num1}-${num2}`;
-            } else {
-                chatroomName = `${num2}-${num1}`;
-            }
-            rooms.push(chatroomName)
-        })
-
-        setAllRooms(rooms);
-    }
-
     useEffect(() => {
         const outerCall = () => {
             const innerCall = async () => {
