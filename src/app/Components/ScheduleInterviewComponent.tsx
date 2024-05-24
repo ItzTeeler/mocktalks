@@ -51,7 +51,6 @@ export function ScheduleInterviewComponent(props: { submitBool: () => void, user
     };
     setInterviewObject(newAppointment);
     await createAppointment(newAppointment);
-    console.log(newAppointment);
     props.submitBool();
   }
 

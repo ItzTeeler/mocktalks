@@ -72,7 +72,6 @@ const MessagingPage = () => {
             //     .build();
 
             conn.on("RecieveSpecificMessage", (usersname: string, messageFromSR: string) => {
-                // console.log(messageFromSR);
                 let message: IMessages = JSON.parse(messageFromSR);
 
                 setMessages(messages => [...messages, message]);
@@ -83,17 +82,15 @@ const MessagingPage = () => {
 
             setConnection(conn);
         } catch (e) {
-            console.log(e);
             alert("Connection failed")
         }
     }
 
     const sendMessage = async (messageContainer: string) => {
         try {
-            console.log(messageContainer)
             conn && await conn.invoke("SendMessage", messageContainer);
         } catch (e) {
-            console.log(e)
+
         }
     }
 
@@ -103,10 +100,8 @@ const MessagingPage = () => {
                 const userIdFromStorage = sessionStorage.getItem('userId');
                 const grabName: IProfileData = await getProfileItemByUserId(Number(userIdFromStorage))
 
-                // console.log(grabName)
                 setUserProfileInfo(grabName);
                 joinChatRoom(grabName.fullName, "GeneralChat")
-                // console.log(await GetAllMessages());
                 setMessages(await GetAllMessages());
             }
             innerCall()
