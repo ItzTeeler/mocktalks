@@ -3,79 +3,83 @@ import React, { useEffect, useState } from 'react'
 import SearchIcon from '@/Assets/MessagingSearchIcon.png'
 import Image from 'next/image'
 import { GetAllProfiles } from '@/utils/Dataservices'
-import { IProfileData } from '@/Interfaces/Interfaces'
-const MessagingSearchInputComponent = () => {
-  const [allNames, setAllNames] = useState<string[]>();
-  const [displayNames, setDisplayNames] = useState<string[]>();
-
-  const [filteredNames, setFilteredNames] = useState<string[]>();
-  const [filteredDisNames, setFilteredDisNames] = useState<string[]>();
+import { IPeopleCard, IProfileData } from '@/Interfaces/Interfaces'
+const MessagingSearchInputComponent = (props: IPeopleCard) => {
+  const [allProfiles, setAllProfiles] = useState<IProfileData[]>();
+  const [filteredProfiles, setFilteredProfiles] = useState<IProfileData[]>();
+  const [inputStr, setInputStr] = useState<string>();
 
   const getAllNames = async () => {
     const dataHolder: IProfileData[] = await GetAllProfiles();
 
     if (dataHolder.length !== 0) {
-      let nameArr: string[] = [];
-      let displayArr: string[] = [];
+      let profileArr: IProfileData[] = [];
 
       dataHolder.forEach(profile => {
-        nameArr.push(profile.fullName.toLowerCase())
-        displayArr.push(profile.fullName)
+        if (profile.fullName !== sessionStorage.getItem("userName")) {
+          profileArr.push(profile)
+        }
       })
 
-      setAllNames(nameArr);
-      setDisplayNames(displayArr);
+      setAllProfiles(profileArr);
     }
   };
 
   const checkUserInput = async (input: string) => {
-    let filteredHolder: string[] = [];
-    let filteredDisHolder: string[] = [];
+    let filteredHolder: IProfileData[] = [];
 
-    allNames && allNames.map(name => {
-      if (name.includes(input.toLowerCase())) {
-        filteredHolder.push(name);
+    if (input !== "") {
+      allProfiles && allProfiles.map(prof => {
+        if (prof.fullName.toLowerCase().includes(input.toLowerCase())) {
+          filteredHolder.push(prof);
+        };
+      });
+    };
 
-        displayNames && displayNames.map(disName => {
-          if (disName.toLowerCase() === name) {
-            filteredDisHolder.push(disName);
-          };
-        });
-      };
-    });
-
-    setFilteredNames(filteredHolder);
-    setFilteredDisNames(filteredDisHolder);
+    setFilteredProfiles(filteredHolder);
   };
+
+  const openChat = (id: number) => {
+    const usersId = Number(sessionStorage.getItem("userId"));
+    setFilteredProfiles([]);
+
+    if (id > usersId) {
+      return `${id}-${usersId}`;
+    } else {
+      return `${usersId}-${id}`;
+    }
+  }
+
+  const savePartnerId = async (userId: number) => {
+    props.setGlobalPartnerId(String(userId));
+  }
 
   useEffect(() => {
     getAllNames();
   }, [])
 
-  // Save user ids so that when name is clicked, user ID is passed.
-    // change saving names to saving profiles. clean up the code.
-  // create chatroom with passed user ID
-  // same chatroom to sidebar
-
   return (
-    <div className='relative flex items-center inset-y-0 mx-[25px] pt-[30px]'>
+    <div className='relative items-center inset-y-0 mx-[25px] pt-[30px]'>
       <div className='absolute p-2'>
         <Image src={SearchIcon} alt="Search Icon" />
       </div>
 
-      <input onChange={(e) => checkUserInput(e.target.value)} type="text" className='rounded-[10px] font-[Source-Sans-Pro] w-full px-10 py-1.5 text-left text-[36px] text-black' placeholder='Search UserID' />
+      <input value={inputStr} onChange={(e) => { setInputStr(e.target.value); checkUserInput(e.target.value) }} type="text" className='rounded-[10px] font-[Source-Sans-Pro] w-full px-10 py-1.5 text-left text-[36px] text-black' placeholder='Search UserID' />
 
-      <div>
-        {
-          filteredNames && filteredDisNames && filteredNames.map((names: string, index: number) => {
-            return (
-              <div className='bg-black' key={index}>
-                <p className='text-white'>{filteredDisNames[index]}</p>
-              </div>
-            )
-          })
-        }
-      </div>
+      {
+        filteredProfiles && filteredProfiles.length !== 0 &&
+        <div className='absolute w-full bg-white border border-black rounded-[10px]'>
+          {
+            filteredProfiles.map((prof: IProfileData, index: number) => {
+              return (
+                <div onClick={() => { props.clickCheck(); props.joinUp(props.namePass, openChat(prof.userID)); savePartnerId(prof.userID); setInputStr("") }} className='pl-3 p-1 text-[20px]' key={index}>
+                  <p className='text-black font-[Source-Sans-Pro]'>{prof.fullName}</p>
+                </div>
+              )
+            })
+          }
+        </div>
+      }
     </div>
 
   )

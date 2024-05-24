@@ -5,7 +5,7 @@ import ProfilePic from "@/Assets/globalPfp.png"
 
 const GlobalMessagingCardComponent = (props: IGChatCard) => {
   const savePartnerId = () => {
-    props.setGlobalPartnerId("9999")
+    props.setGlobalPartnerId("0")
   }
 
   return (

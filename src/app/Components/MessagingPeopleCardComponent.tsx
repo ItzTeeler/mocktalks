@@ -41,7 +41,7 @@ const MessagingPeopleCardComponent = (props: IPeopleCard) => {
             </div>
             <div className='py-4'>
               <p className='text-[24px] mb-[12px] font-[DMSerifText] text-[#ffffff] w-[140px]'>{partnerData.fullName}</p>
-              <p className='text-[18px] font-[Source-Sans-Pro] text-[#ffffff] w-[140px]'>Temporary Chat</p>
+              <p className='text-[18px] font-[Source-Sans-Pro] text-[#ffffff] w-[140px]'>Partner Chat</p>
             </div>
           </div>
         }

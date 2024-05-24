@@ -15,11 +15,22 @@ import { useRouter } from 'next/navigation'
 import { HubConnection, HubConnectionBuilder, LogLevel } from '@microsoft/signalr'
 import { IAppointments, IMessages, IProfileData } from '@/Interfaces/Interfaces'
 import { GetAllMessages, GetMessagesByUserIds, getAppointments, getProfileItemByUserId } from '@/utils/Dataservices'
+import AccountCreateComponent from '../Components/AccountCreateComponent'
 
 const MessagingPage = () => {
     const [hiddenOrBlock, setHiddenOrBlock] = useState<string>("hidden");
     const [messageBlock, setMessageBlock] = useState<string>("block");
-    const [hideBoolean, setHideBoolean] = useState<boolean>(true)
+    const [hideBoolean, setHideBoolean] = useState<boolean>(true);
+    const [alertBool, setAlertBool] = useState<string>("hidden");
+    const [alertText, setAlertText] = useState<string>("");
+
+    const [conn, setConnection] = useState<HubConnection>();
+    const [messages, setMessages] = useState<IMessages[]>([]);
+    const [message, setMessage] = useState<string>("");
+    const [globalPartnerId, setGlobalPartnerId] = useState<string>("");
+    const [globalPartnerProfile, setGlobalPartnerProfile] = useState<IProfileData>();
+    const [userProfileInfo, setUserProfileInfo] = useState<IProfileData>();
+    const [allRooms, setAllRooms] = useState<string[]>();
 
     const router = useRouter();
     useEffect(() => {
@@ -32,18 +43,18 @@ const MessagingPage = () => {
     const handleOpen = () => {
         if (hideBoolean) {
             setHiddenOrBlock("block");
-            setMessageBlock("hidden")
+            setMessageBlock("hidden");
             setHideBoolean(!hideBoolean);
 
         } else {
             setHiddenOrBlock("hidden");
-            setMessageBlock("block")
+            setMessageBlock("block");
             setHideBoolean(!hideBoolean);
         }
     }
 
     const handleMessagingPeopleCardClick = () => {
-        if (window.innerWidth <= 1024) {
+        if (window.innerWidth < 1024) {
             handleOpen();
         }
     };
@@ -68,7 +79,7 @@ const MessagingPage = () => {
         conn && await conn.stop();
         joinChatRoom(name, roomName);
         const allMessages = await GetAllMessages();
-        setMessages(allMessages.filter((message: IMessages) => String(message.receiverID) === "9999"));
+        setMessages(allMessages.filter((message: IMessages) => String(message.receiverID) === "0"));
 
         const emptyProfile: IProfileData = {
             id: 0,
@@ -90,15 +101,6 @@ const MessagingPage = () => {
         }
         router.push('/TestingVideo');
     }
-
-    /* ===================== */
-
-    const [conn, setConnection] = useState<HubConnection>();
-    const [messages, setMessages] = useState<IMessages[]>([]);
-    const [message, setMessage] = useState<string>("")
-    const [globalPartnerId, setGlobalPartnerId] = useState<string>("")
-    const [globalPartnerProfile, setGlobalPartnerProfile] = useState<IProfileData>()
-    const [userProfileInfo, setUserProfileInfo] = useState<IProfileData>();
 
     const joinChatRoom = async (usersname: string, chatroom: string) => {
         try {
@@ -131,35 +133,6 @@ const MessagingPage = () => {
         }
     }
 
-    useEffect(() => {
-        const outerCall = () => {
-            const innerCall = async () => {
-                const userIdFromStorage = sessionStorage.getItem('userId');
-                const grabName: IProfileData = await getProfileItemByUserId(Number(userIdFromStorage))
-
-                setUserProfileInfo(grabName);
-                checkUserPair();
-            }
-            innerCall()
-        }
-        outerCall();
-    }, [])
-
-    /* ===================== */
-
-    // check user to see if they have any paired meetings.
-    // if so, join a chatroom that uses the user ids of each person (2-4) (1-2)
-    // calls any saved messages by checking the senderId and recieverId to the chat name (is receiverId === 2 || 4, is senderId === 2 || 4)
-    // loads up saved messages
-
-    // search box
-    // when user inputs a name, calls on all users
-    // when user selects name, creates chatroom
-
-    /* ===================== */
-
-    const [allRooms, setAllRooms] = useState<string[]>();
-
     const checkUserPair = async () => {
         const dataAppoint = await getAppointments(Number(sessionStorage.getItem('userId')));
         const filteredPartnerData = dataAppoint.filter((meeting: IAppointments) => meeting.isDeleted === false && meeting.isPartnered === true);
@@ -181,34 +154,56 @@ const MessagingPage = () => {
         setAllRooms(rooms);
     }
 
+    useEffect(() => {
+        const outerCall = () => {
+            const innerCall = async () => {
+                const userIdFromStorage = sessionStorage.getItem('userId');
+                const grabName: IProfileData = await getProfileItemByUserId(Number(userIdFromStorage))
+
+                setUserProfileInfo(grabName);
+                checkUserPair();
+            }
+            innerCall()
+        }
+        outerCall();
+    }, [])
+
     return (
         <div className='bg-[#696969] h-full'>
             <NavbarComponent />
+
+            <AccountCreateComponent show={alertBool} text={alertText} />
+
             <div className='grid grid-cols-6 p-0 lg:p-[10px]'>
                 <div className={`${messageBlock} col-span-6 lg:col-span-2 bg-[#ffffff] w-full border-r-0 lg:border-r-[3px] h-[90vh] border-black lg:rounded-tl-[15px] rounded-0 lg:rounded-bl-[15px] overflow-y-auto`}>
-                    <MessagingSearchInputComponent />
                     {
-                        userProfileInfo ?
-                            <div className='flex flex-col flex-grow overflow-auto'>
-                                <GlobalMessagingCardComponent setGlobalPartnerId={setGlobalPartnerId} room={"generalChat"} clickCheck={handleMessagingPeopleCardClick} joinUp={joinGlobal} namePass={userProfileInfo.fullName} />
+                        (allRooms && userProfileInfo) ?
+                            <div>
+                                <MessagingSearchInputComponent setGlobalPartnerId={setGlobalPartnerId} room={""} clickCheck={handleMessagingPeopleCardClick} joinUp={joinOneOnOne} namePass={userProfileInfo.fullName} />
+
+                                <div className='flex flex-col flex-grow overflow-auto'>
+                                    <GlobalMessagingCardComponent setGlobalPartnerId={setGlobalPartnerId} room={"generalChat"} clickCheck={handleMessagingPeopleCardClick} joinUp={joinGlobal} namePass={userProfileInfo.fullName} />
+                                </div>
+
+                                {
+                                    allRooms.map(
+                                        (room, index) => {
+                                            return (
+                                                <div key={index} className='flex flex-col flex-grow overflow-auto'>
+                                                    <MessagingPeopleCardComponent setGlobalPartnerId={setGlobalPartnerId} room={room} clickCheck={handleMessagingPeopleCardClick} joinUp={joinOneOnOne} namePass={userProfileInfo.fullName} />
+                                                </div>
+                                            )
+                                        }
+                                    )
+                                }
                             </div>
                             :
                             <div className='flex flex-col flex-grow overflow-auto'>
                                 <p className='text-black text-center text-5xl py-4 font-[DMSerifText]'>Loading Rooms...</p>
                             </div>
                     }
-                    {
-                        (allRooms && userProfileInfo) && allRooms.map(
-                            (room, index) => {
-                                return (
-                                    <div key={index} className='flex flex-col flex-grow overflow-auto'>
-                                        <MessagingPeopleCardComponent setGlobalPartnerId={setGlobalPartnerId} room={room} clickCheck={handleMessagingPeopleCardClick} joinUp={joinOneOnOne} namePass={userProfileInfo.fullName} />
-                                    </div>
-                                )
-                            }
-                        )
-                    }
                 </div>
+
                 <div className={`${hiddenOrBlock} lg:block col-span-6 lg:col-span-4 bg-[#ffffff] w-full h-[90vh] rounded-none lg:rounded-tr-[15px] lg:rounded-br-[15px] flex flex-col justify-between`}>
                     {
                         conn && userProfileInfo && globalPartnerId && globalPartnerProfile ?
@@ -247,7 +242,7 @@ const MessagingPage = () => {
 
                                 </div>
                                 <div className='row-span-2 lg:row-span-1 inline-block self-end'>
-                                    <MessagingTextInputComponent globalPartnerId={globalPartnerId} message={message} setMessage={setMessage} sendMessage={sendMessage} usersId={userProfileInfo.userID} />
+                                    <MessagingTextInputComponent setAlertBool={setAlertBool} setAlertText={setAlertText} globalPartnerId={globalPartnerId} message={message} setMessage={setMessage} sendMessage={sendMessage} usersId={userProfileInfo.userID} />
                                 </div>
                             </div>
                             :

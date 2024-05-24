@@ -105,9 +105,11 @@ export interface IDropZoneImage {
 export interface IPropMessage {
     message: string,
     setMessage: React.Dispatch<React.SetStateAction<string>>,
-    sendMessage: (messageContainer: string) => Promise<void>;
+    sendMessage: (messageContainer: string) => Promise<void>,
     usersId: number,
-    globalPartnerId: string
+    globalPartnerId: string,
+    setAlertText: React.Dispatch<React.SetStateAction<string>>,
+    setAlertBool: React.Dispatch<React.SetStateAction<string>>,
 }
 
 export interface IPropMessageSplitter {
