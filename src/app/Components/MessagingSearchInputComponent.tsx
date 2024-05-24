@@ -3,8 +3,9 @@ import React, { useEffect, useState } from 'react'
 import SearchIcon from '@/Assets/MessagingSearchIcon.png'
 import Image from 'next/image'
 import { GetAllProfiles } from '@/utils/Dataservices'
-import { IPeopleCard, IProfileData } from '@/Interfaces/Interfaces'
-const MessagingSearchInputComponent = (props: IPeopleCard) => {
+import { ISearchCard, IProfileData } from '@/Interfaces/Interfaces'
+
+const MessagingSearchInputComponent = (props: ISearchCard) => {
   const [allProfiles, setAllProfiles] = useState<IProfileData[]>();
   const [filteredProfiles, setFilteredProfiles] = useState<IProfileData[]>();
   const [inputStr, setInputStr] = useState<string>();
@@ -44,14 +45,27 @@ const MessagingSearchInputComponent = (props: IPeopleCard) => {
     setFilteredProfiles([]);
 
     if (id > usersId) {
+      addTempRoom(`${id}-${usersId}`)
+
       return `${id}-${usersId}`;
     } else {
+      addTempRoom(`${usersId}-${id}`)
+
       return `${usersId}-${id}`;
     }
   }
 
   const savePartnerId = async (userId: number) => {
     props.setGlobalPartnerId(String(userId));
+  }
+
+  const addTempRoom = (addRoom: string) => {
+    let newRoom: string[] = props.allRooms;
+
+    if (!newRoom.includes(addRoom)) {
+      newRoom.push(addRoom);
+      props.setAllRooms(newRoom);
+    }
   }
 
   useEffect(() => {
@@ -72,7 +86,7 @@ const MessagingSearchInputComponent = (props: IPeopleCard) => {
           {
             filteredProfiles.map((prof: IProfileData, index: number) => {
               return (
-                <div onClick={() => { props.clickCheck(); props.joinUp(props.namePass, openChat(prof.userID)); savePartnerId(prof.userID); setInputStr("") }} className='pl-3 p-1 text-[20px]' key={index}>
+                <div onClick={() => { props.clickCheck(); props.joinUp(props.namePass, openChat(prof.userID)); savePartnerId(prof.userID); setInputStr(""); }} className='pl-3 p-1 text-[20px]' key={index}>
                   <p className='text-black font-[Source-Sans-Pro]'>{prof.fullName}</p>
                 </div>
               )

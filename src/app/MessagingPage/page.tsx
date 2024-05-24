@@ -179,7 +179,7 @@ const MessagingPage = () => {
                     {
                         (allRooms && userProfileInfo) ?
                             <div>
-                                <MessagingSearchInputComponent setGlobalPartnerId={setGlobalPartnerId} room={""} clickCheck={handleMessagingPeopleCardClick} joinUp={joinOneOnOne} namePass={userProfileInfo.fullName} />
+                                <MessagingSearchInputComponent allRooms={allRooms} setAllRooms={setAllRooms} setGlobalPartnerId={setGlobalPartnerId} room={""} clickCheck={handleMessagingPeopleCardClick} joinUp={joinOneOnOne} namePass={userProfileInfo.fullName} />
 
                                 <div className='flex flex-col flex-grow overflow-auto'>
                                     <GlobalMessagingCardComponent setGlobalPartnerId={setGlobalPartnerId} room={"generalChat"} clickCheck={handleMessagingPeopleCardClick} joinUp={joinGlobal} namePass={userProfileInfo.fullName} />

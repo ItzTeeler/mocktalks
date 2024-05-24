@@ -140,3 +140,13 @@ export interface IPeopleCard {
     namePass: string
     setGlobalPartnerId: React.Dispatch<React.SetStateAction<string>>
 }
+
+export interface ISearchCard {
+    allRooms: string[];
+    setAllRooms: React.Dispatch<React.SetStateAction<string[] | undefined>>,
+    room: string,
+    clickCheck: () => void,
+    joinUp: (name: string, room: string) => void,
+    namePass: string,
+    setGlobalPartnerId: React.Dispatch<React.SetStateAction<string>>
+}

@@ -1,10 +1,11 @@
 'use client'
 import React, { useEffect, useState } from 'react'
-import { IPeopleCard, IProfileData } from '@/Interfaces/Interfaces'
-import { getProfileItemByUserId } from '@/utils/Dataservices';
+import { IAppointments, IPeopleCard, IProfileData } from '@/Interfaces/Interfaces'
+import { getAppointments, getProfileItemByUserId } from '@/utils/Dataservices';
 
 const MessagingPeopleCardComponent = (props: IPeopleCard) => {
   const [partnerData, setPartnerData] = useState<IProfileData>();
+  const [isPartnerText, setIsPartnerText] = useState<string>();
 
   const savePartnerId = async (roomName: string) => {
     const roomSplit: string[] = roomName.split("-");
@@ -24,6 +25,29 @@ const MessagingPeopleCardComponent = (props: IPeopleCard) => {
     } else {
       setPartnerData(await getProfileItemByUserId(Number(roomSplit[0])));
     }
+
+    const dataAppoint = await getAppointments(Number(sessionStorage.getItem('userId')));
+    const filteredPartnerData = dataAppoint.filter((meeting: IAppointments) => meeting.isDeleted === false && meeting.isPartnered === true);
+    let rooms: string[] = [];
+
+    filteredPartnerData.map((appointment: IAppointments) => {
+      let num1 = appointment.userID;
+      let num2 = appointment.partnerID;
+      let chatroomName: string;
+
+      if (num1 > num2) {
+        chatroomName = `${num1}-${num2}`;
+      } else {
+        chatroomName = `${num2}-${num1}`;
+      }
+      rooms.push(chatroomName)
+    })
+
+    if (rooms.includes(props.room)) {
+      setIsPartnerText("Partner Chat")
+    } else {
+      setIsPartnerText("Temporary Chat")
+    }
   }
 
   useEffect(() => {
@@ -41,7 +65,12 @@ const MessagingPeopleCardComponent = (props: IPeopleCard) => {
             </div>
             <div className='py-4'>
               <p className='text-[24px] mb-[12px] font-[DMSerifText] text-[#ffffff] w-[140px]'>{partnerData.fullName}</p>
-              <p className='text-[18px] font-[Source-Sans-Pro] text-[#ffffff] w-[140px]'>Partner Chat</p>
+              {
+                isPartnerText ?
+                <p className='text-[18px] font-[Source-Sans-Pro] text-[#ffffff] w-[140px]'>{isPartnerText}</p>
+                :
+                <p className='text-[18px] font-[Source-Sans-Pro] text-[#ffffff] w-[140px]'>Loading...</p>
+              }
             </div>
           </div>
         }
