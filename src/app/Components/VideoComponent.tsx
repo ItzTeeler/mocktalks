@@ -15,9 +15,9 @@ import NavbarComponent from '../Components/NavbarComponent';
 import { useRouter } from 'next/navigation';
 
 const apiKey = 'mmhfdzb5evj2';
-const token = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyX2lkIjoiUGxvX0tvb24iLCJpc3MiOiJodHRwczovL3Byb250by5nZXRzdHJlYW0uaW8iLCJzdWIiOiJ1c2VyL1Bsb19Lb29uIiwiaWF0IjoxNzE1ODA2MzE0LCJleHAiOjE3MTY0MTExMTl9.PdirV18FhzoiMQV3eDig3_Nc7Yj-L11KV1SlCl8HVnc';
-const userId = 'Plo_Koon';
-const callId = 'oUlHwaPJthPb';
+const token = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyX2lkIjoiU2hhYWtfVGkiLCJpc3MiOiJodHRwczovL3Byb250by5nZXRzdHJlYW0uaW8iLCJzdWIiOiJ1c2VyL1NoYWFrX1RpIiwiaWF0IjoxNzE2NTY4OTQyLCJleHAiOjE3MTcxNzM3NDd9.igx2FhRc52m84TJCI9qn45SJfLeRp036a29WfVAChtA';
+const userId = 'Shaak_Ti';
+const callId = 'q5m5UaWBUayk';
 
 const VideoCallComponent = () => {
   const { useCallCallingState } = useCallStateHooks();

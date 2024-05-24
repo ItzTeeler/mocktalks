@@ -30,9 +30,7 @@ export function PendingNotificationComponent(props: { open: boolean, close: Reac
             if (savedId) {
                 try {
                     const appData = await getAppointments(Number(savedId));
-                    console.log(appData)
                     const partneredApp = appData.find((app: { isPartnered: any; }) => app.isPartnered);
-                    console.log(partneredApp);
                     if (partneredApp) {
                         setPartneredAppointment(partneredApp);
                         const partner = await getHardProfileItemByUserId(partneredApp?.partnerID);

@@ -57,16 +57,13 @@ const Page = () => {
   useEffect(() => {
     const getData = async () => {
       const userId = sessionStorage.getItem('userId');
-      console.log(userId)
       setUserIdInfo(userId);
       const dataAppoint = await getAppointments(Number(userId));
       const filteredData = dataAppoint.filter((meeting: IAppointments) => meeting.isDeleted === false);
       setAppointmentData(filteredData);
-      console.log(filteredData);
 
       const allAppointments = await getAllAppointments();
       setAllOfTheAppointments(allAppointments);
-      console.log(allAppointments);
     };
     getData();
   }, [submitBool]);
@@ -84,7 +81,6 @@ const Page = () => {
 
 
   const findPairs = async (appointments: any) => {
-    console.log(appointments);
     if (!Array.isArray(appointments)) return;
     for (let index1 = 0; index1 < appointments.length; index1++) {
       const appointment1 = appointments[index1];
