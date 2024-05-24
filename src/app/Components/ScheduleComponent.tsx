@@ -11,25 +11,25 @@ const ScheduleComponent = (props: ScheduleComponentProps & { submitBool: () => v
         <>
             <div className='hidden min-[1440px]:block'>
                 <hr />
-                <div className='flex flex-row p-3 items-center justify-between'>
+                <div className='grid grid-flow-col p-3 items-center'>
 
-                    <div className='w-80 min-[1440px]:w-40 2xl:w-80'>
+                    <div className='w-80 min-[1440px]:w-40 2xl:w-[270px]'>
                         <p className='text-4xl text-black font-[Source-Sans-Pro] min-[1440px]:text-2xl 2xl:text-4xl'>{props.selectedDate} {props.time}</p>
                     </div>
 
-                    <div className='w-48 min-[1440px]:w-40 2xl:w-48'>
+                    <div className='w-48 min-[1440px]:w-40 2xl:w-[180px]'>
                         <p className='text-4xl text-black font-[Source-Sans-Pro] min-[1440px]:text-2xl 2xl:text-4xl'>{props.typePractice}</p>
                     </div>
 
-                    <div className='w-96 min-[1440px]:w-40 2xl:w-96'>
+                    <div className='w-96 min-[1440px]:w-40 2xl:w-[350px]'>
                         <p className='text-4xl text-black font-[Source-Sans-Pro] min-[1440px]:text-2xl 2xl:text-4xl'>{props.testQuestions}</p>
                     </div>
 
-                    <div className='w-60 min-[1440px]:w-40 2xl:w-60'>
+                    <div className='w-60 min-[1440px]:w-40 2xl:w-[224px]'>
                         <p className='text-4xl text-black font-[Source-Sans-Pro] min-[1440px]:text-2xl 2xl:text-4xl'>{props.language}</p>
                     </div>
 
-                    <div className=''>
+                    <div className='2xl:w-96'>
                         <div className='flex flex-row space-x-4'>
                             <CancelAppointmentModal id={props.id} submitBool={props.submitBool}/>
                             <ReScheduleComponent id={props.id} submitBool={props.submitBool} />              
