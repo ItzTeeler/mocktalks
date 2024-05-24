@@ -26,7 +26,6 @@ export default function NavbarComponent() {
 
   const handleVisibleToggle = () => {
     setNotifyVisible(!notifyVisible);
-    console.log(notifyVisible);
   }
 
   return (
