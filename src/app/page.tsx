@@ -18,6 +18,9 @@ export default function LoginPage() {
   const [username, setUsername] = useState<string>("");
   const [password, setPassword] = useState<string>("");
 
+  const [inputUsername, setInputUsername] = useState<string>('');
+  const [inputPassword, setInputPassword] = useState<string>('');
+
   let router = useRouter();
   useEffect(() => {
     if (sessionStorage.getItem('reloaded') !== 'true') {
@@ -27,7 +30,8 @@ export default function LoginPage() {
   }, []);
   const handleRegister = () => {
     setRegisterBool(!registerBool);
-    setForgotBool(false)
+    setForgotBool(false);
+    
   }
   const handleForgotPassword = () => {
     setForgotBool(!forgotBool)
