@@ -188,24 +188,24 @@ export function ScheduleInterviewComponent(props: { submitBool: () => void, user
           <div className="grid grid-cols-2 gap-x-3">
             <div className="flex flex-col gap-5">
 
-              <button onClick={() => setPracInterview("Data Structure and Algorithms")} className=" py-[30px] border rounded-[10px] text-[20px] font-[Source-Sans-Pro] border-black hover:bg-[#757575] focus:bg-[#757575]">
+              <button onClick={() => setPracInterview("Data Structure and Algorithms")} className="h-32 sm:h-24 py-[30px] border rounded-[10px] text-[20px] font-[Source-Sans-Pro] border-black hover:bg-[#757575] focus:bg-[#757575]">
                 Data Structure and Algorithms
               </button>
-              <button onClick={() => setPracInterview("Applied Data Science")} className=" py-[30px] border rounded-[10px] text-[20px] font-[Source-Sans-Pro] border-black focus:bg-[#757575] hover:bg-[#757575]">
+              <button onClick={() => setPracInterview("Applied Data Science")} className="h-32 sm:h-24 py-[30px] border rounded-[10px] text-[20px] font-[Source-Sans-Pro] border-black focus:bg-[#757575] hover:bg-[#757575]">
                 Applied Data Science
               </button>
-              <button onClick={() => setPracInterview("Behavioral")} className=" py-[30px] border rounded-[10px] text-[20px] font-[Source-Sans-Pro] border-black focus:bg-[#757575] hover:bg-[#757575]">
+              <button onClick={() => setPracInterview("Behavioral")} className="h-32 sm:h-24 py-[30px] border rounded-[10px] text-[20px] font-[Source-Sans-Pro] border-black focus:bg-[#757575] hover:bg-[#757575]">
                 Behavioral
               </button>
             </div>
             <div className="flex flex-col gap-5">
-              <button onClick={() => setPracInterview("Frontend")} className="px-[10px] py-[30px] border rounded-[10px] text-[20px] font-[Source-Sans-Pro] border-black focus:bg-[#757575] hover:bg-[#757575]">
+              <button onClick={() => setPracInterview("Frontend")} className="h-32 sm:h-24 px-[10px] py-[30px] border rounded-[10px] text-[20px] font-[Source-Sans-Pro] border-black focus:bg-[#757575] hover:bg-[#757575]">
                 Frontend
               </button>
-              <button onClick={() => setPracInterview("System Design")} className="px-[10px] py-[30px] border rounded-[10px] text-[20px] font-[Source-Sans-Pro] border-black focus:bg-[#757575] hover:bg-[#757575]">
+              <button onClick={() => setPracInterview("System Design")} className="h-32 sm:h-24 px-[10px] py-[30px] border rounded-[10px] text-[20px] font-[Source-Sans-Pro] border-black focus:bg-[#757575] hover:bg-[#757575]">
                 System Design
               </button>
-              <button onClick={() => setPracInterview("Practice with a Friend")} className="px-[10px] py-[30px] border rounded-[10px] text-[20px] font-[Source-Sans-Pro] border-black focus:bg-[#757575] hover:bg-[#757575]">
+              <button onClick={() => setPracInterview("Practice with a Friend")} className="h-32 sm:h-24 px-[10px] py-[30px] border rounded-[10px] text-[20px] font-[Source-Sans-Pro] border-black focus:bg-[#757575] hover:bg-[#757575]">
                 Practice with a Friend
               </button>
             </div>
