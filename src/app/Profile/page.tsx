@@ -193,11 +193,11 @@ const Page = () => {
                   <div className='bg-[#D9D9D9]'>
                     <hr style={{ border: '1px black solid' }} />
                     <div className='grid grid-flow-col p-3'>
-                      <p className='text-4xl text-black font-[DMSerifText] '>When</p>
-                      <p className='text-4xl text-black font-[DMSerifText] '>Type</p>
-                      <p className='text-4xl text-black font-[DMSerifText]'>Test Questions</p>
-                      <p className='text-4xl text-black font-[DMSerifText] '>Language</p>
-                      <p className='text-4xl text-black font-[DMSerifText] '>Action</p>
+                      <p className='text-4xl text-black font-[DMSerifText] w-40 2xl:w-[270px]'>When</p>
+                      <p className='text-4xl text-black font-[DMSerifText] w-40 2xl:w-[180px]'>Type</p>
+                      <p className='text-4xl text-black font-[DMSerifText] w-40 2xl:w-[350px]'>Test Questions</p>
+                      <p className='text-4xl text-black font-[DMSerifText] w-40 2xl:w-[224px]'>Language</p>
+                      <p className='text-4xl text-black font-[DMSerifText] w-96 2xl:w-96'>Action</p>
                     </div>
                     <hr style={{ border: '1px black solid' }} />
                   </div>
@@ -227,7 +227,7 @@ const Page = () => {
             <div className='block min-[1440px]:hidden'>
               <div className='px-2 py-3'>
                 <div className='bg-white w-full h-auto rounded-2xl p-[15px]'>
-                  <div className='flex justify-end'>
+                  <div className='absolute right-5'>
                     <Image onClick={() => setOpenModal(true)} src={listDashesImage} className='w-auto cursor-pointer' alt='test' />
                   </div>
                   <div className='flex justify-center'>
@@ -260,7 +260,7 @@ const Page = () => {
                   <h1 className='text-black text-[20px] font-[DMSerifText] text-center p-5'>UPCOMING PRACTICE INTERVIEWS</h1>
                   <hr style={{ border: '1px black solid' }} />
                   {Array.isArray(appointmentData) && appointmentData.length > 0 ? (
-                    appointmentData.map((appointment: any, index: any) => (
+                    appointmentData.map((appointment: any, index: number) => (
                       <ScheduleComponent
                         key={index}
                         id={appointment.id}
@@ -273,7 +273,7 @@ const Page = () => {
                       />
                     ))
                   ) : (
-                    <p>No appointments available</p>
+                    <p className='ml-3'>No appointments available</p>
                   )}
                   <hr style={{ border: '1px black solid' }} />
                 </div>

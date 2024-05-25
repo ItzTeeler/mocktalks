@@ -18,6 +18,9 @@ export default function LoginPage() {
   const [username, setUsername] = useState<string>("");
   const [password, setPassword] = useState<string>("");
 
+  const [inputUsername, setInputUsername] = useState<string>('');
+  const [inputPassword, setInputPassword] = useState<string>('');
+
   let router = useRouter();
   useEffect(() => {
     if (sessionStorage.getItem('reloaded') !== 'true') {
@@ -27,7 +30,8 @@ export default function LoginPage() {
   }, []);
   const handleRegister = () => {
     setRegisterBool(!registerBool);
-    setForgotBool(false)
+    setForgotBool(false);
+    
   }
   const handleForgotPassword = () => {
     setForgotBool(!forgotBool)
@@ -141,12 +145,12 @@ export default function LoginPage() {
             <p className="text-[20px] font-[DMSerifText] mb-[2px] md:mb-[10px]">Password</p>
             <input type="password" onChange={(e) => setPassword(e.target.value)} className="h-[29px] md:h-[39px] mb-[17px] md:mb-[20px] w-full border-[1px] border-black rounded-[10px] text-[18px] font-[Source-Sans-Pro] pl-[16px]" placeholder="Enter Password" required />
           </div>
-          <div className="">
-            {registerBool ? <p onClick={handleForgotPassword} className={`cursor-pointer ${color} text-[20px] mb-[19px] md:mb-[30px] font-[DMSerifText]`}>{!forgotBool ? "Forgot Password?" : "Enter new password"}</p> : <p className={` text-[20px] mb-[19px] md:mb-[30px] font-[DMSerifText]`}>Please choose a strong password.</p>}
+          <div>
+            {registerBool ? <p onClick={handleForgotPassword} className={`cursor-pointer ${color} text-[20px] mb-[19px] md:mb-[30px] font-[DMSerifText] ${forgotBool ? 'w-48' : 'w-40'}`}>{!forgotBool ? "Forgot Password?" : "Enter new password"}</p> : <p className={` text-[20px] mb-[19px] md:mb-[30px] font-[DMSerifText]`}>Please choose a strong password.</p>}
           </div>
           <button onClick={handleSubmit} className="text-[20px] font-[DMSerifText] bg-[#2B170C] text-white max-w-[419px] w-full text-center rounded-[10px]">{forgotBool ? "Change Password" : (registerBool ? "Login" : "Create Account")}</button>
-          <div className="mt-[24px] md:mt-[30px] mb-[75px] cursor-pointer">
-            <p onClick={handleRegister} className="font-[DMSerifText] text-[20px]">{forgotBool ? "" : (registerBool ? "Not a member?" : "Already a member!")} <span className="font-[DMSerifText] text-[20px] text-[#1973E7]">{forgotBool ? "" : (registerBool ? "Register?" : "Login")}</span></p>
+          <div className="mt-[24px] md:mt-[30px] mb-[75px]">
+            <p className="font-[DMSerifText] text-[20px]">{forgotBool ? "" : (registerBool ? "Not a member?" : "Already a member!")} <span className="font-[DMSerifText] text-[20px] text-[#1973E7] cursor-pointer" onClick={handleRegister}>{forgotBool ? "" : (registerBool ? "Register?" : "Login")}</span></p>
           </div>
         </div>
       </div>
