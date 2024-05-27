@@ -64,6 +64,7 @@ const MessagingPage = () => {
         conn && await conn.stop();
         joinChatRoom(name, roomName);
 
+        sessionStorage.setItem("chatRoomName", roomName);
         const numberSplit: string[] = roomName.split("-");
         setMessages(await GetMessagesByUserIds(numberSplit[0], numberSplit[1]));
 
@@ -78,6 +79,8 @@ const MessagingPage = () => {
         setMessage("");
         conn && await conn.stop();
         joinChatRoom(name, roomName);
+        
+        sessionStorage.setItem("chatRoomName", roomName);
         const allMessages = await GetAllMessages();
         setMessages(allMessages.filter((message: IMessages) => String(message.receiverID) === "0"));
 
@@ -225,7 +228,7 @@ const MessagingPage = () => {
                                         <Image src={MessageLeave} alt='close' className='block lg:hidden min-h-[32px] min-w-[32px] mr-[10px]' onClick={handleOpen} />
                                         <p className='text-[20px] lg:text-[58px]'>{globalPartnerProfile.fullName}</p>
                                     </div>
-                                    <Image src={VideoIcon} alt='Video Icon h-[46px] w-[46px]' className='cursor-pointer' onClick={handleVideoClick} />
+                                    <Image src={VideoIcon} alt='Video Icon' className='cursor-pointer' onClick={handleVideoClick} />
                                 </div>
 
                                 <div className='row-span-9 w-full overflow-auto flex flex-col justify-between'>
