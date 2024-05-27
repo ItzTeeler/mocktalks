@@ -7,6 +7,7 @@ import { DropZoneComponent } from "./DropZoneComponent";
 import { IEditProfileProps, IProfileData } from "@/Interfaces/Interfaces";
 import { createProfileItem, getProfileItemByUserId, updateProfileItem } from "@/utils/Dataservices";
 import defaultImg from "@/Assets/blank-profile-picture-973460_960_720-1.png"
+import AccountCreateComponent from "./AccountCreateComponent";
 
 export function EditProfileModal(props: IEditProfileProps) {
   const [userData, setUserData] = useState<IProfileData>();
@@ -16,8 +17,10 @@ export function EditProfileModal(props: IEditProfileProps) {
   const [education, setEducation] = useState<string>("");
   const [YoE, setYoE] = useState<string>("");
   const [jobInterviewLevel, setJobInterviewLevel] = useState<string>("");
-
   const [profileImg, setProfileImg] = useState<string>("");
+
+  const [alertBool, setAlertBool] = useState<string>("hidden");
+  const [alertText, setAlertText] = useState<string>("");
 
   const submitCreateProfile = () => {
     let profileData: IProfileData = {
@@ -47,7 +50,11 @@ export function EditProfileModal(props: IEditProfileProps) {
     console.log(profileData);
 
     if (profileData.jobInterviewLevel === "" || profileData.fullName === "") {
-      alert("Please make sure to input your name and job interview level");
+      setAlertText("Please make sure to input your name and job interview level")
+      setAlertBool("block");
+      setTimeout(() => {
+        setAlertBool("hidden");
+      }, 4000);
     } else {
       props.setUserProfile(profileData);
       createProfileItem(profileData);
@@ -85,7 +92,11 @@ export function EditProfileModal(props: IEditProfileProps) {
     console.log(profileData);
 
     if (profileData.jobInterviewLevel === "" || profileData.fullName === "") {
-      alert("Please make sure to input your name and job interview level");
+      setAlertText("Please make sure to input your name and job interview level")
+      setAlertBool("block");
+      setTimeout(() => {
+        setAlertBool("hidden");
+      }, 4000);
     } else {
       props.setUserProfile(profileData);
       updateProfileItem(profileData);
@@ -98,8 +109,8 @@ export function EditProfileModal(props: IEditProfileProps) {
     const outerCall = () => {
       const innerCall = async () => {
         try {
-          setUserData(await getProfileItemByUserId(Number(props.userInfoPass)));
           const localData: IProfileData = await getProfileItemByUserId(Number(props.userInfoPass));
+          setUserData(localData);
           setFullName(localData.fullName)
           setLocation(localData.locationed)
           setEducation(localData.occupation)
@@ -118,7 +129,6 @@ export function EditProfileModal(props: IEditProfileProps) {
             profileImg: ""
           }
           setUserData(emptyProfileData)
-          console.log("isCreate");
         }
       }
       innerCall();
@@ -129,19 +139,20 @@ export function EditProfileModal(props: IEditProfileProps) {
   return (
     <div className="font-[DMSerifText]">
       <Modal show={props.open} onClose={() => props.close(false)}>
+        <AccountCreateComponent show={alertBool} text={alertText} />
         {
           props.isNotCreate ? <p className="font-[DMSerifText] text-[30px] px-[24px] pt-[15px]">Edit Profile</p> : <p className="font-[DMSerifText] text-[30px] px-[24px] pt-[15px]">Create Profile</p>
         }
-        { (userData) ?
+        {(userData) ?
           <Modal.Body className="font-[DMSerifText] text-[30px] pt-0">
             <div>
-              <div className="grid grid-cols-3">
-                <div className="flex flex-col col-span-2 justify-end">
+              <div className="grid grid-cols-12">
+                <div className="flex flex-col col-span-7 sm:col-span-8 justify-end">
                   <p className="mb-[10px]">Full Name</p>
                   <input defaultValue={userData.fullName} onChange={(e) => setFullName(e.target.value)} className="mr-[18px] mb-[10px] rounded-[10px]" type="text" />
                 </div>
-                <div className="col-span-1">
-                  <DropZoneComponent setProfileImg={setProfileImg} />
+                <div className="col-span-5 sm:col-span-4">
+                  <DropZoneComponent profileImg={userData.profileImg} setProfileImg={setProfileImg} />
                 </div>
               </div>
             </div>

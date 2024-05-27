@@ -96,6 +96,12 @@ const MessagingPage = () => {
     };
 
     const handleVideoClick = () => {
+        setAlertText("Please Wait")
+        setAlertBool("block");
+        setTimeout(() => {
+            setAlertBool("hidden");
+        }, 4000);
+
         if (sessionStorage.getItem('reloaded')) {
             sessionStorage.setItem('reloaded', 'false');
         }
@@ -120,7 +126,11 @@ const MessagingPage = () => {
 
             setConnection(conn);
         } catch (e) {
-            alert("Connection failed")
+            setAlertText("Connection failed")
+            setAlertBool("block");
+            setTimeout(() => {
+                setAlertBool("hidden");
+            }, 4000);
         }
     }
 
@@ -147,7 +157,10 @@ const MessagingPage = () => {
             } else {
                 chatroomName = `${num2}-${num1}`;
             }
-            rooms.push(chatroomName)
+
+            if(!rooms.includes(chatroomName)){
+                rooms.push(chatroomName)
+            }
         })
 
         setAllRooms(rooms);

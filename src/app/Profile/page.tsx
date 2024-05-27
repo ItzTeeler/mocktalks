@@ -227,7 +227,7 @@ const Page = () => {
             <div className='block min-[1440px]:hidden'>
               <div className='px-2 py-3'>
                 <div className='bg-white w-full h-auto rounded-2xl p-[15px]'>
-                  <div className='absolute right-5'>
+                  <div className='absolute z-0 right-5'>
                     <Image onClick={() => setOpenModal(true)} src={listDashesImage} className='w-auto cursor-pointer' alt='test' />
                   </div>
                   <div className='flex justify-center'>

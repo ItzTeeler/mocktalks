@@ -99,7 +99,8 @@ export interface IDropDownState {
 }
 
 export interface IDropZoneImage {
-    setProfileImg: React.Dispatch<React.SetStateAction<string>>;
+    setProfileImg: React.Dispatch<React.SetStateAction<string>>,
+    profileImg: string
 }
 
 export interface IPropMessage {

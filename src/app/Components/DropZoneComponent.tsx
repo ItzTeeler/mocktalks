@@ -3,7 +3,7 @@
 
 import { IDropZoneImage } from "@/Interfaces/Interfaces";
 import { FileInput, Label } from "flowbite-react";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import AccountCreateComponent from "./AccountCreateComponent";
 
 export function DropZoneComponent(props: IDropZoneImage) {
@@ -18,7 +18,6 @@ export function DropZoneComponent(props: IDropZoneImage) {
     let file = e.target.files?.[0];
 
     if (file) {
-      // console.log(((file.size/1024)/1024).toFixed(4))
       if (Number(((file.size / 1024) / 1024).toFixed(4)) < 5) {
         reader.onload = () => {
           props.setProfileImg(reader.result as string);
@@ -52,10 +51,17 @@ export function DropZoneComponent(props: IDropZoneImage) {
     }
   };
 
+  useEffect(() => {
+    if(props.profileImg !== ""){
+      setPreviewImage(props.profileImg);
+      setImageVisible(true);
+    }
+  }, [])
+
   return (
     <div>
       <AccountCreateComponent show={alertBool} text={alertText} />
-      <div className="flex w-full items-center justify-center">
+      <div className="flex w-[150px] items-center justify-center">
         <Label
           htmlFor="dropzone-file"
           className="flex h-[150px] w-[150px] cursor-pointer flex-col items-center justify-center rounded-full border-2 border-dashed border-gray-300 bg-gray-50 hover:bg-gray-100 dark:border-gray-600 dark:bg-gray-700 dark:hover:border-gray-500 dark:hover:bg-gray-600"
@@ -63,7 +69,7 @@ export function DropZoneComponent(props: IDropZoneImage) {
           <div className="flex flex-col items-center justify-center">
 
             <svg
-              className="h-8 w-8 text-gray-500 dark:text-gray-400"
+              className={`${imageVisible == true ? "hidden" : "block"} h-8 w-8 text-gray-500 dark:text-gray-400`}
               aria-hidden="true"
               xmlns="http://www.w3.org/2000/svg"
               fill="none"
@@ -77,7 +83,7 @@ export function DropZoneComponent(props: IDropZoneImage) {
                 d="M13 13h3a3 3 0 0 0 0-6h-.025A5.56 5.56 0 0 0 16 6.5 5.5 5.5 0 0 0 5.207 5.021C5.137 5.017 5.071 5 5 5a4 4 0 0 0 0 8h2.167M10 15V6m0 0L8 8m2-2 2 2"
               />
             </svg>
-            <img src={previewImage} alt="Preview Image" className={`${imageVisible == true ? "block" : "hidden"} absolute w-[150px] h-[150px] object-cover rounded-full hover:opacity-50 z-0`}/>
+            <img src={previewImage} alt="Preview Image" className={`${imageVisible == true ? "block" : "hidden"} relative w-[150px] z-0 h-[150px] object-cover rounded-full hover:opacity-50`} />
           </div>
           <FileInput onChange={handleImage} accept='image/png, image/jpeg' id="dropzone-file" className="hidden" />
         </Label>

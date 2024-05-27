@@ -247,7 +247,7 @@ export function ScheduleInterviewComponent(props: { submitBool: () => void, user
                   turns asking each other questions
                 </p>
               </button>
-              <button onClick={() => { setTypeOfInterview("Practice with Peers"); ifClicked() }} className=" py-[35px] border rounded-[10px] text-left border-black p-10 focus:bg-[#757575]">
+              <button onClick={() => { setTypeOfInterview("Practice with Peers"); ifClicked() }} className=" py-[35px] border rounded-[10px] text-left border-black p-10">
                 <p className=" text-[20px] font-[DMSerifText]">
                   Expert mock interview
                 </p>
