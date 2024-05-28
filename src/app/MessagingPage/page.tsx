@@ -23,6 +23,7 @@ const MessagingPage = () => {
     const [hideBoolean, setHideBoolean] = useState<boolean>(true);
     const [alertBool, setAlertBool] = useState<string>("hidden");
     const [alertText, setAlertText] = useState<string>("");
+    const [isDisabled, setIsDisabled] = useState<boolean>(false);
 
     const [conn, setConnection] = useState<HubConnection>();
     const [messages, setMessages] = useState<IMessages[]>([]);
@@ -72,6 +73,8 @@ const MessagingPage = () => {
         } else {
             setGlobalPartnerProfile(await getProfileItemByUserId(Number(numberSplit[0])));
         }
+
+        setIsDisabled(false);
     };
 
     const joinGlobal = async (name: string, roomName: string) => {
@@ -94,6 +97,8 @@ const MessagingPage = () => {
         }
 
         setGlobalPartnerProfile(emptyProfile);
+
+        setIsDisabled(false);
     };
 
     const handleVideoClick = () => {
@@ -201,7 +206,7 @@ const MessagingPage = () => {
                                 <MessagingSearchInputComponent allRooms={allRooms} setAllRooms={setAllRooms} setGlobalPartnerId={setGlobalPartnerId} room={""} clickCheck={handleMessagingPeopleCardClick} joinUp={joinOneOnOne} namePass={userProfileInfo.fullName} />
 
                                 <div className='flex flex-col flex-grow overflow-auto'>
-                                    <GlobalMessagingCardComponent setGlobalPartnerId={setGlobalPartnerId} room={"generalChat"} clickCheck={handleMessagingPeopleCardClick} joinUp={joinGlobal} namePass={userProfileInfo.fullName} />
+                                    <GlobalMessagingCardComponent isDisabled={isDisabled} setIsDisabled={setIsDisabled} setGlobalPartnerId={setGlobalPartnerId} room={"generalChat"} clickCheck={handleMessagingPeopleCardClick} joinUp={joinGlobal} namePass={userProfileInfo.fullName} />
                                 </div>
 
                                 {
@@ -209,7 +214,7 @@ const MessagingPage = () => {
                                         (room, index) => {
                                             return (
                                                 <div key={index} className='flex flex-col flex-grow overflow-auto'>
-                                                    <MessagingPeopleCardComponent setGlobalPartnerId={setGlobalPartnerId} room={room} clickCheck={handleMessagingPeopleCardClick} joinUp={joinOneOnOne} namePass={userProfileInfo.fullName} />
+                                                    <MessagingPeopleCardComponent isDisabled={isDisabled} setIsDisabled={setIsDisabled} setGlobalPartnerId={setGlobalPartnerId} room={room} clickCheck={handleMessagingPeopleCardClick} joinUp={joinOneOnOne} namePass={userProfileInfo.fullName} />
                                                 </div>
                                             )
                                         }

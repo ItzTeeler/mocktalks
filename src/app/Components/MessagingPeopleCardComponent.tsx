@@ -56,7 +56,7 @@ const MessagingPeopleCardComponent = (props: IPeopleCard) => {
 
   return (
     <>
-      <div className='bg-[#696969] m-5 rounded-[15px]' onClick={() => { props.clickCheck(); props.joinUp(props.namePass, props.room); savePartnerId(props.room) }}>
+      <div className='bg-[#696969] m-5 rounded-[15px]' onClick={() => { if (props.isDisabled === false) { props.setIsDisabled(true); props.clickCheck(); props.joinUp(props.namePass, props.room); savePartnerId(props.room) } }}>
         {
           partnerData &&
           <div className='flex flex-row items-center'>
@@ -67,9 +67,9 @@ const MessagingPeopleCardComponent = (props: IPeopleCard) => {
               <p className='text-[24px] mb-[12px] font-[DMSerifText] text-[#ffffff] w-[140px]'>{partnerData.fullName}</p>
               {
                 isPartnerText ?
-                <p className='text-[18px] font-[Source-Sans-Pro] text-[#ffffff] w-[140px]'>{isPartnerText}</p>
-                :
-                <p className='text-[18px] font-[Source-Sans-Pro] text-[#ffffff] w-[140px]'>Loading...</p>
+                  <p className='text-[18px] font-[Source-Sans-Pro] text-[#ffffff] w-[140px]'>{isPartnerText}</p>
+                  :
+                  <p className='text-[18px] font-[Source-Sans-Pro] text-[#ffffff] w-[140px]'>Loading...</p>
               }
             </div>
           </div>

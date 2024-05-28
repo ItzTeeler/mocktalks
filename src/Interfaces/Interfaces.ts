@@ -131,7 +131,9 @@ export interface IGChatCard {
     clickCheck: () => void,
     joinUp: (name: string, room: string) => void,
     namePass: string
-    setGlobalPartnerId: React.Dispatch<React.SetStateAction<string>>
+    setGlobalPartnerId: React.Dispatch<React.SetStateAction<string>>,
+    isDisabled: boolean,
+    setIsDisabled: React.Dispatch<React.SetStateAction<boolean>>
 }
 
 export interface IPeopleCard {
@@ -139,7 +141,9 @@ export interface IPeopleCard {
     clickCheck: () => void,
     joinUp: (name: string, room: string) => void,
     namePass: string
-    setGlobalPartnerId: React.Dispatch<React.SetStateAction<string>>
+    setGlobalPartnerId: React.Dispatch<React.SetStateAction<string>>,
+    isDisabled: boolean,
+    setIsDisabled: React.Dispatch<React.SetStateAction<boolean>>
 }
 
 export interface ISearchCard {
