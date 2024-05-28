@@ -61,6 +61,12 @@ const MessagingPage = () => {
     };
 
     const joinOneOnOne = async (name: string, roomName: string) => {
+        setAlertText("Please Wait")
+        setAlertBool("block");
+        setTimeout(() => {
+            setAlertBool("hidden");
+        }, 4000);
+
         setMessage("");
         await joinChatRoom(name, roomName);
 
@@ -78,6 +84,12 @@ const MessagingPage = () => {
     };
 
     const joinGlobal = async (name: string, roomName: string) => {
+        setAlertText("Please Wait")
+        setAlertBool("block");
+        setTimeout(() => {
+            setAlertBool("hidden");
+        }, 4000);
+
         setMessage("");
         await joinChatRoom(name, roomName);
 
