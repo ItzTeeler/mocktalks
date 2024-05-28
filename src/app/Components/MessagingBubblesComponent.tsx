@@ -27,7 +27,7 @@ const MessagingBubblesComponent = (props: IPropMessageSplitter) => {
           </div>
           <div className=''>
             <p className='text-[12px] font-[Source-Sans-Pro] overflowW text-[#ffffff]'>{userData.fullName}</p>
-            <p className='text-[18px] font-[Source-Sans-Pro] overflowW text-[#ffffff]'>{props.dataPass.text}</p>
+            <p className='text-[18px] font-[Source-Sans-Pro] overflowSnap text-[#ffffff]'>{props.dataPass.text}</p>
           </div>
         </div>
         :

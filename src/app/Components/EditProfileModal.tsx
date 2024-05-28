@@ -47,10 +47,14 @@ export function EditProfileModal(props: IEditProfileProps) {
       profileData.profileImg = defaultImg.src
     }
 
-    console.log(profileData);
-
     if (profileData.jobInterviewLevel === "" || profileData.fullName === "") {
       setAlertText("Please make sure to input your name and job interview level")
+      setAlertBool("block");
+      setTimeout(() => {
+        setAlertBool("hidden");
+      }, 4000);
+    } else if (profileData.fullName.length > 40) {
+      setAlertText("Full Name is too long (greater than 40 characters), please shorten.")
       setAlertBool("block");
       setTimeout(() => {
         setAlertBool("hidden");
@@ -89,10 +93,14 @@ export function EditProfileModal(props: IEditProfileProps) {
       profileData.profileImg = defaultImg.src
     }
 
-    console.log(profileData);
-
     if (profileData.jobInterviewLevel === "" || profileData.fullName === "") {
       setAlertText("Please make sure to input your name and job interview level")
+      setAlertBool("block");
+      setTimeout(() => {
+        setAlertBool("hidden");
+      }, 4000);
+    } else if (profileData.fullName.length > 40) {
+      setAlertText("Full Name is too long (greater than 40 characters), please shorten.")
       setAlertBool("block");
       setTimeout(() => {
         setAlertBool("hidden");

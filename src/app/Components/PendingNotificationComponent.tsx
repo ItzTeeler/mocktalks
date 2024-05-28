@@ -41,7 +41,7 @@ export function PendingNotificationComponent(props: { open: boolean, close: Reac
     }, []);
 
     return (
-        <div className={`${props.open ? "block" : "hidden"} absolute w-full max-h-[200px] overflow-auto sm:right-12 z-10`}>
+        <div className={`${props.open ? "block" : "hidden"} absolute max-sm:w-full max-h-[200px] overflow-auto sm:right-12 z-10`}>
             {
                 isLoaded ?
                     <div>

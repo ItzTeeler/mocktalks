@@ -42,7 +42,14 @@ export default function LoginPage() {
       password: password
     };
 
-    if (userData.password === "" || userData.username === "") {
+    if (userData.password.length > 25 || userData.username.length > 25) {
+      setAlertText("Username or Password is Too Long (Greater Than 25 Characters)")
+      setAlertBool("block");
+      setTimeout(() => {
+        setAlertBool("hidden");
+      }, 4000);
+      setIsDisabled(false);
+    } else if (userData.password === "" || userData.username === "") {
       setAlertText("Username or Password is Empty")
       setAlertBool("block");
       setTimeout(() => {
