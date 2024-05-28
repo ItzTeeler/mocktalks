@@ -1,6 +1,6 @@
 'use client'
 
-import React, { useEffect, useState } from 'react'
+import React, { useEffect, useRef, useState } from 'react'
 import NavbarComponent from '../Components/NavbarComponent'
 import MessagingSearchInputComponent from '../Components/MessagingSearchInputComponent'
 import MessagingPeopleCardComponent from '../Components/MessagingPeopleCardComponent'
@@ -32,6 +32,7 @@ const MessagingPage = () => {
     const [globalPartnerProfile, setGlobalPartnerProfile] = useState<IProfileData>();
     const [userProfileInfo, setUserProfileInfo] = useState<IProfileData>();
     const [allRooms, setAllRooms] = useState<string[]>();
+    const messageScroll = useRef<HTMLDivElement>(null);
 
     const router = useRouter();
     useEffect(() => {
@@ -204,6 +205,13 @@ const MessagingPage = () => {
         outerCall();
     }, [])
 
+    useEffect(() => {
+        if (messageScroll && messageScroll.current) {
+            const { scrollHeight, clientHeight } = messageScroll.current;
+            messageScroll.current.scrollTo({ left: 0, top: scrollHeight - clientHeight, behavior: 'smooth' })
+        }
+    }, [messages])
+
     return (
         <div className='bg-[#696969] h-full'>
             <NavbarComponent />
@@ -252,7 +260,7 @@ const MessagingPage = () => {
                                     <Image src={VideoIcon} alt='Video Icon' className='cursor-pointer' onClick={handleVideoClick} />
                                 </div>
 
-                                <div className='row-span-9 w-full overflow-auto flex flex-col justify-between'>
+                                <div ref={messageScroll} className='row-span-9 w-full overflow-auto flex flex-col justify-between'>
                                     <div>
                                         {
                                             messages && messages.map(
