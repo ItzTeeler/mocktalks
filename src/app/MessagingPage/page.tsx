@@ -65,7 +65,7 @@ const MessagingPage = () => {
         setAlertBool("block");
         setTimeout(() => {
             setAlertBool("hidden");
-        }, 4000);
+        }, 2000);
 
         setMessage("");
         await joinChatRoom(name, roomName);
@@ -88,7 +88,7 @@ const MessagingPage = () => {
         setAlertBool("block");
         setTimeout(() => {
             setAlertBool("hidden");
-        }, 4000);
+        }, 2000);
 
         setMessage("");
         await joinChatRoom(name, roomName);
@@ -243,7 +243,7 @@ const MessagingPage = () => {
                 <div className={`${hiddenOrBlock} lg:block col-span-6 lg:col-span-4 bg-[#ffffff] w-full h-[90vh] rounded-none lg:rounded-tr-[15px] lg:rounded-br-[15px] flex flex-col justify-between`}>
                     {
                         conn && userProfileInfo && globalPartnerId && globalPartnerProfile ?
-                            <div className='w-full h-[90vh] grid grid-rows-12 z-10'>
+                            <div className='w-full h-[90vh] grid grid-rows-12 z-0'>
                                 <div className='row-span-1 lg:row-span-2 bg-[#D9D9D9] text-[58px] font-[DMSerifText] w-full rounded-none lg:rounded-tr-[15px] px-[50px] flex justify-between items-center'>
                                     <div className='flex flex-row items-center'>
                                         <Image src={MessageLeave} alt='close' className='block lg:hidden min-h-[32px] min-w-[32px] mr-[10px]' onClick={handleOpen} />

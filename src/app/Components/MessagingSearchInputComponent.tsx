@@ -73,12 +73,12 @@ const MessagingSearchInputComponent = (props: ISearchCard) => {
   }, [])
 
   return (
-    <div className='relative items-center inset-y-0 mx-[25px] pt-[30px]'>
+    <div className='relative items-center inset-y-0 mx-[25px] md:pt-[30px]'>
       <div className='absolute p-2'>
         <Image src={SearchIcon} alt="Search Icon" />
       </div>
 
-      <input value={inputStr} onChange={(e) => { setInputStr(e.target.value); checkUserInput(e.target.value) }} type="text" className='rounded-[10px] font-[Source-Sans-Pro] w-full px-10 py-1.5 text-left text-[36px] text-black' placeholder='Search UserID' />
+      <input value={inputStr} onChange={(e) => { setInputStr(e.target.value); checkUserInput(e.target.value) }} type="text" className='rounded-[10px] font-[Source-Sans-Pro] w-full px-10 py-1.5 text-left text-[36px] text-black' placeholder='Search Username' />
 
       {
         filteredProfiles && filteredProfiles.length !== 0 &&

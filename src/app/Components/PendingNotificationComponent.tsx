@@ -41,10 +41,9 @@ export function PendingNotificationComponent(props: { open: boolean, close: Reac
     }, []);
 
     return (
-        <div className="absolute h-[200px] overflow-auto sm:right-12 z-10">
+        <div className={`${props.open ? "block" : "hidden"} absolute w-full max-h-[200px] overflow-auto sm:right-12 z-10`}>
             {
                 isLoaded ?
-                    props.open &&
                     <div>
                         {
                             partneredAppointment ?
@@ -73,7 +72,6 @@ export function PendingNotificationComponent(props: { open: boolean, close: Reac
                         }
                     </div>
                     :
-                    props.open &&
                     <div>
                         <div className="w-full sm:w-[360px] h-[84px] bg-white border-black border-2 px-5 py-2 shadow-xl">
                             <p>Loading...</p>
