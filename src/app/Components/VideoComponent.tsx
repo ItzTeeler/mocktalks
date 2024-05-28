@@ -16,8 +16,8 @@ import NavbarComponent from '../Components/NavbarComponent';
 import { useRouter } from 'next/navigation';
 
 const apiKey = 'mmhfdzb5evj2';
-const token = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyX2lkIjoiU2hhYWtfVGkiLCJpc3MiOiJodHRwczovL3Byb250by5nZXRzdHJlYW0uaW8iLCJzdWIiOiJ1c2VyL1NoYWFrX1RpIiwiaWF0IjoxNzE2NTY4OTQyLCJleHAiOjE3MTcxNzM3NDd9.igx2FhRc52m84TJCI9qn45SJfLeRp036a29WfVAChtA';
-const userId = 'Shaak_Ti';
+const token = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyX2lkIjoiUmFobV9Lb3RhIiwiaXNzIjoiaHR0cHM6Ly9wcm9udG8uZ2V0c3RyZWFtLmlvIiwic3ViIjoidXNlci9SYWhtX0tvdGEiLCJpYXQiOjE3MTY4ODU3NTMsImV4cCI6MTcxNzQ5MDU1OH0.evnhljogzZbFi5__gvcv36lWFBXx6Qqyo91g2FT8iM4';
+const userId = 'Rahm_Kota';
 // const callId = 'test';
 
 const VideoCallComponent = (props: { call: Call }) => {
