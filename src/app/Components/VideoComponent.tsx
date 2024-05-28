@@ -27,7 +27,6 @@ const VideoCallComponent = (props: { call: Call }) => {
   const router = useRouter();
 
   const handleLeaveCall = async () => {
-    // await props.call.leave();
     router.push('/MessagingPage');
   };
 
@@ -61,7 +60,7 @@ const App = (props: { name: string }) => {
 
       await call.camera.disable();
       await call.microphone.disable();
-      call.join();
+      call.join({ create: true });
     }
   }
 
