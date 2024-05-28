@@ -32,7 +32,7 @@ const VideoCallComponent = (props: { call: Call }) => {
   };
 
   if (callingState !== CallingState.JOINED) {
-    return <div className='text-center text-white mt-20 text-3xl font-[DMSerifText]'>Loading...</div>;
+    return <div className='text-center text-white pt-20 text-3xl font-[DMSerifText]'>Loading...</div>;
   }
 
   return (

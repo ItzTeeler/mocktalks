@@ -71,7 +71,7 @@ const MessagingPage = () => {
         await joinChatRoom(name, roomName);
 
         sessionStorage.setItem("chatRoomName", roomName);
-        const numberSplit: string[] = roomName.split("-");
+        const numberSplit: string[] = roomName.split("_");
         setMessages(await GetMessagesByUserIds(numberSplit[0], numberSplit[1]));
 
         if (numberSplit[0] === sessionStorage.getItem("userId")) {
@@ -100,7 +100,7 @@ const MessagingPage = () => {
         const emptyProfile: IProfileData = {
             id: 0,
             userID: 0,
-            fullName: "Global Chat",
+            fullName: "Global_Chat",
             occupation: "",
             experienceLevel: "",
             jobInterviewLevel: "",
@@ -177,9 +177,9 @@ const MessagingPage = () => {
             let chatroomName: string;
 
             if (num1 > num2) {
-                chatroomName = `${num1}-${num2}`;
+                chatroomName = `${num1}_${num2}`;
             } else {
-                chatroomName = `${num2}-${num1}`;
+                chatroomName = `${num2}_${num1}`;
             }
 
             if (!rooms.includes(chatroomName)) {

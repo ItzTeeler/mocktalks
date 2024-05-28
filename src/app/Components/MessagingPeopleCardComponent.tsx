@@ -8,7 +8,7 @@ const MessagingPeopleCardComponent = (props: IPeopleCard) => {
   const [isPartnerText, setIsPartnerText] = useState<string>();
 
   const savePartnerId = async (roomName: string) => {
-    const roomSplit: string[] = roomName.split("-");
+    const roomSplit: string[] = roomName.split("_");
 
     if (roomSplit[0] === sessionStorage.getItem("userId")) {
       props.setGlobalPartnerId(roomSplit[1])
@@ -18,7 +18,7 @@ const MessagingPeopleCardComponent = (props: IPeopleCard) => {
   }
 
   const getPartnerPfP = async (roomName: string) => {
-    const roomSplit: string[] = roomName.split("-");
+    const roomSplit: string[] = roomName.split("_");
 
     if (roomSplit[0] === sessionStorage.getItem("userId")) {
       setPartnerData(await getProfileItemByUserId(Number(roomSplit[1])));
@@ -36,9 +36,9 @@ const MessagingPeopleCardComponent = (props: IPeopleCard) => {
       let chatroomName: string;
 
       if (num1 > num2) {
-        chatroomName = `${num1}-${num2}`;
+        chatroomName = `${num1}_${num2}`;
       } else {
-        chatroomName = `${num2}-${num1}`;
+        chatroomName = `${num2}_${num1}`;
       }
       rooms.push(chatroomName)
     })

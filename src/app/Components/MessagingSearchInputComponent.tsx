@@ -45,13 +45,13 @@ const MessagingSearchInputComponent = (props: ISearchCard) => {
     setFilteredProfiles([]);
 
     if (id > usersId) {
-      addTempRoom(`${id}-${usersId}`)
+      addTempRoom(`${id}_${usersId}`)
 
-      return `${id}-${usersId}`;
+      return `${id}_${usersId}`;
     } else {
-      addTempRoom(`${usersId}-${id}`)
+      addTempRoom(`${usersId}_${id}`)
 
-      return `${usersId}-${id}`;
+      return `${usersId}_${id}`;
     }
   }
 
