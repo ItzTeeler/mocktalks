@@ -100,7 +100,7 @@ const MessagingPage = () => {
         const emptyProfile: IProfileData = {
             id: 0,
             userID: 0,
-            fullName: "Global_Chat",
+            fullName: "Global Chat",
             occupation: "",
             experienceLevel: "",
             jobInterviewLevel: "",

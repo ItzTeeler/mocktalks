@@ -18,10 +18,12 @@ export function PendingNotificationComponent(props: { open: boolean, close: Reac
                 try {
                     const appData: IAppointments[] = await getAppointments(Number(savedId));
 
-                    if (appData.length > 0) {
-                        setPartneredAppointment(appData);
+                    const filteredAppData: IAppointments[] = appData.filter(appoint => { appoint.isPartnered === true })
 
-                        appData.forEach(async (appoint) => {
+                    if (filteredAppData.length > 0) {
+                        setPartneredAppointment(filteredAppData);
+
+                        filteredAppData.forEach(async (appoint) => {
                             const partnerProf: IProfileData = await getProfileItemByUserId(appoint.partnerID)
                             profHolder.push(partnerProf.fullName);
                         })
