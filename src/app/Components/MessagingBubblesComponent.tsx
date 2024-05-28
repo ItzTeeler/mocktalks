@@ -18,7 +18,7 @@ const MessagingBubblesComponent = (props: IPropMessageSplitter) => {
   }, [])
 
   return (
-    <div className='bg-[#696969] m-5 rounded-[15px] max-w-[50%] p-[15px]'>
+    <div className='bg-[#696969] m-5 rounded-[15px] max-w-[80%] lg:max-w-[50%] p-[15px]'>
       {
         userData ?
         <div className='flex flex-row items-center gap-2'>
@@ -27,7 +27,7 @@ const MessagingBubblesComponent = (props: IPropMessageSplitter) => {
           </div>
           <div className=''>
             <p className='text-[12px] font-[Source-Sans-Pro] overflowW text-[#ffffff]'>{userData.fullName}</p>
-            <p className='text-[18px] font-[Source-Sans-Pro] overflowSnap text-[#ffffff]'>{props.dataPass.text}</p>
+            <p className='text-[18px] font-[Source-Sans-Pro] overflowW text-[#ffffff]'>{props.dataPass.text}</p>
           </div>
         </div>
         :

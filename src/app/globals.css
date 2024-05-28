@@ -54,7 +54,3 @@ li {
 .overflowW {
   word-break: break-all
 }
-
-.overflowSnap {
-  overflow-wrap: break-word;
-}
