@@ -61,8 +61,7 @@ const MessagingPage = () => {
 
     const joinOneOnOne = async (name: string, roomName: string) => {
         setMessage("");
-        conn && await conn.stop();
-        joinChatRoom(name, roomName);
+        await joinChatRoom(name, roomName);
 
         sessionStorage.setItem("chatRoomName", roomName);
         const numberSplit: string[] = roomName.split("-");
@@ -77,9 +76,8 @@ const MessagingPage = () => {
 
     const joinGlobal = async (name: string, roomName: string) => {
         setMessage("");
-        conn && await conn.stop();
-        joinChatRoom(name, roomName);
-        
+        await joinChatRoom(name, roomName);
+
         sessionStorage.setItem("chatRoomName", roomName);
         const allMessages = await GetAllMessages();
         setMessages(allMessages.filter((message: IMessages) => String(message.receiverID) === "0"));
@@ -112,22 +110,24 @@ const MessagingPage = () => {
     }
 
     const joinChatRoom = async (usersname: string, chatroom: string) => {
+        conn && await conn.stop();
+
         try {
-            const conn = new HubConnectionBuilder()
+            const newConn = new HubConnectionBuilder()
                 .withUrl("https://mocktalksapihosting.azurewebsites.net/chat")
                 .configureLogging(LogLevel.Information)
                 .build();
 
-            conn.on("RecieveSpecificMessage", (usersname: string, messageFromSR: string) => {
+            newConn.on("RecieveSpecificMessage", (usersname: string, messageFromSR: string) => {
                 let message: IMessages = JSON.parse(messageFromSR);
 
                 setMessages(messages => [...messages, message]);
             });
 
-            await conn.start();
-            await conn.invoke("JoinSpecificChatRoom", { usersname, chatroom })
+            await newConn.start();
+            await newConn.invoke("JoinSpecificChatRoom", { usersname, chatroom })
 
-            setConnection(conn);
+            setConnection(newConn);
         } catch (e) {
             setAlertText("Connection failed")
             setAlertBool("block");
@@ -141,7 +141,11 @@ const MessagingPage = () => {
         try {
             conn && await conn.invoke("SendMessage", messageContainer);
         } catch (e) {
-            console.log(e)
+            setAlertText("Message failed to send")
+            setAlertBool("block");
+            setTimeout(() => {
+                setAlertBool("hidden");
+            }, 4000);
         }
     }
 
@@ -161,7 +165,7 @@ const MessagingPage = () => {
                 chatroomName = `${num2}-${num1}`;
             }
 
-            if(!rooms.includes(chatroomName)){
+            if (!rooms.includes(chatroomName)) {
                 rooms.push(chatroomName)
             }
         })
