@@ -6,30 +6,15 @@ import { IAppointments, ICancelAppointmentProps } from "@/Interfaces/Interfaces"
 import { deleteAppointments, getAppointments, getAppointmentsById, updateAppointments } from "@/utils/Dataservices";
 
 
-export function CancelAppointmentModal(props: { id: Number, submitBool: () => void }) {
+export function CancelAppointmentModal(props: { id: number, submitBool: () => void }) {
     const [openModal, setOpenModal] = useState(false);
-    const [appointments, setAppointments] = useState<IAppointments>();
-    const [appById, setAppById] = useState<any>();
-    const [userIdSession, setUserIdSession] = useState<string>();
-
-    useEffect(() => {
-        const getData = async () => {
-            const userId = sessionStorage.getItem('userId');
-            setUserIdSession(String(userId));
-            const appointments = await getAppointments(Number(userId))
-            const appointmentById = await getAppointmentsById(Number(props.id))
-            setAppById(appointmentById);
-        }
-
-        getData();
-    }, [])
 
     const handleClose = () => {
         setOpenModal(false);
     }
 
     const handleCancel = async () => {
-        let deleteAppointment: IAppointments = await getAppointmentsById(Number(props.id));
+        let deleteAppointment: IAppointments = await getAppointmentsById(props.id);
 
         if (deleteAppointment.partnerID != 0) {/* If partner */}
         {
@@ -43,7 +28,7 @@ export function CancelAppointmentModal(props: { id: Number, submitBool: () => vo
                     meeting.typePractice === deleteAppointment.typePractice &&
                     meeting.isPartnered === true &&
                     meeting.isDeleted === false &&
-                    meeting.userID !== deleteAppointment.userID
+                    meeting.userID === deleteAppointment.partnerID
                 );
 
                 filteredData[0].partnerID = 0;

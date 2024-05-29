@@ -203,7 +203,7 @@ const Page = () => {
                   </div>
                   <div className='p-3'>
                     {Array.isArray(appointmentData) && appointmentData.length > 0 ? (
-                      appointmentData.map((appointment: any, index: any) => (
+                      appointmentData.map((appointment: IAppointments, index: number) => (
                         <ScheduleComponent
                           key={index}
                           id={appointment.id}
