@@ -38,7 +38,7 @@ export function PendingNotificationComponent(props: { open: boolean, close: Reac
 
         fetchAppointments();
         setIsLoaded(true);
-    }, [props.open === true]);
+    }, []);
 
     return (
         <div className={`${props.open ? "block" : "hidden"} absolute max-sm:w-full max-h-[200px] overflow-auto sm:right-12 z-10`}>
