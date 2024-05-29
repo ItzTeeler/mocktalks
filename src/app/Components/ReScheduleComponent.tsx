@@ -33,8 +33,8 @@ const ReScheduleComponent = (props: { id: Number, submitBool: () => void }) => {
             isDeleted: false
         }
 
-        if (updateAppointment.partnerID !== 0) {
-            let otherAppointment: IAppointments[] = await getAppointments(updateAppointment.partnerID);
+        if (appointmentById.partnerID !== 0) {
+            let otherAppointment: IAppointments[] = await getAppointments(appointmentById.partnerID);
 
             if (otherAppointment.length !== 0) {
                 let filteredData: IAppointments[] = otherAppointment.filter((meeting: IAppointments) =>
