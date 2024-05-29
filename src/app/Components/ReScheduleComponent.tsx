@@ -20,15 +20,15 @@ const ReScheduleComponent = (props: { id: Number, submitBool: () => void }) => {
 
         let updateAppointment = {
             id: appointmentById.id,
-            userID: Number(userId),
+            userID: appointmentById.userID,
             partnerID: 0,
             interviewPractice: appointmentById.interviewPractice,
             typePractice: appointmentById.typePractice,
             typeExperience: appointmentById.typeExperience,
             selectedDate: selectedDate,
             timezone: selectedTime,
-            testQuestions: "Build a Calculator App",
-            language: "HTML/CSS/JS",
+            testQuestions: appointmentById.testQuestions,
+            language: appointmentById.language,
             isPartnered: false,
             isDeleted: false
         }
