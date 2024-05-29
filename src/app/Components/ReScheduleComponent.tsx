@@ -12,30 +12,24 @@ const ReScheduleComponent = (props: { id: Number, submitBool: () => void }) => {
     const [selectedDate, setSelectedDate] = useState("");
     const [selectedTime, setSelectedTime] = useState("");
     const [startDate, setStartDate] = useState<Date>(new Date());
-    const [appointments, setAppointments] = useState<IAppointments>();
-    const [appById, setAppById] = useState<any>();
-    const [userIdSession, setUserIdSession] = useState<string>();
+    // const [appointments, setAppointments] = useState<IAppointments>();
+    // const [appById, setAppById] = useState<IAppointments>();
+    // const [userIdSession, setUserIdSession] = useState<string>();
 
-    useEffect(() => {
-        const getData = async () => {
-            const userId = sessionStorage.getItem('userId');
-            setUserIdSession(String(userId));
-            const appointments = await getAppointments(Number(userId))
-            const appointmentById = await getAppointmentsById(Number(props.id))
-            setAppById(appointmentById);
-        }
 
-        getData();
-    }, [])
 
     const handleSave = async () => {
+        const userId = sessionStorage.getItem('userId');
+
+        const appointmentById = await getAppointmentsById(Number(props.id))
+
         let updateAppointment = {
-            id: appById.id,
-            userID: Number(userIdSession),
+            id: appointmentById.id,
+            userID: Number(userId),
             partnerID: 0,
-            interviewPractice: appById.interviewPractice,
-            typePractice: appById.typePractice,
-            typeExperience: appById.typeExperience,
+            interviewPractice: appointmentById.interviewPractice,
+            typePractice: appointmentById.typePractice,
+            typeExperience: appointmentById.typeExperience,
             selectedDate: selectedDate,
             timezone: selectedTime,
             testQuestions: "Build a Calculator App",
@@ -66,7 +60,7 @@ const ReScheduleComponent = (props: { id: Number, submitBool: () => void }) => {
             }
         }
 
-        setAppointments(updateAppointment);
+        // setAppointments(updateAppointment);
         await updateAppointments(updateAppointment);
         props.submitBool();
         setOpenModal(false);
