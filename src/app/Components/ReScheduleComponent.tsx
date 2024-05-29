@@ -16,7 +16,7 @@ const ReScheduleComponent = (props: { id: Number, submitBool: () => void }) => {
     const handleSave = async () => {
         const userId = sessionStorage.getItem('userId');
 
-        const appointmentById = await getAppointmentsById(Number(props.id))
+        const appointmentById: IAppointments = await getAppointmentsById(Number(props.id))
 
         let updateAppointment = {
             id: appointmentById.id,
@@ -38,13 +38,13 @@ const ReScheduleComponent = (props: { id: Number, submitBool: () => void }) => {
 
             if (otherAppointment.length !== 0) {
                 let filteredData: IAppointments[] = otherAppointment.filter((meeting: IAppointments) =>
-                    meeting.selectedDate === updateAppointment.selectedDate &&
-                    meeting.timezone === updateAppointment.timezone &&
-                    meeting.interviewPractice === updateAppointment.interviewPractice &&
-                    meeting.typePractice === updateAppointment.typePractice &&
+                    meeting.selectedDate === appointmentById.selectedDate &&
+                    meeting.timezone === appointmentById.timezone &&
+                    meeting.interviewPractice === appointmentById.interviewPractice &&
+                    meeting.typePractice === appointmentById.typePractice &&
                     meeting.isPartnered === true &&
                     meeting.isDeleted === false &&
-                    meeting.userID !== updateAppointment.userID
+                    meeting.userID === appointmentById.partnerID
                 );
 
                 filteredData[0].partnerID = 0;
