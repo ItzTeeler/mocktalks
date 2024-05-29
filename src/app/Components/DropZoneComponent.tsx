@@ -32,7 +32,7 @@ export function DropZoneComponent(props: IDropZoneImage) {
         };
         reader.readAsDataURL(file);
       } else {
-        setAlertText("Image is too large!")
+        setAlertText("Image is too large! (Greater than 5mb)")
         setAlertBool("block");
         setTimeout(() => {
           setAlertBool("hidden");

@@ -32,7 +32,7 @@ const ReScheduleComponent = (props: { id: Number, submitBool: () => void }) => {
         let updateAppointment = {
             id: appById.id,
             userID: Number(userIdSession),
-            partnerID: appById.partnerId,
+            partnerID: 0,
             interviewPractice: appById.interviewPractice,
             typePractice: appById.typePractice,
             typeExperience: appById.typeExperience,
@@ -40,11 +40,34 @@ const ReScheduleComponent = (props: { id: Number, submitBool: () => void }) => {
             timezone: selectedTime,
             testQuestions: "Build a Calculator App",
             language: "HTML/CSS/JS",
-            isPartnered: appById.isPartnered,
+            isPartnered: false,
             isDeleted: false
         }
+
+        if (updateAppointment.partnerID != 0) {/* If partner */ }
+        {
+            let otherAppointment: IAppointments[] = await getAppointments(updateAppointment.partnerID);
+
+            if (otherAppointment.length != 0) {
+                let filteredData: IAppointments[] = otherAppointment.filter((meeting: IAppointments) =>
+                    meeting.selectedDate === updateAppointment.selectedDate &&
+                    meeting.timezone === updateAppointment.timezone &&
+                    meeting.interviewPractice === updateAppointment.interviewPractice &&
+                    meeting.typePractice === updateAppointment.typePractice &&
+                    meeting.isPartnered === true &&
+                    meeting.isDeleted === false &&
+                    meeting.userID !== updateAppointment.userID
+                );
+
+                filteredData[0].partnerID = 0;
+                filteredData[0].isPartnered = false;
+
+                await updateAppointments(filteredData[0]);
+            }
+        }
+
         setAppointments(updateAppointment);
-        await updateAppointments(updateAppointment)
+        await updateAppointments(updateAppointment);
         props.submitBool();
         setOpenModal(false);
     };
