@@ -16,12 +16,11 @@ export function CancelAppointmentModal(props: { id: number, submitBool: () => vo
     const handleCancel = async () => {
         let deleteAppointment: IAppointments = await getAppointmentsById(props.id);
 
-        if (deleteAppointment.partnerID != 0) {/* If partner */}
-        {
+        if (deleteAppointment.partnerID !== 0) {
             let otherAppointment: IAppointments[] = await getAppointments(deleteAppointment.partnerID);
 
             if (otherAppointment.length != 0) {
-                let filteredData: IAppointments[] = otherAppointment.filter((meeting: IAppointments) => 
+                let filteredData: IAppointments[] = otherAppointment.filter((meeting: IAppointments) =>
                     meeting.selectedDate === deleteAppointment.selectedDate &&
                     meeting.timezone === deleteAppointment.timezone &&
                     meeting.interviewPractice === deleteAppointment.interviewPractice &&
@@ -35,7 +34,7 @@ export function CancelAppointmentModal(props: { id: number, submitBool: () => vo
                 filteredData[0].isPartnered = false;
 
                 await updateAppointments(filteredData[0]);
-            }          
+            }
         }
 
         await deleteAppointments(deleteAppointment);

@@ -12,11 +12,6 @@ const ReScheduleComponent = (props: { id: Number, submitBool: () => void }) => {
     const [selectedDate, setSelectedDate] = useState("");
     const [selectedTime, setSelectedTime] = useState("");
     const [startDate, setStartDate] = useState<Date>(new Date());
-    // const [appointments, setAppointments] = useState<IAppointments>();
-    // const [appById, setAppById] = useState<IAppointments>();
-    // const [userIdSession, setUserIdSession] = useState<string>();
-
-
 
     const handleSave = async () => {
         const userId = sessionStorage.getItem('userId');
@@ -38,11 +33,10 @@ const ReScheduleComponent = (props: { id: Number, submitBool: () => void }) => {
             isDeleted: false
         }
 
-        if (updateAppointment.partnerID != 0) {/* If partner */ }
-        {
+        if (updateAppointment.partnerID !== 0) {
             let otherAppointment: IAppointments[] = await getAppointments(updateAppointment.partnerID);
 
-            if (otherAppointment.length != 0) {
+            if (otherAppointment.length !== 0) {
                 let filteredData: IAppointments[] = otherAppointment.filter((meeting: IAppointments) =>
                     meeting.selectedDate === updateAppointment.selectedDate &&
                     meeting.timezone === updateAppointment.timezone &&
@@ -60,7 +54,6 @@ const ReScheduleComponent = (props: { id: Number, submitBool: () => void }) => {
             }
         }
 
-        // setAppointments(updateAppointment);
         await updateAppointments(updateAppointment);
         props.submitBool();
         setOpenModal(false);
