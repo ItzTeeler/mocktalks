@@ -2,13 +2,17 @@
 import React, { useEffect, useState } from 'react';
 import {
   Call,
-  CallControls,
   CallingState,
+  CancelCallButton,
+  ScreenShareButton,
   SpeakerLayout,
+  SpeakingWhileMutedNotification,
   StreamCall,
   StreamTheme,
   StreamVideo,
   StreamVideoClient,
+  ToggleAudioPublishingButton,
+  ToggleVideoPublishingButton,
   useCallStateHooks,
 } from '@stream-io/video-react-sdk';
 import '@stream-io/video-react-sdk/dist/css/styles.css';
@@ -18,7 +22,6 @@ import { useRouter } from 'next/navigation';
 const apiKey = 'mmhfdzb5evj2';
 const token = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyX2lkIjoiUmFobV9Lb3RhIiwiaXNzIjoiaHR0cHM6Ly9wcm9udG8uZ2V0c3RyZWFtLmlvIiwic3ViIjoidXNlci9SYWhtX0tvdGEiLCJpYXQiOjE3MTY4ODU3NTMsImV4cCI6MTcxNzQ5MDU1OH0.evnhljogzZbFi5__gvcv36lWFBXx6Qqyo91g2FT8iM4';
 const userId = 'Rahm_Kota';
-// const callId = 'test';
 
 const VideoCallComponent = (props: { call: Call }) => {
   const { useCallCallingState } = useCallStateHooks();
@@ -39,7 +42,14 @@ const VideoCallComponent = (props: { call: Call }) => {
       <NavbarComponent />
       <StreamTheme>
         <SpeakerLayout participantsBarPosition='bottom' />
-        <CallControls onLeave={handleLeaveCall} />
+        <div className="str-video__call-controls mb-6">
+          <ScreenShareButton />
+          <SpeakingWhileMutedNotification>
+            <ToggleAudioPublishingButton />
+          </SpeakingWhileMutedNotification>
+          <ToggleVideoPublishingButton />
+          <CancelCallButton onLeave={handleLeaveCall} />
+        </div>
       </StreamTheme>
     </div>
   );
