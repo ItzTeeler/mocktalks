@@ -14,11 +14,14 @@ export default function LoginPage() {
   const [forgotBool, setForgotBool] = useState<boolean>(false);
   const [alertBool, setAlertBool] = useState<string>("hidden");
   const [alertText, setAlertText] = useState<string>("");
-
   const [isDisabled, setIsDisabled] = useState<boolean>(false);
 
   const [username, setUsername] = useState<string>("");
   const [password, setPassword] = useState<string>("");
+  const regLower = /[a-z]+/;
+  const regUpper = /[A-Z]+/;
+  const regNum = /[0-9]+/;
+  const regSpecial = /[!\@\#\$\%\^\*\_\|\&\(\)]+/;
 
   let router = useRouter();
   useEffect(() => {
@@ -27,13 +30,20 @@ export default function LoginPage() {
       window.location.reload();
     }
   }, []);
+
   const handleRegister = () => {
     setRegisterBool(!registerBool);
     setForgotBool(false);
+    setUsername("");
+    setPassword("");
   }
+
   const handleForgotPassword = () => {
     setForgotBool(!forgotBool)
+    setUsername("");
+    setPassword("");
   }
+
   const handleSubmit = async () => {
     setIsDisabled(true);
 
@@ -42,14 +52,7 @@ export default function LoginPage() {
       password: password
     };
 
-    if (userData.password.length > 25 || userData.username.length > 25) {
-      setAlertText("Username or Password is Too Long (Greater Than 25 Characters)")
-      setAlertBool("block");
-      setTimeout(() => {
-        setAlertBool("hidden");
-      }, 4000);
-      setIsDisabled(false);
-    } else if (userData.password === "" || userData.username === "") {
+    if (userData.password === "" || userData.username === "") {
       setAlertText("Username or Password is Empty")
       setAlertBool("block");
       setTimeout(() => {
@@ -62,15 +65,31 @@ export default function LoginPage() {
         if (forgotBool) {
           // If forgot password, change password
           try {
-            await changePassword(username, password);
-            setAlertText("Password changed successfully!")
-            setAlertBool("block");
-            setTimeout(() => {
-              setAlertBool("hidden");
-            }, 4000);
-            setIsDisabled(false);
+            if (userData.password.length > 25 || userData.username.length > 25) {
+              setAlertText("Username or Password is Too Long (Greater Than 25 Characters)")
+              setAlertBool("block");
+              setTimeout(() => {
+                setAlertBool("hidden");
+              }, 4000);
+              setIsDisabled(false);
+            } else if (regLower.test(userData.password) === false || regUpper.test(userData.password) === false || (regNum.test(userData.password) === false && regSpecial.test(userData.password) === false)) {
+              setAlertText("Password Should Be At Least 8 Charaters Long, With At Least One Lowercase Letter, One Uppercase Letter, And One Special Character")
+              setAlertBool("block");
+              setTimeout(() => {
+                setAlertBool("hidden");
+              }, 6000);
+              setIsDisabled(false);
+            } else {
+              await changePassword(username, password);
+              setAlertText("Password Changed Successfully!")
+              setAlertBool("block");
+              setTimeout(() => {
+                setAlertBool("hidden");
+              }, 4000);
+              setIsDisabled(false);
+            }
           } catch (error) {
-            setAlertText("Failed to change password. Please try again.")
+            setAlertText("Failed To Change Password. Please Check Username And Try Again.")
             setAlertBool("block");
             setTimeout(() => {
               setAlertBool("hidden");
@@ -119,28 +138,50 @@ export default function LoginPage() {
         }, 4000);
 
         try {
-          const verifyBool = await createAccount(userData);
-          if (verifyBool) {
-            setAlertText("Account Created")
+          if (userData.password.length > 25 || userData.username.length > 25) {
+            setAlertText("Username or Password is Too Long (Greater Than 25 Characters)")
             setAlertBool("block");
             setTimeout(() => {
               setAlertBool("hidden");
             }, 4000);
             setIsDisabled(false);
-
-            setUsername("");
-            setPassword("");
-            setRegisterBool(true);
-            setForgotBool(false);
+          } else if (userData.username.length < 8 || regSpecial.test(userData.username) === true) {
+            setAlertText("Username Must Be At Least 8 Characters Long And Cannot Contain Special Characters")
+            setAlertBool("block");
+            setTimeout(() => {
+              setAlertBool("hidden");
+            }, 4000);
+            setIsDisabled(false);
+          } else if (userData.password.length < 8 || regLower.test(userData.password) === false || regUpper.test(userData.password) === false || (regNum.test(userData.password) === false && regSpecial.test(userData.password) === false)) {
+            setAlertText("Password Should Be At Least 8 Charaters Long, With At Least One Lowercase Letter, One Uppercase Letter, And One Special Character")
+            setAlertBool("block");
+            setTimeout(() => {
+              setAlertBool("hidden");
+            }, 6000);
+            setIsDisabled(false);
           } else {
-            setAlertText("Account Creation Failed - Username Taken")
-            setAlertBool("block");
-            setTimeout(() => {
-              setAlertBool("hidden");
-            }, 4000);
-            setIsDisabled(false);
-          }
+            const verifyBool = await createAccount(userData);
+            if (verifyBool) {
+              setAlertText("Account Created")
+              setAlertBool("block");
+              setTimeout(() => {
+                setAlertBool("hidden");
+              }, 4000);
+              setIsDisabled(false);
 
+              setUsername("");
+              setPassword("");
+              setRegisterBool(true);
+              setForgotBool(false);
+            } else {
+              setAlertText("Account Creation Failed - Username Taken")
+              setAlertBool("block");
+              setTimeout(() => {
+                setAlertBool("hidden");
+              }, 4000);
+              setIsDisabled(false);
+            }
+          }
         } catch {
           setAlertText("Account Creation Failed")
           setAlertBool("block");
